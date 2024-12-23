@@ -6,14 +6,14 @@ const LanguageCurrencyChanger = ({
   currency,
   setCurrency,
   currentLanguageCode,
-  dispatch
+  dispatch,
 }) => {
-  const changeLanguageTrigger = e => {
+  const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     dispatch(changeLanguage(languageCode));
   };
 
-  const setCurrencyTrigger = e => {
+  const setCurrencyTrigger = (e) => {
     const currencyName = e.target.value;
     setCurrency(currencyName);
   };
@@ -22,30 +22,19 @@ const LanguageCurrencyChanger = ({
     <div className="language-currency-wrap">
       <div className="same-language-currency language-style">
         <span>
-          {currentLanguageCode === "en"
-            ? "English"
-            : currentLanguageCode === "fn"
-            ? "French"
-            : currentLanguageCode === "de"
-            ? "Germany"
-            : ""}{" "}
+          {currentLanguageCode === "en" ? "English" : "Arabic"}{" "}
           <i className="fa fa-angle-down" />
         </span>
         <div className="lang-car-dropdown">
           <ul>
             <li>
-              <button value="en" onClick={e => changeLanguageTrigger(e)}>
+              <button value="en" onClick={(e) => changeLanguageTrigger(e)}>
                 English
               </button>
             </li>
             <li>
-              <button value="fn" onClick={e => changeLanguageTrigger(e)}>
-                French
-              </button>
-            </li>
-            <li>
-              <button value="de" onClick={e => changeLanguageTrigger(e)}>
-                Germany
+              <button value="ar" onClick={(e) => changeLanguageTrigger(e)}>
+                Arabic
               </button>
             </li>
           </ul>
@@ -58,17 +47,17 @@ const LanguageCurrencyChanger = ({
         <div className="lang-car-dropdown">
           <ul>
             <li>
-              <button value="USD" onClick={e => setCurrencyTrigger(e)}>
+              <button value="USD" onClick={(e) => setCurrencyTrigger(e)}>
                 USD
               </button>
             </li>
             <li>
-              <button value="EUR" onClick={e => setCurrencyTrigger(e)}>
+              <button value="EUR" onClick={(e) => setCurrencyTrigger(e)}>
                 EUR
               </button>
             </li>
             <li>
-              <button value="GBP" onClick={e => setCurrencyTrigger(e)}>
+              <button value="GBP" onClick={(e) => setCurrencyTrigger(e)}>
                 GBP
               </button>
             </li>
@@ -86,7 +75,7 @@ LanguageCurrencyChanger.propTypes = {
   setCurrency: PropTypes.func,
   currency: PropTypes.object,
   currentLanguageCode: PropTypes.string,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 export default LanguageCurrencyChanger;

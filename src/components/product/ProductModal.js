@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState, useEffect } from "react";
-import Swiper from "react-id-swiper";
-import { getProductCartQuantity } from "../../helpers/product";
+import React, { Fragment, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Rating from "./sub-components/ProductRating";
+import Swiper from "react-id-swiper";
 import { connect } from "react-redux";
+import { getProductCartQuantity } from "../../helpers/product";
+import Rating from "./sub-components/ProductRating";
 
 function ProductModal(props) {
   const { product } = props;
@@ -27,11 +27,9 @@ function ProductModal(props) {
   const [quantityCount, setQuantityCount] = useState(1);
 
   const wishlistItem = props.wishlistitem;
-  const compareItem = props.compareitem;
 
   const addToCart = props.addtocart;
   const addToWishlist = props.addtowishlist;
-  const addToCompare = props.addtocompare;
 
   const addToast = props.addtoast;
   const cartItems = props.cartitems;
@@ -59,7 +57,7 @@ function ProductModal(props) {
     getSwiper: getGallerySwiper,
     spaceBetween: 10,
     loopedSlides: 4,
-    loop: true
+    loop: true,
   };
 
   const thumbnailSwiperParams = {
@@ -73,7 +71,7 @@ function ProductModal(props) {
     slideToClickedSlide: true,
     navigation: {
       nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
+      prevEl: ".swiper-button-prev",
     },
     renderPrevButton: () => (
       <button className="swiper-button-prev ht-swiper-button-nav">
@@ -84,7 +82,7 @@ function ProductModal(props) {
       <button className="swiper-button-next ht-swiper-button-nav">
         <i className="pe-7s-angle-right" />
       </button>
-    )
+    ),
   };
 
   return (
@@ -203,7 +201,7 @@ function ProductModal(props) {
                       <span>Size</span>
                       <div className="pro-details-size-content">
                         {product.variation &&
-                          product.variation.map(single => {
+                          product.variation.map((single) => {
                             return single.color === selectedProductColor
                               ? single.size.map((singleSize, key) => {
                                   return (
@@ -321,20 +319,6 @@ function ProductModal(props) {
                         <i className="pe-7s-like" />
                       </button>
                     </div>
-                    <div className="pro-details-compare">
-                      <button
-                        className={compareItem !== undefined ? "active" : ""}
-                        disabled={compareItem !== undefined}
-                        title={
-                          compareItem !== undefined
-                            ? "Added to compare"
-                            : "Add to compare"
-                        }
-                        onClick={() => addToCompare(product, addToast)}
-                      >
-                        <i className="pe-7s-shuffle" />
-                      </button>
-                    </div>
                   </div>
                 )}
               </div>
@@ -360,12 +344,12 @@ ProductModal.propTypes = {
   onHide: PropTypes.func,
   product: PropTypes.object,
   show: PropTypes.bool,
-  wishlistitem: PropTypes.object
+  wishlistitem: PropTypes.object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    cartitems: state.cartData
+    cartitems: state.cartData,
   };
 };
 

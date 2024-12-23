@@ -1,16 +1,48 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import Nav from "react-bootstrap/Nav";
+import Tab from "react-bootstrap/Tab";
+import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import Tab from "react-bootstrap/Tab";
-import Nav from "react-bootstrap/Nav";
+import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const LoginRegister = ({ location }) => {
   const { pathname } = location;
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    phone: "",
+    email: "",
+    password: "",
+  });
 
+  const [errors, setErrors] = useState({});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({}); // Clear previous errors
+
+    try {
+      const response = await axiosInstance.post("/register", formData); // Replace '/register' with your endpoint
+      if (response.data.status === "success") {
+        alert(response.data.message); // Show success message
+      }
+    } catch (error) {
+      // Handle validation errors
+      if (error.response && error.response.data.errors) {
+        setErrors(error.response.data.errors); // Update errors state
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <Fragment>
       <MetaTags>
@@ -79,22 +111,62 @@ const LoginRegister = ({ location }) => {
                       <Tab.Pane eventKey="register">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                            <form>
+                            <form onSubmit={handleSubmit}>
                               <input
                                 type="text"
-                                name="user-name"
-                                placeholder="Username"
+                                name="fname"
+                                placeholder="First Name"
+                                value={formData.fname}
+                                onChange={handleChange}
                               />
+                              {errors.fname && (
+                                <span className="error">{errors.fname}</span>
+                              )}
+
+                              <input
+                                type="text"
+                                name="lname"
+                                placeholder="Last Name"
+                                value={formData.lname}
+                                onChange={handleChange}
+                              />
+                              {errors.lname && (
+                                <span className="error">{errors.lname}</span>
+                              )}
+
+                              <input
+                                type="text"
+                                name="phone"
+                                placeholder="Phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                              />
+                              {errors.phone && (
+                                <span className="error">{errors.phone}</span>
+                              )}
+
+                              <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                              />
+                              {errors.email && (
+                                <span className="error">{errors.email}</span>
+                              )}
+
                               <input
                                 type="password"
-                                name="user-password"
+                                name="password"
                                 placeholder="Password"
+                                value={formData.password}
+                                onChange={handleChange}
                               />
-                              <input
-                                name="user-email"
-                                placeholder="Email"
-                                type="email"
-                              />
+                              {errors.password && (
+                                <span className="error">{errors.password}</span>
+                              )}
+
                               <div className="button-box">
                                 <button type="submit">
                                   <span>Register</span>
@@ -117,7 +189,7 @@ const LoginRegister = ({ location }) => {
 };
 
 LoginRegister.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default LoginRegister;

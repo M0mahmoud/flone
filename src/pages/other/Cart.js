@@ -1,19 +1,20 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
+import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import MetaTags from "react-meta-tags";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import MetaTags from "react-meta-tags";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { connect } from "react-redux";
+import { multilanguage } from "redux-multilanguage";
 import { getDiscountPrice } from "../../helpers/product";
+import LayoutOne from "../../layouts/LayoutOne";
 import {
   addToCart,
-  decreaseQuantity,
-  deleteFromCart,
   cartItemStock,
-  deleteAllFromCart
+  decreaseQuantity,
+  deleteAllFromCart,
+  deleteFromCart,
 } from "../../redux/actions/cartActions";
-import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const Cart = ({
@@ -23,7 +24,8 @@ const Cart = ({
   decreaseQuantity,
   addToCart,
   deleteFromCart,
-  deleteAllFromCart
+  deleteAllFromCart,
+  strings,
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
@@ -40,9 +42,11 @@ const Cart = ({
         />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["CART_HOME"]}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Cart
+        {strings["CART_Title"]}
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -361,17 +365,17 @@ Cart.propTypes = {
   decreaseQuantity: PropTypes.func,
   location: PropTypes.object,
   deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
@@ -382,10 +386,13 @@ const mapDispatchToProps = dispatch => {
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
     },
-    deleteAllFromCart: addToast => {
+    deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    }
+    },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(multilanguage(Cart));

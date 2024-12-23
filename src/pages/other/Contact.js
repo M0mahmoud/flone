@@ -1,26 +1,27 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import MetaTags from "react-meta-tags";
+import { multilanguage } from "redux-multilanguage";
+import LocationMap from "../../components/contact/LocationMap";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import LocationMap from "../../components/contact/LocationMap";
 
-const Contact = ({ location }) => {
-  const { pathname } = location;
-
+const Contact = ({ strings }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Contact</title>
+        <title>Flone | {strings["CONTACT_pageTitle"]}</title>
         <meta
           name="description"
           content="Contact of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Contact
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["home"]}
+      </BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/contact"}>
+        {strings["CONTACT"]}
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -38,8 +39,8 @@ const Contact = ({ location }) => {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>+012 345 678 102</p>
-                      <p>+012 345 678 102</p>
+                      <p>{strings["CONTACT_PHONE_PRIMARY"]}</p>
+                      <p>{strings["CONTACT_PHONE_SECONDARY"]}</p>
                     </div>
                   </div>
                   <div className="single-contact-info">
@@ -48,10 +49,14 @@ const Contact = ({ location }) => {
                     </div>
                     <div className="contact-info-dec">
                       <p>
-                        <a href="mailto:urname@email.com">urname@email.com</a>
+                        <a href={`mailto:${strings["CONTACT_EMAIL_ADDRESS"]}`}>
+                          {strings["CONTACT_EMAIL_ADDRESS"]}
+                        </a>
                       </p>
                       <p>
-                        <a href="//urwebsitenaem.com">urwebsitenaem.com</a>
+                        <a href={`//${strings["CONTACT_EMAIL_WEBSITE"]}`}>
+                          {strings["CONTACT_EMAIL_WEBSITE"]}
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -60,12 +65,12 @@ const Contact = ({ location }) => {
                       <i className="fa fa-map-marker" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>Address goes here, </p>
-                      <p>street, Crossroad 123.</p>
+                      <p>{strings["CONTACT_ADDRESS_LINE1"]}</p>
+                      <p>{strings["CONTACT_ADDRESS_LINE2"]}</p>
                     </div>
                   </div>
                   <div className="contact-social text-center">
-                    <h3>Follow Us</h3>
+                    <h3>{strings["CONTACT_SOCIAL_TITLE"]}</h3>
                     <ul>
                       <li>
                         <a href="//facebook.com">
@@ -99,31 +104,45 @@ const Contact = ({ location }) => {
               <div className="col-lg-8 col-md-7">
                 <div className="contact-form">
                   <div className="contact-title mb-30">
-                    <h2>Get In Touch</h2>
+                    <h2>{strings["CONTACT_FORM_TITLE"]}</h2>
                   </div>
                   <form className="contact-form-style">
                     <div className="row">
                       <div className="col-lg-6">
-                        <input name="name" placeholder="Name*" type="text" />
+                        <input
+                          name="name"
+                          placeholder={strings["CONTACT_FORM_NAME_PLACEHOLDER"]}
+                          type="text"
+                        />
                       </div>
                       <div className="col-lg-6">
-                        <input name="email" placeholder="Email*" type="email" />
+                        <input
+                          name="email"
+                          placeholder={
+                            strings["CONTACT_FORM_EMAIL_PLACEHOLDER"]
+                          }
+                          type="email"
+                        />
                       </div>
                       <div className="col-lg-12">
                         <input
                           name="subject"
-                          placeholder="Subject*"
+                          placeholder={
+                            strings["CONTACT_FORM_SUBJECT_PLACEHOLDER"]
+                          }
                           type="text"
                         />
                       </div>
                       <div className="col-lg-12">
                         <textarea
                           name="message"
-                          placeholder="Your Message*"
+                          placeholder={
+                            strings["CONTACT_FORM_MESSAGE_PLACEHOLDER"]
+                          }
                           defaultValue={""}
                         />
                         <button className="submit" type="submit">
-                          SEND
+                          {strings["CONTACT_FORM_SUBMIT_BUTTON"]}
                         </button>
                       </div>
                     </div>
@@ -140,7 +159,7 @@ const Contact = ({ location }) => {
 };
 
 Contact.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-export default Contact;
+export default multilanguage(Contact);
