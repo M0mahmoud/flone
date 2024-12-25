@@ -4,13 +4,17 @@ import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const LoginRegister = ({ location }) => {
   const { pathname } = location;
+  const history = useHistory();
+  const [errors, setErrors] = useState({});
+  const [msg, setMsg] = useState("");
+  const [loginErrors, setLoginErrors] = useState({});
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -18,25 +22,56 @@ const LoginRegister = ({ location }) => {
     email: "",
     password: "",
   });
+  const [loginFormData, setLoginFormData] = useState({
+    phone: "",
+    password: "",
+  });
 
-  const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({}); // Clear previous errors
-
     try {
-      const response = await axiosInstance.post("/register", formData); // Replace '/register' with your endpoint
+      const response = await axiosInstance.post("/register", formData); // Assuming axiosInstance is used here
       if (response.data.status === "success") {
-        alert(response.data.message); // Show success message
+        setMsg(response.data.message);
       }
     } catch (error) {
-      // Handle validation errors
       if (error.response && error.response.data.errors) {
-        setErrors(error.response.data.errors); // Update errors state
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ general: "An unexpected error occurred." });
       }
     }
   };
 
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    setLoginErrors({}); // Clear previous errors
+
+    try {
+      const response = await axiosInstance.post("/login", loginFormData);
+      if (response.data.status === "success") {
+        // Store the token and navigate to the user's profile page or dashboard
+        localStorage.setItem("authToken", response.data.token);
+        history.push("/my-account"); // Redirect to user dashboard
+      }
+    } catch (error) {
+      if (error.response && error.response.data.errors) {
+        setLoginErrors(error.response.data.errors);
+      } else {
+        setLoginErrors({
+          general:
+            "An unexpected error occurred during login. or Account not activated yet",
+        });
+      }
+    }
+  };
+  const handleLoginChange = (e) => {
+    setLoginFormData({
+      ...loginFormData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -81,25 +116,27 @@ const LoginRegister = ({ location }) => {
                       <Tab.Pane eventKey="login">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                            <form>
+                            <form onSubmit={handleLoginSubmit}>
                               <input
                                 type="text"
-                                name="user-name"
-                                placeholder="Username"
+                                name="phone"
+                                placeholder="Phone Number"
+                                value={loginFormData.phone}
+                                onChange={handleLoginChange}
                               />
                               <input
                                 type="password"
-                                name="user-password"
+                                name="password"
                                 placeholder="Password"
+                                value={loginFormData.password}
+                                onChange={handleLoginChange}
                               />
+                              {loginErrors.general && (
+                                <span className="error">
+                                  {loginErrors.general}
+                                </span>
+                              )}
                               <div className="button-box">
-                                <div className="login-toggle-btn">
-                                  <input type="checkbox" />
-                                  <label className="ml-10">Remember me</label>
-                                  <Link to={process.env.PUBLIC_URL + "/"}>
-                                    Forgot Password?
-                                  </Link>
-                                </div>
                                 <button type="submit">
                                   <span>Login</span>
                                 </button>
@@ -166,7 +203,15 @@ const LoginRegister = ({ location }) => {
                               {errors.password && (
                                 <span className="error">{errors.password}</span>
                               )}
-
+                              {msg && (
+                                <span
+                                  style={{
+                                    color: "green",
+                                  }}
+                                >
+                                  {msg}
+                                </span>
+                              )}
                               <div className="button-box">
                                 <button type="submit">
                                   <span>Register</span>

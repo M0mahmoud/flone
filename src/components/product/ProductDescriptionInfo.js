@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
-import { addToCompare } from "../../redux/actions/compareActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import Rating from "./sub-components/ProductRating";
 
@@ -16,11 +15,9 @@ const ProductDescriptionInfo = ({
   finalProductPrice,
   cartItems,
   wishlistItem,
-  compareItem,
   addToast,
   addToCart,
   addToWishlist,
-  addToCompare,
 }) => {
   const [selectedProductColor, setSelectedProductColor] = useState(
     product.variation ? product.variation[0].color : ""

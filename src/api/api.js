@@ -5,7 +5,8 @@ const axiosInstance = axios.create({
   baseURL: "https://zaien.test.do-go.net/api/", // Replace with your API base URL
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*", // Allow any origin (or specify the frontend URL)
+    "Access-Control-Allow-Origin": "*",
+    Authorization: `${localStorage.getItem("authToken")}` || "",
   },
 });
 
@@ -40,7 +41,6 @@ axiosInstance.interceptors.response.use(
           .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
           .join("\n");
         console.error("Validation Errors:", errorMessages);
-        alert(errorMessages); // Show validation errors to the user
       } else {
         console.error(
           "Error response:",
