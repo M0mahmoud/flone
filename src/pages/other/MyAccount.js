@@ -1,14 +1,116 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import MetaTags from "react-meta-tags";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import Card from "react-bootstrap/Card";
+import React, { Fragment, useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
+import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import MetaTags from "react-meta-tags";
+import { useToasts } from "react-toast-notifications";
+import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const MyAccount = ({ location }) => {
   const { pathname } = location;
+  const [user, setUser] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    addresses: [],
+  });
+  const { addToast } = useToasts();
+  const [loading, setLoading] = useState(true);
+  const [passwords, setPasswords] = useState({
+    password: "",
+    confirmPassword: "",
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get("/user");
+        setUser(response.data.user);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post("/user/edit_profile", user); // Adjust URL as needed
+      if (response.status === 200) {
+        addToast("User Details Updated", {
+          appearance: "success",
+        });
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        // Extract and display validation errors
+        const errorMessages = Object.values(error.response.data.errors)
+          .flat()
+          .join(", "); // Combine all error messages into a single string
+        addToast(errorMessages, {
+          appearance: "error",
+        });
+      } else {
+        addToast("An unexpected error occurred", {
+          appearance: "error",
+        });
+      }
+      console.error("Profile update error:", error);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswords((prevPasswords) => ({
+      ...prevPasswords,
+      [name]: value,
+    }));
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    if (passwords.password !== passwords.confirmPassword) {
+      addToast("Passwords do not match", { appearance: "error" });
+      return;
+    }
+
+    try {
+      const response = await axiosInstance.post("/user/password", {
+        password: passwords.password,
+      });
+      if (response.status === 200) {
+        localStorage.setItem("authToken", response.data.token);
+        addToast("Password successfully updated", { appearance: "success" });
+        setPasswords({ password: "", confirmPassword: "" });
+      } else {
+        addToast("Failed to update password", { appearance: "error" });
+      }
+    } catch (error) {
+      addToast("An error occurred while updating the password", {
+        appearance: "error",
+      });
+      console.error("Password update error:", error);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Fragment>
@@ -42,7 +144,10 @@ const MyAccount = ({ location }) => {
                       </Card.Header>
                       <Accordion.Collapse eventKey="0">
                         <Card.Body>
-                          <div className="myaccount-info-wrapper">
+                          <form
+                            onSubmit={handleSubmit}
+                            className="myaccount-info-wrapper"
+                          >
                             <div className="account-info-wrapper">
                               <h4>My Account Information</h4>
                               <h5>Your Personal Details</h5>
@@ -51,40 +156,54 @@ const MyAccount = ({ location }) => {
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>First Name</label>
-                                  <input type="text" />
+                                  <input
+                                    type="text"
+                                    name="fname"
+                                    value={user.fname || ""}
+                                    onChange={handleInputChange}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Last Name</label>
-                                  <input type="text" />
+                                  <input
+                                    type="text"
+                                    name="lname"
+                                    value={user.lname || ""}
+                                    onChange={handleInputChange}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Email Address</label>
-                                  <input type="email" />
+                                  <input
+                                    type="email"
+                                    name="email"
+                                    value={user.email || ""}
+                                    readOnly
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Telephone</label>
-                                  <input type="text" />
-                                </div>
-                              </div>
-                              <div className="col-lg-6 col-md-6">
-                                <div className="billing-info">
-                                  <label>Fax</label>
-                                  <input type="text" />
+                                  <input
+                                    type="text"
+                                    name="phone"
+                                    value={user.phone || ""}
+                                    onChange={handleInputChange}
+                                  />
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit">Update</button>
                               </div>
                             </div>
-                          </div>
+                          </form>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
@@ -98,7 +217,10 @@ const MyAccount = ({ location }) => {
                       </Card.Header>
                       <Accordion.Collapse eventKey="1">
                         <Card.Body>
-                          <div className="myaccount-info-wrapper">
+                          <form
+                            onSubmit={handlePasswordSubmit}
+                            className="myaccount-info-wrapper"
+                          >
                             <div className="account-info-wrapper">
                               <h4>Change Password</h4>
                               <h5>Your Password</h5>
@@ -107,13 +229,23 @@ const MyAccount = ({ location }) => {
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Password</label>
-                                  <input type="password" />
+                                  <input
+                                    type="password"
+                                    name="password"
+                                    value={passwords.password}
+                                    onChange={handlePasswordChange}
+                                  />
                                 </div>
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
                                   <label>Password Confirm</label>
-                                  <input type="password" />
+                                  <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={passwords.confirmPassword}
+                                    onChange={handlePasswordChange}
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -122,7 +254,7 @@ const MyAccount = ({ location }) => {
                                 <button type="submit">Continue</button>
                               </div>
                             </div>
-                          </div>
+                          </form>
                         </Card.Body>
                       </Accordion.Collapse>
                     </Card>
@@ -180,7 +312,7 @@ const MyAccount = ({ location }) => {
 };
 
 MyAccount.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default MyAccount;
