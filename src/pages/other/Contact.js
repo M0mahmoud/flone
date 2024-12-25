@@ -1,13 +1,56 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { multilanguage } from "redux-multilanguage";
+import axiosInstance from "../../api/api";
 import LocationMap from "../../components/contact/LocationMap";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const Contact = ({ strings }) => {
+  const [contactFormData, setContactFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [contactFormErrors, setContactFormErrors] = useState({});
+  const [contact, setContact] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleInputChange = (e) => {
+    setContactFormData({
+      ...contactFormData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setContactFormErrors({});
+    setSubmitting(true);
+
+    try {
+      const response = await axiosInstance.post("/contact", contactFormData);
+      if (response.data.status === "success") {
+        setContactFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+        setContact("Message Sent Successfully");
+      } else if (response.data.status === "error") {
+        setContactFormErrors(response.data.errors);
+      }
+    } catch (error) {
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <Fragment>
       <MetaTags>
@@ -106,14 +149,21 @@ const Contact = ({ strings }) => {
                   <div className="contact-title mb-30">
                     <h2>{strings["CONTACT_FORM_TITLE"]}</h2>
                   </div>
-                  <form className="contact-form-style">
+                  <form className="contact-form-style" onSubmit={handleSubmit}>
                     <div className="row">
                       <div className="col-lg-6">
                         <input
                           name="name"
                           placeholder={strings["CONTACT_FORM_NAME_PLACEHOLDER"]}
                           type="text"
+                          value={contactFormData.name}
+                          onChange={handleInputChange}
                         />
+                        {contactFormErrors.name && (
+                          <span className="error">
+                            {contactFormErrors.name[0]}
+                          </span>
+                        )}
                       </div>
                       <div className="col-lg-6">
                         <input
@@ -122,7 +172,14 @@ const Contact = ({ strings }) => {
                             strings["CONTACT_FORM_EMAIL_PLACEHOLDER"]
                           }
                           type="email"
+                          value={contactFormData.email}
+                          onChange={handleInputChange}
                         />
+                        {contactFormErrors.email && (
+                          <span className="error">
+                            {contactFormErrors.email[0]}
+                          </span>
+                        )}
                       </div>
                       <div className="col-lg-12">
                         <input
@@ -131,7 +188,14 @@ const Contact = ({ strings }) => {
                             strings["CONTACT_FORM_SUBJECT_PLACEHOLDER"]
                           }
                           type="text"
+                          value={contactFormData.subject}
+                          onChange={handleInputChange}
                         />
+                        {contactFormErrors.subject && (
+                          <span className="error">
+                            {contactFormErrors.subject[0]}
+                          </span>
+                        )}
                       </div>
                       <div className="col-lg-12">
                         <textarea
@@ -139,9 +203,24 @@ const Contact = ({ strings }) => {
                           placeholder={
                             strings["CONTACT_FORM_MESSAGE_PLACEHOLDER"]
                           }
-                          defaultValue={""}
+                          value={contactFormData.message}
+                          onChange={handleInputChange}
                         />
-                        <button className="submit" type="submit">
+                        {contactFormErrors.message && (
+                          <span className="error">
+                            {contactFormErrors.message[0]}
+                          </span>
+                        )}
+                        {contact && (
+                          <p style={{ color: "green", paddingBlock: "10px" }}>
+                            {contact}
+                          </p>
+                        )}
+                        <button
+                          className="submit"
+                          type="submit"
+                          disabled={submitting}
+                        >
                           {strings["CONTACT_FORM_SUBMIT_BUTTON"]}
                         </button>
                       </div>
