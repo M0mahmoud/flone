@@ -8,7 +8,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
-import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
+// import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 
 const ProductFixedImage = ({ location }) => {
   const [product, setProduct] = useState(null);

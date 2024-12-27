@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
-import Rating from "./sub-components/ProductRating";
+// import Rating from "./sub-components/ProductRating";
 
 const ProductDescriptionInfo = ({
   product,
@@ -15,8 +15,8 @@ const ProductDescriptionInfo = ({
   addToCart,
   addToWishlist,
 }) => {
-  const [selectedProductSize, setSelectedProductSize] = useState("");
-  const [productStock, setProductStock] = useState(product.is_available);
+  const [selectedProductSize] = useState("");
+  const [productStock] = useState(product.is_available);
   const [quantityCount, setQuantityCount] = useState(1);
 
   const productCartQty = getProductCartQuantity(
