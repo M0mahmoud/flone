@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-
+// !DEL
 const ProductRating = ({ ratingValue }) => {
   let rating = [];
 
@@ -16,7 +16,7 @@ const ProductRating = ({ ratingValue }) => {
 };
 
 ProductRating.propTypes = {
-  ratingValue: PropTypes.number
+  ratingValue: PropTypes.number,
 };
 
 export default ProductRating;

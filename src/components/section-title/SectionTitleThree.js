@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-
+// !DEL
 const SectionTitleThree = ({
   titleText,
   positionClass,
   spaceClass,
-  colorClass
+  colorClass,
 }) => {
   return (
     <div
@@ -21,7 +21,7 @@ const SectionTitleThree = ({
 SectionTitleThree.propTypes = {
   positionClass: PropTypes.string,
   spaceClass: PropTypes.string,
-  titleText: PropTypes.string
+  titleText: PropTypes.string,
 };
 
 export default SectionTitleThree;

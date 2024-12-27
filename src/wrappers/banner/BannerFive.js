@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+// !DEL
 const BannerFive = () => {
   return (
     <div className="banner-area hm9-section-padding">

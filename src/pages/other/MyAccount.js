@@ -8,7 +8,7 @@ import { useToasts } from "react-toast-notifications";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const MyAccount = ({ location }) => {
   const { pathname } = location;
   const [user, setUser] = useState({

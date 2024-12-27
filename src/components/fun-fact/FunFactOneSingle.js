@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import CountUp from "react-countup";
 import VisibilitySensor from "react-visibility-sensor";
-
+// !DEL
 const FunFactOneSingle = ({ data, spaceBottomClass, textAlignClass }) => {
   const [didViewCountUp, setDidViewCountUp] = useState(false);
 
-  const onVisibilityChange = isVisible => {
+  const onVisibilityChange = (isVisible) => {
     if (isVisible) {
       setDidViewCountUp(true);
     }
@@ -39,7 +39,7 @@ const FunFactOneSingle = ({ data, spaceBottomClass, textAlignClass }) => {
 FunFactOneSingle.propTypes = {
   data: PropTypes.object,
   spaceBottomClass: PropTypes.string,
-  textAlignClass: PropTypes.string
+  textAlignClass: PropTypes.string,
 };
 
 export default FunFactOneSingle;

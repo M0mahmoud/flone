@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteFromCart } from "../../redux/actions/cartActions";
 import MenuCart from "./sub-components/MenuCart";
-
+// !DEL
 const IconGroup = ({
   currency,
   cartData,

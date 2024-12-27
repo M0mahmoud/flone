@@ -1,20 +1,20 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
+import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import MetaTags from "react-meta-tags";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import MetaTags from "react-meta-tags";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import { connect } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
+import LayoutOne from "../../layouts/LayoutOne";
+import { addToCart } from "../../redux/actions/cartActions";
 import {
   addToWishlist,
+  deleteAllFromWishlist,
   deleteFromWishlist,
-  deleteAllFromWishlist
 } from "../../redux/actions/wishlistActions";
-import { addToCart } from "../../redux/actions/cartActions";
-import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const Wishlist = ({
   location,
   cartItems,
@@ -22,7 +22,7 @@ const Wishlist = ({
   addToCart,
   wishlistItems,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 }) => {
   const { addToast } = useToasts();
   const { pathname } = location;
@@ -76,7 +76,7 @@ const Wishlist = ({
                               discountedPrice * currency.currencyRate
                             ).toFixed(2);
                             const cartItem = cartItems.filter(
-                              item => item.id === wishlistItem.id
+                              (item) => item.id === wishlistItem.id
                             )[0];
                             return (
                               <tr key={key}>
@@ -250,18 +250,18 @@ Wishlist.propTypes = {
   location: PropTypes.object,
   deleteAllFromWishlist: PropTypes.func,
   deleteFromWishlist: PropTypes.func,
-  wishlistItems: PropTypes.array
+  wishlistItems: PropTypes.array,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
@@ -272,9 +272,9 @@ const mapDispatchToProps = dispatch => {
     deleteFromWishlist: (item, addToast, quantityCount) => {
       dispatch(deleteFromWishlist(item, addToast, quantityCount));
     },
-    deleteAllFromWishlist: addToast => {
+    deleteAllFromWishlist: (addToast) => {
       dispatch(deleteAllFromWishlist(addToast));
-    }
+    },
   };
 };
 

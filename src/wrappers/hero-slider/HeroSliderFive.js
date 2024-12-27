@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
 import axiosInstance from "../../api/api.js";
 import HeroSliderFiveSingle from "../../components/hero-slider/HeroSliderFiveSingle.js";
-
+// !DEL
 const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

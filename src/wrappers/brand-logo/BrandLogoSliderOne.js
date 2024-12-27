@@ -3,29 +3,29 @@ import React from "react";
 import Swiper from "react-id-swiper";
 import BrandLogoOneSingle from "../../components/brand-logo/BrandLogoOneSingle";
 import brandLogoData from "../../data/brand-logos/brand-logo-one.json";
-
+// !DEL
 const BrandLogoSliderOne = ({ spaceBottomClass, spaceTopClass }) => {
   const settings = {
     loop: true,
     autoplay: {
       delay: 3000,
-      disableOnInteraction: false
+      disableOnInteraction: false,
     },
     grabCursor: true,
     breakpoints: {
       1024: {
-        slidesPerView: 5
+        slidesPerView: 5,
       },
       768: {
-        slidesPerView: 4
+        slidesPerView: 4,
       },
       640: {
-        slidesPerView: 3
+        slidesPerView: 3,
       },
       320: {
-        slidesPerView: 2
-      }
-    }
+        slidesPerView: 2,
+      },
+    },
   };
 
   return (
@@ -57,7 +57,7 @@ const BrandLogoSliderOne = ({ spaceBottomClass, spaceTopClass }) => {
 
 BrandLogoSliderOne.propTypes = {
   spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
+  spaceTopClass: PropTypes.string,
 };
 
 export default BrandLogoSliderOne;

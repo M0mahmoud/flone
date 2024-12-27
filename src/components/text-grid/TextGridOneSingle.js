@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-
+// !DEL
 const TextGridOneSingle = ({ data, spaceBottomClass }) => {
   return (
     <div className="col-lg-4 col-md-4">
@@ -16,7 +16,7 @@ const TextGridOneSingle = ({ data, spaceBottomClass }) => {
 
 TextGridOneSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default TextGridOneSingle;

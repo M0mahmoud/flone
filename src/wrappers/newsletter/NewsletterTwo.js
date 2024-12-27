@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
 import SubscribeEmailTwo from "../../components/newsletter/SubscribeEmailTwo";
-
+// !DEL
 const NewsletterTwo = ({
   spaceTopClass,
   spaceBottomClass,
-  subscribeBtnClass
+  subscribeBtnClass,
 }) => {
   return (
     <div
@@ -35,7 +35,7 @@ const NewsletterTwo = ({
 
 NewsletterTwo.propTypes = {
   spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
+  spaceTopClass: PropTypes.string,
 };
 
 export default NewsletterTwo;

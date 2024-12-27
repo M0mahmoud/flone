@@ -1,5 +1,5 @@
 import React from "react";
-
+// !DEL
 const MobileSearch = () => {
   return (
     <div className="offcanvas-mobile-search-area">

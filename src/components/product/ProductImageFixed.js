@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-
+// !DEL
 const ProductImageFixed = ({ product }) => {
   return (
     <div className="product-large-image-wrapper">

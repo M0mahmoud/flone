@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { changeLanguage } from "redux-multilanguage";
-
+// !DEL
 const LanguageCurrencyChanger = ({
   currency,
   setCurrency,

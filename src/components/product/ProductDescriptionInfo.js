@@ -6,7 +6,7 @@ import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 // import Rating from "./sub-components/ProductRating";
-
+// !DEL
 const ProductDescriptionInfo = ({
   product,
   cartItems,

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
 import ProductImageFixed from "../../components/product/ProductImageFixed";
-
+// !DEL
 const ProductImageDescription = ({
   spaceTopClass,
   spaceBottomClass,

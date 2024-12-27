@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Swiper from "react-id-swiper";
-import testimonialData from "../../data/testimonial/testimonial-one.json";
 import TestimonialOneSingle from "../../components/testimonial/TestimonialOneSingle.js";
-
+import testimonialData from "../../data/testimonial/testimonial-one.json";
+// !DEL
 const TestimonialOne = ({
   spaceTopClass,
   spaceBottomClass,
@@ -11,7 +11,7 @@ const TestimonialOne = ({
   spaceRightClass,
   bgColorClass,
   testimonialClass,
-  backgroundImage
+  backgroundImage,
 }) => {
   // swiper slider settings
   const settings = {
@@ -19,8 +19,8 @@ const TestimonialOne = ({
     loop: true,
     autoplay: {
       delay: 5000,
-      disableOnInteraction: false
-    }
+      disableOnInteraction: false,
+    },
   };
 
   return (
@@ -62,7 +62,7 @@ TestimonialOne.propTypes = {
   spaceLeftClass: PropTypes.string,
   spaceRightClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
-  testimonialClass: PropTypes.string
+  testimonialClass: PropTypes.string,
 };
 
 export default TestimonialOne;

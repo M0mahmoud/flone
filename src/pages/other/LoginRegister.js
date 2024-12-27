@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const LoginRegister = ({ location }) => {
   const { pathname } = location;
   const history = useHistory();

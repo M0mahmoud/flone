@@ -1,5 +1,5 @@
 import React from "react";
-
+// !DEL
 const HeroSliderFiveSingle = ({ data, sliderClass }) => {
   console.log("🚀 ~ HeroSliderFiveSingle ~ data:", data);
   return (

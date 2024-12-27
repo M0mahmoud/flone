@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-
+// !DEL
 const FeatureIconFourSingle = ({ data, spaceBottomClass }) => {
   return (
     <div className="col-lg-4 col-md-6 col-sm-6">
@@ -28,7 +28,7 @@ const FeatureIconFourSingle = ({ data, spaceBottomClass }) => {
 
 FeatureIconFourSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default FeatureIconFourSingle;

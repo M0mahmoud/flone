@@ -5,7 +5,7 @@ import Swiper from "react-id-swiper";
 import { connect } from "react-redux";
 import { getProductCartQuantity } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
-
+// !DEL
 function ProductModal(props) {
   const { product } = props;
   // const { currency } = props;

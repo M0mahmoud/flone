@@ -9,7 +9,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 // import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
-
+// !DEL
 const ProductFixedImage = ({ location }) => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);

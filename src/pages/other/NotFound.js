@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { multilanguage } from "redux-multilanguage";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const NotFound = ({ location, strings }) => {
   const { pathname } = location;
 

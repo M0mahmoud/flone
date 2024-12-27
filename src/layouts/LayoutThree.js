@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import HeaderOne from "../wrappers/header/HeaderOne";
 import FooterTwo from "../wrappers/footer/FooterTwo";
-
+import HeaderOne from "../wrappers/header/HeaderOne";
+// !DEL
 const LayoutThree = ({
   children,
   headerContainerClass,
   headerTop,
   headerBorderStyle,
-  headerPaddingClass
+  headerPaddingClass,
 }) => {
   return (
     <Fragment>
@@ -38,7 +38,7 @@ LayoutThree.propTypes = {
   headerBorderStyle: PropTypes.string,
   headerContainerClass: PropTypes.string,
   headerPaddingClass: PropTypes.string,
-  headerTop: PropTypes.string
+  headerTop: PropTypes.string,
 };
 
 export default LayoutThree;

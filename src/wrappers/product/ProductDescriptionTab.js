@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
-
+// !DEL
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>

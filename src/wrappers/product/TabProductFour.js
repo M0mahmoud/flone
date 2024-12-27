@@ -5,7 +5,7 @@ import Tab from "react-bootstrap/Tab";
 import { Link } from "react-router-dom";
 import SectionTitleThree from "../../components/section-title/SectionTitleThree";
 import ProductGridTwo from "./ProductGridTwo";
-
+// !DEL
 const TabProductFour = ({ spaceBottomClass, category, productTabClass }) => {
   return (
     <div className={`product-area ${spaceBottomClass ? spaceBottomClass : ""}`}>

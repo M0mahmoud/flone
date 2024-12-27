@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-import LayoutOne from "../../layouts/LayoutOne";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import MetaTags from "react-meta-tags";
 import SectionTitleWithText from "../../components/section-title/SectionTitleWithText";
+import LayoutOne from "../../layouts/LayoutOne";
 import BannerOne from "../../wrappers/banner/BannerOne";
-import TextGridOne from "../../wrappers/text-grid/TextGridOne";
+import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
+import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
 import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
-import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
-
+import TextGridOne from "../../wrappers/text-grid/TextGridOne";
+// !DEL
 const About = ({ location }) => {
   const { pathname } = location;
 
@@ -58,7 +58,7 @@ const About = ({ location }) => {
 };
 
 About.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default About;

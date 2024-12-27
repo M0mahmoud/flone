@@ -7,7 +7,7 @@ import axiosInstance from "../../api/api";
 import LocationMap from "../../components/contact/LocationMap";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const Contact = ({ strings }) => {
   const [contactFormData, setContactFormData] = useState({
     name: "",

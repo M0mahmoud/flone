@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { changeLanguage, multilanguage } from "redux-multilanguage";
 import { setCurrency } from "../../../redux/actions/currencyActions";
-
+// !DEL
 const MobileLangCurrChange = ({
   currency,
   setCurrency,

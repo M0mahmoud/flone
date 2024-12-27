@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import { Link } from "react-router-dom";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const Checkout = ({ location, cartItems, currency }) => {
   const { pathname } = location;
   let cartTotalPrice = 0;
@@ -230,13 +230,13 @@ const Checkout = ({ location, cartItems, currency }) => {
 Checkout.propTypes = {
   cartItems: PropTypes.array,
   currency: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 

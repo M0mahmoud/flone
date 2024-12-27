@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../helpers/product";
-
+// !DEL
 const MenuCart = ({ cartData, currency, deleteFromCart }) => {
   let cartTotalPrice = 0;
   const { addToast } = useToasts();
@@ -103,7 +103,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
 MenuCart.propTypes = {
   cartData: PropTypes.array,
   currency: PropTypes.object,
-  deleteFromCart: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
 export default MenuCart;

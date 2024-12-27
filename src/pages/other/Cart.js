@@ -16,7 +16,7 @@ import {
   deleteFromCart,
 } from "../../redux/actions/cartActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
+// !DEL
 const Cart = ({
   location,
   cartItems,

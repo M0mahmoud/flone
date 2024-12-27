@@ -1,18 +1,18 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import Logo from "../../components/header/Logo";
-import NavMenu from "../../components/header/NavMenu";
-import IconGroup from "../../components/header/IconGroup";
-import MobileMenu from "../../components/header/MobileMenu";
 import HeaderTop from "../../components/header/HeaderTop";
-
+import IconGroup from "../../components/header/IconGroup";
+import Logo from "../../components/header/Logo";
+import MobileMenu from "../../components/header/MobileMenu";
+import NavMenu from "../../components/header/NavMenu";
+// !DEL
 const HeaderOne = ({
   layout,
   top,
   borderStyle,
   headerPaddingClass,
   headerPositionClass,
-  headerBgClass
+  headerBgClass,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
@@ -84,7 +84,7 @@ HeaderOne.propTypes = {
   headerPaddingClass: PropTypes.string,
   headerPositionClass: PropTypes.string,
   layout: PropTypes.string,
-  top: PropTypes.string
+  top: PropTypes.string,
 };
 
 export default HeaderOne;

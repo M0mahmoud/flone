@@ -1,5 +1,5 @@
 import React from "react";
-
+// !DEL
 const MobileWidgets = () => {
   return (
     <div className="offcanvas-widget-area">

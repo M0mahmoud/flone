@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
 import ProductModal from "./ProductModal";
-
+// !DEL
 const ProductGridSingleTwo = ({
   product,
   currency,
@@ -17,7 +17,7 @@ const ProductGridSingleTwo = ({
   sliderClassName,
   spaceBottomClass,
   colorClass,
-  titlePriceClass
+  titlePriceClass,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
@@ -204,7 +204,7 @@ ProductGridSingleTwo.propTypes = {
   spaceBottomClass: PropTypes.string,
   colorClass: PropTypes.string,
   titlePriceClass: PropTypes.string,
-  wishlistItem: PropTypes.object
+  wishlistItem: PropTypes.object,
 };
 
 export default ProductGridSingleTwo;

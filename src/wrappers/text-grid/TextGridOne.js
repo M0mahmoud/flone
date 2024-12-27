@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import textGridData from "../../data/text-grid/text-grid-one.json";
 import TextGridOneSingle from "../../components/text-grid/TextGridOneSingle.js";
-
+import textGridData from "../../data/text-grid/text-grid-one.json";
+// !DEL
 const TextGridOne = ({ spaceBottomClass }) => {
   return (
     <div
@@ -29,7 +29,7 @@ const TextGridOne = ({ spaceBottomClass }) => {
 };
 
 TextGridOne.propTypes = {
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default TextGridOne;

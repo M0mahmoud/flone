@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import ProductModal from "./ProductModal";
-
+// !DEL
 const ProductGridListSingle = ({
   product,
   currency,

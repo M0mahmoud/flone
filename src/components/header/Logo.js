@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-
+// !DEL
 const Logo = ({ imageUrl, logoClass }) => {
   return (
     <div className={`${logoClass ? logoClass : ""}`}>
@@ -14,7 +14,7 @@ const Logo = ({ imageUrl, logoClass }) => {
 
 Logo.propTypes = {
   imageUrl: PropTypes.string,
-  logoClass: PropTypes.string
+  logoClass: PropTypes.string,
 };
 
 export default Logo;
