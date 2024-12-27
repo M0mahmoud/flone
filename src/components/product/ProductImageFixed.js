@@ -4,7 +4,7 @@ import React from "react";
 const ProductImageFixed = ({ product }) => {
   return (
     <div className="product-large-image-wrapper">
-      {product.discount || product.new ? (
+      {/* {product.discount || product.new ? (
         <div className="product-img-badges">
           {product.discount ? (
             <span className="pink">-{product.discount}%</span>
@@ -15,15 +15,11 @@ const ProductImageFixed = ({ product }) => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
 
       <div className="product-fixed-image">
-        {product.image ? (
-          <img
-            src={process.env.PUBLIC_URL + product.image[0]}
-            alt=""
-            className="img-fluid"
-          />
+        {product.image_path ? (
+          <img src={product.image_path} alt="IMAGEs" className="img-fluid" />
         ) : (
           ""
         )}
@@ -33,7 +29,7 @@ const ProductImageFixed = ({ product }) => {
 };
 
 ProductImageFixed.propTypes = {
-  product: PropTypes.object
+  product: PropTypes.object,
 };
 
 export default ProductImageFixed;

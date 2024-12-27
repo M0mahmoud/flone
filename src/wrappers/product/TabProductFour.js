@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router-dom";
-import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
+import Tab from "react-bootstrap/Tab";
+import { Link } from "react-router-dom";
 import SectionTitleThree from "../../components/section-title/SectionTitleThree";
 import ProductGridTwo from "./ProductGridTwo";
 
@@ -71,10 +71,7 @@ const TabProductFour = ({ spaceBottomClass, category, productTabClass }) => {
           </Tab.Content>
         </Tab.Container>
         <div className="view-more text-center mt-20 toggle-btn6 col-12">
-          <Link
-            className="loadMore6"
-            to={process.env.PUBLIC_URL + "/shop-grid-standard"}
-          >
+          <Link className="loadMore6" to={process.env.PUBLIC_URL + "/shop"}>
             VIEW MORE PRODUCTS
           </Link>
         </div>
@@ -85,7 +82,7 @@ const TabProductFour = ({ spaceBottomClass, category, productTabClass }) => {
 
 TabProductFour.propTypes = {
   category: PropTypes.string,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default TabProductFour;

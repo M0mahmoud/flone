@@ -1,17 +1,71 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import MetaTags from "react-meta-tags";
+import React, { Fragment, useEffect, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
+import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
+import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
+import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 
-const ProductFixedImage = ({ location, product }) => {
+const ProductFixedImage = ({ location }) => {
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { pathname } = location;
+  const PRODUCT_ID = pathname.split("/")[2];
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axiosInstance.get(`/item/${PRODUCT_ID}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Failed to fetch product", error);
+        // Optionally handle the error state
+      }
+    };
+
+    fetchProduct();
+  }, [PRODUCT_ID]);
+  useEffect(() => {
+    setLoading(true); // Start loading
+    setError(null); // Reset errors
+    const fetchProduct = async () => {
+      try {
+        const response = await axiosInstance.get(`/item/${PRODUCT_ID}`);
+        setProduct(response.data);
+        setLoading(false); // Stop loading once data is received
+      } catch (error) {
+        console.error("Failed to fetch product", error);
+        setError("Failed to load product"); // Set error message
+        setLoading(false); // Stop loading on error
+      }
+    };
+
+    fetchProduct();
+  }, [PRODUCT_ID]);
+
+  if (loading) {
+    return (
+      <div className="flone-preloader-wrapper">
+        <div className="flone-preloader">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // Display error state
+  }
+
+  if (!product) {
+    return <div>No product found.</div>; // Display if no product is found
+  }
   return (
     <Fragment>
       <MetaTags>
@@ -42,14 +96,14 @@ const ProductFixedImage = ({ location, product }) => {
         {/* product description tab */}
         <ProductDescriptionTab
           spaceBottomClass="pb-90"
-          productFullDesc={product.fullDescription}
+          productFullDesc={product.description}
         />
 
         {/* related product slider */}
-        <RelatedProductSlider
+        {/* <RelatedProductSlider
           spaceBottomClass="pb-95"
           category={product.category[0]}
-        />
+        /> */}
       </LayoutOne>
     </Fragment>
   );
@@ -57,15 +111,15 @@ const ProductFixedImage = ({ location, product }) => {
 
 ProductFixedImage.propTypes = {
   location: PropTypes.object,
-  product: PropTypes.object
+  product: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const itemId = ownProps.match.params.id;
   return {
     product: state.productData.products.filter(
-      single => single.id === itemId
-    )[0]
+      (single) => single.id === itemId
+    )[0],
   };
 };
 

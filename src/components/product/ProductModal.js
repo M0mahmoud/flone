@@ -8,10 +8,10 @@ import Rating from "./sub-components/ProductRating";
 
 function ProductModal(props) {
   const { product } = props;
-  const { currency } = props;
-  const { discountedprice } = props;
-  const { finalproductprice } = props;
-  const { finaldiscountedprice } = props;
+  // const { currency } = props;
+  // const { discountedprice } = props;
+  // const { finalproductprice } = props;
+  // const { finaldiscountedprice } = props;
 
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
@@ -99,25 +99,25 @@ function ProductModal(props) {
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper">
                 <Swiper {...gallerySwiperParams}>
-                  {product.image &&
+                  {/* {product.image &&
                     product.image.map((single, key) => {
-                      return (
-                        <div key={key}>
-                          <div className="single-image">
-                            <img
-                              src={process.env.PUBLIC_URL + single}
-                              className="img-fluid"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
+                      return ( */}
+                  <div>
+                    <div className="single-image">
+                      <img
+                        src={process.env.PUBLIC_URL + product.image_path}
+                        className="img-fluid"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  {/* );
+                    })} */}
                 </Swiper>
               </div>
               <div className="product-small-image-wrapper mt-15">
                 <Swiper {...thumbnailSwiperParams}>
-                  {product.image &&
+                  {/* {product.image &&
                     product.image.map((single, key) => {
                       return (
                         <div key={key}>
@@ -130,7 +130,7 @@ function ProductModal(props) {
                           </div>
                         </div>
                       );
-                    })}
+                    })} */}
                 </Swiper>
               </div>
             </div>
@@ -138,7 +138,7 @@ function ProductModal(props) {
               <div className="product-details-content quickview-content">
                 <h2>{product.name}</h2>
                 <div className="product-details-price">
-                  {discountedprice !== null ? (
+                  {/* {discountedprice !== null ? (
                     <Fragment>
                       <span>
                         {currency.currencySymbol + finaldiscountedprice}
@@ -149,7 +149,7 @@ function ProductModal(props) {
                     </Fragment>
                   ) : (
                     <span>{currency.currencySymbol + finalproductprice} </span>
-                  )}
+                  )} */}
                 </div>
                 {product.rating && product.rating > 0 ? (
                   <div className="pro-details-rating-wrap">
@@ -338,9 +338,9 @@ ProductModal.propTypes = {
   cartitems: PropTypes.array,
   compareitem: PropTypes.object,
   currency: PropTypes.object,
-  discountedprice: PropTypes.number,
-  finaldiscountedprice: PropTypes.number,
-  finalproductprice: PropTypes.number,
+  // discountedprice: PropTypes.number,
+  // finaldiscountedprice: PropTypes.number,
+  // finalproductprice: PropTypes.number,
   onHide: PropTypes.func,
   product: PropTypes.object,
   show: PropTypes.bool,

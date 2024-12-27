@@ -9,31 +9,19 @@ import Rating from "./sub-components/ProductRating";
 
 const ProductDescriptionInfo = ({
   product,
-  discountedPrice,
-  currency,
-  finalDiscountedPrice,
-  finalProductPrice,
   cartItems,
   wishlistItem,
   addToast,
   addToCart,
   addToWishlist,
 }) => {
-  const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
-  );
-  const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
-  );
-  const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
-  );
+  const [selectedProductSize, setSelectedProductSize] = useState("");
+  const [productStock, setProductStock] = useState(product.is_available);
   const [quantityCount, setQuantityCount] = useState(1);
 
   const productCartQty = getProductCartQuantity(
     cartItems,
     product,
-    selectedProductColor,
     selectedProductSize
   );
 
@@ -41,7 +29,7 @@ const ProductDescriptionInfo = ({
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
       <div className="product-details-price">
-        {discountedPrice !== null ? (
+        {/* {discountedPrice !== null ? (
           <Fragment>
             <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
             <span className="old">
@@ -50,9 +38,9 @@ const ProductDescriptionInfo = ({
           </Fragment>
         ) : (
           <span>{currency.currencySymbol + finalProductPrice} </span>
-        )}
+        )} */}
       </div>
-      {product.rating && product.rating > 0 ? (
+      {/* {product.rating && product.rating > 0 ? (
         <div className="pro-details-rating-wrap">
           <div className="pro-details-rating">
             <Rating ratingValue={product.rating} />
@@ -60,46 +48,19 @@ const ProductDescriptionInfo = ({
         </div>
       ) : (
         ""
-      )}
+      )} */}
       <div className="pro-details-list">
-        <p>{product.shortDescription}</p>
+        <p>{product.description}</p>
+        <p>Weight:{product.weight}</p>
+        <p>country_origin:{product.country_origin}</p>
       </div>
 
-      {product.variation ? (
+      {product.weight ? (
         <div className="pro-details-size-color">
-          <div className="pro-details-color-wrap">
-            <span>Color</span>
-            <div className="pro-details-color-content">
-              {product.variation.map((single, key) => {
-                return (
-                  <label
-                    className={`pro-details-color-content--single ${single.color}`}
-                    key={key}
-                  >
-                    <input
-                      type="radio"
-                      value={single.color}
-                      name="product-color"
-                      checked={
-                        single.color === selectedProductColor ? "checked" : ""
-                      }
-                      onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
-                        setProductStock(single.size[0].stock);
-                        setQuantityCount(1);
-                      }}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
           <div className="pro-details-size">
-            <span>Size</span>
+            <span>Weight</span>
             <div className="pro-details-size-content">
-              {product.variation &&
+              {/* {product.variation &&
                 product.variation.map((single) => {
                   return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
@@ -127,26 +88,14 @@ const ProductDescriptionInfo = ({
                         );
                       })
                     : "";
-                })}
+                })} */}
             </div>
           </div>
         </div>
       ) : (
         ""
       )}
-      {product.affiliateLink ? (
-        <div className="pro-details-quality">
-          <div className="pro-details-cart btn-hover ml-0">
-            <a
-              href={product.affiliateLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Buy Now
-            </a>
-          </div>
-        </div>
-      ) : (
+      {product.is_available && (
         <div className="pro-details-quality">
           <div className="cart-plus-minus">
             <button
@@ -184,7 +133,6 @@ const ProductDescriptionInfo = ({
                     product,
                     addToast,
                     quantityCount,
-                    selectedProductColor,
                     selectedProductSize
                   )
                 }
@@ -213,7 +161,7 @@ const ProductDescriptionInfo = ({
           </div>
         </div>
       )}
-      {product.category ? (
+      {/* {product.category ? (
         <div className="pro-details-meta">
           <span>Categories :</span>
           <ul>
@@ -248,37 +196,7 @@ const ProductDescriptionInfo = ({
         </div>
       ) : (
         ""
-      )}
-
-      <div className="pro-details-social">
-        <ul>
-          <li>
-            <a href="//facebook.com">
-              <i className="fa fa-facebook" />
-            </a>
-          </li>
-          <li>
-            <a href="//dribbble.com">
-              <i className="fa fa-dribbble" />
-            </a>
-          </li>
-          <li>
-            <a href="//pinterest.com">
-              <i className="fa fa-pinterest-p" />
-            </a>
-          </li>
-          <li>
-            <a href="//twitter.com">
-              <i className="fa fa-twitter" />
-            </a>
-          </li>
-          <li>
-            <a href="//linkedin.com">
-              <i className="fa fa-linkedin" />
-            </a>
-          </li>
-        </ul>
-      </div>
+      )} */}
     </div>
   );
 };
