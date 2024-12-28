@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { multilanguage } from "redux-multilanguage";
@@ -8,7 +8,8 @@ import LocationMap from "../../components/contact/LocationMap";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
-const Contact = ({ strings }) => {
+const Contact = ({ strings, currentLanguageCode }) => {
+  console.log("🚀 ~ Contact ~ currentLanguageCode:", currentLanguageCode);
   const [contactFormData, setContactFormData] = useState({
     name: "",
     email: "",
@@ -19,6 +20,10 @@ const Contact = ({ strings }) => {
   const [contactFormErrors, setContactFormErrors] = useState({});
   const [contact, setContact] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [addresse, setAddresse] = useState(""); // To store fetched email
+  const [email, setEmail] = useState(""); // To store fetched email
+  const [mobiles, setMobiles] = useState([]); // To store fetched email
+  const [socails, setSocails] = useState([]); // To store fetched email
 
   const handleInputChange = (e) => {
     setContactFormData({
@@ -51,6 +56,31 @@ const Contact = ({ strings }) => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [emailRes, mobilesRes, socailsRes, addresseRes] =
+          await Promise.all([
+            axiosInstance.get("/emails"),
+            axiosInstance.get("/mobiles"),
+            axiosInstance.get("/socails"),
+            axiosInstance.get("/addresse"),
+          ]);
+
+        if (emailRes.data?.length > 0) {
+          setEmail(emailRes.data[0].email);
+        }
+        setMobiles(mobilesRes.data || []);
+        setSocails(socailsRes.data || []);
+        setAddresse(addresseRes.data || "");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Fragment>
       <MetaTags>
@@ -82,8 +112,16 @@ const Contact = ({ strings }) => {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>{strings["CONTACT_PHONE_PRIMARY"]}</p>
-                      <p>{strings["CONTACT_PHONE_SECONDARY"]}</p>
+                      {mobiles?.map((el) => (
+                        <>
+                          <p>{el.mobile}</p>
+                          <p>
+                            {currentLanguageCode === "en"
+                              ? el.translations[1].name
+                              : el.translations[0].name}
+                          </p>
+                        </>
+                      ))}
                     </div>
                   </div>
                   <div className="single-contact-info">
@@ -92,14 +130,7 @@ const Contact = ({ strings }) => {
                     </div>
                     <div className="contact-info-dec">
                       <p>
-                        <a href={`mailto:${strings["CONTACT_EMAIL_ADDRESS"]}`}>
-                          {strings["CONTACT_EMAIL_ADDRESS"]}
-                        </a>
-                      </p>
-                      <p>
-                        <a href={`//${strings["CONTACT_EMAIL_WEBSITE"]}`}>
-                          {strings["CONTACT_EMAIL_WEBSITE"]}
-                        </a>
+                        <a href={`mailto:${email}`}>{email}</a>
                       </p>
                     </div>
                   </div>
@@ -108,38 +139,33 @@ const Contact = ({ strings }) => {
                       <i className="fa fa-map-marker" />
                     </div>
                     <div className="contact-info-dec">
-                      <p>{strings["CONTACT_ADDRESS_LINE1"]}</p>
-                      <p>{strings["CONTACT_ADDRESS_LINE2"]}</p>
+                      <p>{addresse}</p>
                     </div>
                   </div>
                   <div className="contact-social text-center">
                     <h3>{strings["CONTACT_SOCIAL_TITLE"]}</h3>
                     <ul>
-                      <li>
-                        <a href="//facebook.com">
-                          <i className="fa fa-facebook" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//pinterest.com">
-                          <i className="fa fa-pinterest-p" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//thumblr.com">
-                          <i className="fa fa-tumblr" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//vimeo.com">
-                          <i className="fa fa-vimeo" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//twitter.com">
-                          <i className="fa fa-twitter" />
-                        </a>
-                      </li>
+                      {socails?.map((el, index) => (
+                        <li key={el.id || index} className="social-media-item">
+                          <a
+                            href={el.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              src={`https://zaien.test.do-go.net/images/${el.icon}`}
+                              alt={`Social media icon ${index + 1}`}
+                              className="social-media-icon"
+                              style={{
+                                width: "30px",
+                                height: "30px",
+                                objectFit: "cover",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          </a>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>

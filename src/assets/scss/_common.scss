@@ -4,9 +4,6 @@
 /*----------------------------------------*/
 
 /*-- Google Font --*/
-
-@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500,600,700|Poppins:300,400,500,600,700,800,900|Josefin+Sans:wght@300;400;500;600;700|Abril+Fatface|Great+Vibe|Lobster&display=swap");
-
 /*-- Common Style --*/
 
 *,
@@ -19,7 +16,9 @@ html,
 body {
   height: 100%;
 }
-
+* {
+  font-family: $locale-font; // Default
+}
 body {
   font-family: $poppins;
   font-size: 14px;

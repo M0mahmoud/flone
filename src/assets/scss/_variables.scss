@@ -6,11 +6,64 @@ $greatvibes: "Great Vibes", cursive;
 $lobster: "Lobster", cursive;
 $josefin: "Josefin Sans", sans-serif;
 
+// Import locale-specific font files
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ Black\ 900.otf") format("opentype");
+  font-weight: 900;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ Bold\ 700.otf") format("opentype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ ExtraBold\ 800.otf") format("opentype");
+  font-weight: 800;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ ExtraLight\ 275.otf") format("opentype");
+  font-weight: 275;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ Light\ 300.otf") format("opentype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ Medium\ 500.otf") format("opentype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ Regular\ 400.otf") format("opentype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ SemiBold\ 600.otf") format("opentype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "LocaleFont";
+  src: url("/fonts/Montserrat-Arabic\ Thin\ 250.otf ") format("opentype");
+  font-weight: 250;
+}
+
+// Add locale-specific font-family variable
+$locale-font: "LocaleFont", sans-serif;
+
 // text Colors ---------------
+// #008342
+// #f4d50f
+// #6bbe45
 
 $white: #ffffff;
 $black: #000000;
-$grey: #f6f7f8;
+$grey: #008342;
 $red: #f6f7f8;
 $green: #f6f7f8;
 
@@ -18,14 +71,13 @@ $green: #f6f7f8;
 
 $bg-white: #ffffff;
 $bg-black: #000000;
-$bg-grey: #f6f6f8;
-$bg-purple: #f0e0ff;
+$bg-grey: #f4d50f;
+$bg-purple: #6bbe45;
 
 // Heading Color
-$heading-color: #000000;
-
+$heading-color: #f4d50f;
 // Theme Color
-$theme-color: #a749ff;
+$theme-color: #008342;
 
 // Responsive Variables
 $xx-layout: "only screen and (min-width: 1366px) and (max-width: 1600px)";
