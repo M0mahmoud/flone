@@ -12,12 +12,10 @@ const ShopTopAction = ({
     <div className="shop-top-bar mb-35">
       <div className="select-shoing-wrap">
         <div className="shop-select">
-          <select
-            onChange={(e) => getFilterSortParams("filterSort", e.target.value)}
-          >
+          <select onChange={(e) => getFilterSortParams(e.target.value)}>
             <option value="default">Default</option>
-            <option value="priceHighToLow">Price - High to Low</option>
-            <option value="priceLowToHigh">Price - Low to High</option>
+            <option value="high-to-low">Price - High to Low</option>
+            <option value="low-to-high">Price - Low to High</option>
           </select>
         </div>
         <p>

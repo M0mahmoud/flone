@@ -10,7 +10,7 @@ import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab"
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 // import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 // !DEL
-const ProductFixedImage = ({ location }) => {
+const ProductFixedImage = ({ location, currentLanguageCode }) => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -96,7 +96,11 @@ const ProductFixedImage = ({ location }) => {
         {/* product description tab */}
         <ProductDescriptionTab
           spaceBottomClass="pb-90"
-          productFullDesc={product.description}
+          productFullDesc={
+            currentLanguageCode === "ar"
+              ? product.translations[0].description
+              : product.translations[1].description
+          }
         />
 
         {/* related product slider */}
@@ -120,6 +124,7 @@ const mapStateToProps = (state, ownProps) => {
     product: state.productData.products.filter(
       (single) => single.id === itemId
     )[0],
+    currentLanguageCode: state.multilanguage.currentLanguageCode,
   };
 };
 

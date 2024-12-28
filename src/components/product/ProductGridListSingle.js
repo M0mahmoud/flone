@@ -2,8 +2,9 @@ import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import { multilanguage } from "redux-multilanguage";
 import ProductModal from "./ProductModal";
-// !DEL
+// !DEL // PRODUCTCARD
 const ProductGridListSingle = ({
   product,
   currency,
@@ -15,6 +16,7 @@ const ProductGridListSingle = ({
   compareItem,
   sliderClassName,
   spaceBottomClass,
+  currentLanguageCode,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
@@ -34,7 +36,8 @@ const ProductGridListSingle = ({
               <img
                 className="default-img"
                 src={process.env.PUBLIC_URL + product.image_path}
-                alt=""
+                alt={product.name}
+                loading="lazy"
               />
             </Link>
             <div className="product-action">
@@ -88,7 +91,9 @@ const ProductGridListSingle = ({
           <div className="product-content text-center">
             <h3>
               <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                {product.name}
+                {currentLanguageCode === "ar"
+                  ? product.translations[0].name
+                  : product.translations[1].name}
               </Link>
             </h3>
 
@@ -98,7 +103,7 @@ const ProductGridListSingle = ({
                   <span>{product.price}</span>{" "}
                   {/* <span className="old">
                     {currency.currencySymbol + finalProductPrice}
-                  </span> */}
+                    </span> */}
                 </Fragment>
               ) : (
                 <span>{product.price} </span>
@@ -115,7 +120,12 @@ const ProductGridListSingle = ({
                     <img
                       className="default-img"
                       src={process.env.PUBLIC_URL + product.image_path}
-                      alt=""
+                      alt={
+                        currentLanguageCode === "ar"
+                          ? product.translations[0].name
+                          : product.translations[1].name
+                      }
+                      loading="lazy"
                     />
                   </Link>
                   {/* {product.discount || product.new ? (
@@ -137,7 +147,9 @@ const ProductGridListSingle = ({
               <div className="shop-list-content">
                 <h3>
                   <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                    {product.name}
+                    {currentLanguageCode === "ar"
+                      ? product.translations[0].name
+                      : product.translations[1].name}
                   </Link>
                 </h3>
                 <div className="product-list-price">
@@ -256,4 +268,4 @@ ProductGridListSingle.propTypes = {
   wishlistItem: PropTypes.object,
 };
 
-export default ProductGridListSingle;
+export default multilanguage(ProductGridListSingle);

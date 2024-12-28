@@ -3,7 +3,6 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import ProductGridListSingle from "../../components/product/ProductGridListSingle";
 import { addToCart } from "../../redux/actions/cartActions";
-import { addToCompare } from "../../redux/actions/compareActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 // !DEL
 const ProductGrid = ({
@@ -94,9 +93,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     addToWishlist: (item, addToast) => {
       dispatch(addToWishlist(item, addToast));
-    },
-    addToCompare: (item, addToast) => {
-      dispatch(addToCompare(item, addToast));
     },
   };
 };

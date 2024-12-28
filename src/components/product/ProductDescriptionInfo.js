@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-// import { Link } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
 import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
@@ -14,6 +14,7 @@ const ProductDescriptionInfo = ({
   addToast,
   addToCart,
   addToWishlist,
+  currentLanguageCode,
 }) => {
   const [selectedProductSize] = useState("");
   const [productStock] = useState(product.is_available);
@@ -27,7 +28,11 @@ const ProductDescriptionInfo = ({
 
   return (
     <div className="product-details-content ml-70">
-      <h2>{product.name}</h2>
+      <h2>
+        {currentLanguageCode === "ar"
+          ? product.translations[0].name
+          : product.translations[1].name}
+      </h2>
       <div className="product-details-price">
         {/* {discountedPrice !== null ? (
           <Fragment>
@@ -50,9 +55,21 @@ const ProductDescriptionInfo = ({
         ""
       )} */}
       <div className="pro-details-list">
-        <p>{product.description}</p>
-        <p>Weight:{product.weight}</p>
-        <p>country_origin:{product.country_origin}</p>
+        <p>
+          {currentLanguageCode === "ar"
+            ? product.translations[0].description
+            : product.translations[1].description}
+        </p>
+        <p>
+          {currentLanguageCode === "ar"
+            ? product.translations[0].weight
+            : product.translations[1].weight}
+        </p>
+        <p>
+          {currentLanguageCode === "ar"
+            ? product.translations[0].country_origin
+            : product.translations[1].country_origin}
+        </p>
       </div>
 
       {product.weight ? (
@@ -241,4 +258,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(ProductDescriptionInfo);
+export default connect(
+  null,
+  mapDispatchToProps
+)(multilanguage(ProductDescriptionInfo));

@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
-// import Paginator from "react-hooks-paginator";
+import Paginator from "react-hooks-paginator";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
 import axiosInstance from "../../api/api";
-// import { getSortedProducts } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ShopProducts from "../../wrappers/product/ShopProducts";
@@ -13,47 +12,46 @@ import ShopTopbar from "../../wrappers/product/ShopTopbar";
 
 const ShopGridNoSidebar = ({ location }) => {
   const [layout, setLayout] = useState("grid three-column");
-  // const sortType = "";
-  // const sortValue = "";
-  // const [filterSortType, setFilterSortType] = useState("");
-  // const [filterSortValue, setFilterSortValue] = useState("");
-  // const [offset, setOffset] = useState(0);
-  // const [currentPage, setCurrentPage] = useState(1);
-  const [currentData, setCurrentData] = useState({ data: [], total: 0 });
+  const [filterSortValue, setFilterSortValue] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+  const [allData, setAllData] = useState([]); // Store all data fetched from API
+  const pageLimit = 20;
+  const [offset, setOffset] = useState((currentPage - 1) * pageLimit);
 
-  console.log("🚀 ~ ShopGridNoSidebar ~ currentData:", currentData);
-  // const [sortedProducts, setSortedProducts] = useState([]);
-
-  // const pageLimit = 15;
   const { pathname } = location;
 
   const getLayout = (layout) => {
     setLayout(layout);
   };
 
-  const getFilterSortParams = (sortType, sortValue) => {
-    // setFilterSortType(sortType);
-    // setFilterSortValue(sortValue);
-  };
-
   useEffect(() => {
-    const fetch = async () => {
+    const fetchItems = async () => {
       try {
-        const response = await axiosInstance.get("/items");
-        if (response.data && response.data.data) {
-          setCurrentData(response.data);
+        const response = await axiosInstance.get("/items", {
+          params: { sort: filterSortValue },
+        });
+        if (response.data && Array.isArray(response.data)) {
+          setAllData(response.data);
+          // Implement slicing to mimic pagination
+          setCurrentData(response.data.slice(offset, offset + pageLimit));
         } else {
-          // Set to default if response does not contain expected structure
-          setCurrentData({ data: [], total: 0 });
+          setAllData([]);
+          setCurrentData([]);
         }
       } catch (error) {
         console.error("Error fetching items:", error);
-        setCurrentData({ data: [], total: 0 });
+        setAllData([]);
+        setCurrentData([]);
       }
     };
 
-    fetch();
-  }, []);
+    fetchItems();
+  }, [filterSortValue, setCurrentData, currentPage, offset]);
+  useEffect(() => {
+    // Update currentData based on currentPage
+    setCurrentData(allData.slice(offset, offset + pageLimit));
+  }, [currentPage, allData, offset]);
 
   return (
     <Fragment>
@@ -78,21 +76,19 @@ const ShopGridNoSidebar = ({ location }) => {
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
-                {/* shop topbar default */}
+                {/* shop topbar */}
                 <ShopTopbar
                   getLayout={getLayout}
-                  getFilterSortParams={getFilterSortParams}
-                  productCount={currentData.data ? currentData.data.length : 0}
-                  sortedProductCount={currentData.total || 0}
+                  getFilterSortParams={setFilterSortValue}
+                  productCount={allData ? allData?.length : 0}
+                  sortedProductCount={currentData?.length || 0}
                 />
 
-                {/* shop page content default */}
-                <ShopProducts layout={layout} products={currentData.data} />
+                <ShopProducts layout={layout} products={currentData} />
 
-                {/* shop product pagination */}
-                {/* <div className="pro-pagination-style text-center mt-30">
+                <div className="pro-pagination-style text-center mt-30">
                   <Paginator
-                    totalRecords={sortedProducts.length}
+                    totalRecords={allData.length}
                     pageLimit={pageLimit}
                     pageNeighbours={2}
                     setOffset={setOffset}
@@ -102,7 +98,7 @@ const ShopGridNoSidebar = ({ location }) => {
                     pagePrevText="«"
                     pageNextText="»"
                   />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

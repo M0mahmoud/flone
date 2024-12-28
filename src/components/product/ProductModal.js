@@ -3,11 +3,21 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swiper from "react-id-swiper";
 import { connect } from "react-redux";
+import { multilanguage } from "redux-multilanguage";
 import { getProductCartQuantity } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 // !DEL
-function ProductModal(props) {
-  const { product } = props;
+function ProductModal({
+  product,
+  currentLanguageCode,
+  wishlistitem,
+  addtocart,
+  addtowishlist,
+  addtoast,
+  cartitems,
+  show,
+  onHide,
+}) {
   // const { currency } = props;
   // const { discountedprice } = props;
   // const { finalproductprice } = props;
@@ -26,16 +36,8 @@ function ProductModal(props) {
   );
   const [quantityCount, setQuantityCount] = useState(1);
 
-  const wishlistItem = props.wishlistitem;
-
-  const addToCart = props.addtocart;
-  const addToWishlist = props.addtowishlist;
-
-  const addToast = props.addtoast;
-  const cartItems = props.cartitems;
-
   const productCartQty = getProductCartQuantity(
-    cartItems,
+    cartitems,
     product,
     selectedProductColor,
     selectedProductSize
@@ -88,8 +90,8 @@ function ProductModal(props) {
   return (
     <Fragment>
       <Modal
-        show={props.show}
-        onHide={props.onHide}
+        show={show}
+        onHide={onHide}
         className="product-quickview-modal-wrapper"
       >
         <Modal.Header closeButton></Modal.Header>
@@ -136,7 +138,11 @@ function ProductModal(props) {
             </div>
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
-                <h2>{product.name}</h2>
+                <h2>
+                  {currentLanguageCode === "ar"
+                    ? product.translations[0].name
+                    : product.translations[1].name}
+                </h2>
                 <div className="product-details-price">
                   {/* {discountedprice !== null ? (
                     <Fragment>
@@ -161,7 +167,11 @@ function ProductModal(props) {
                   ""
                 )}
                 <div className="pro-details-list">
-                  <p>{product.shortDescription}</p>
+                  <p>
+                    {currentLanguageCode === "ar"
+                      ? product.translations[0].description
+                      : product.translations[1].description}
+                  </p>
                 </div>
 
                 {product.variation ? (
@@ -288,9 +298,9 @@ function ProductModal(props) {
                       {productStock && productStock > 0 ? (
                         <button
                           onClick={() =>
-                            addToCart(
+                            addtocart(
                               product,
-                              addToast,
+                              addtoast,
                               quantityCount,
                               selectedProductColor,
                               selectedProductSize
@@ -307,14 +317,14 @@ function ProductModal(props) {
                     </div>
                     <div className="pro-details-wishlist">
                       <button
-                        className={wishlistItem !== undefined ? "active" : ""}
-                        disabled={wishlistItem !== undefined}
+                        className={wishlistitem !== undefined ? "active" : ""}
+                        disabled={wishlistitem !== undefined}
                         title={
-                          wishlistItem !== undefined
+                          wishlistitem !== undefined
                             ? "Added to wishlist"
                             : "Add to wishlist"
                         }
-                        onClick={() => addToWishlist(product, addToast)}
+                        onClick={() => addtowishlist(product, addtoast)}
                       >
                         <i className="pe-7s-like" />
                       </button>
@@ -353,4 +363,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ProductModal);
+export default connect(mapStateToProps)(multilanguage(ProductModal));

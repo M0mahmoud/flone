@@ -19,7 +19,12 @@ const ProductImageFixed = ({ product }) => {
 
       <div className="product-fixed-image">
         {product.image_path ? (
-          <img src={product.image_path} alt="IMAGEs" className="img-fluid" />
+          <img
+            src={product.image_path}
+            alt="IMAGEs"
+            className="img-fluid"
+            loading="lazy"
+          />
         ) : (
           ""
         )}
