@@ -30,8 +30,8 @@ const ProductDescriptionInfo = ({
     <div className="product-details-content ml-70">
       <h2>
         {currentLanguageCode === "ar"
-          ? product.translations[0].name
-          : product.translations[1].name}
+          ? product.translations[0]?.name
+          : product.translations[1]?.name}
       </h2>
       <div className="product-details-price">
         {/* {discountedPrice !== null ? (
@@ -57,18 +57,18 @@ const ProductDescriptionInfo = ({
       <div className="pro-details-list">
         <p>
           {currentLanguageCode === "ar"
-            ? product.translations[0].description
-            : product.translations[1].description}
+            ? product.translations[0]?.description
+            : product.translations[1]?.description}
         </p>
         <p>
           {currentLanguageCode === "ar"
-            ? product.translations[0].weight
-            : product.translations[1].weight}
+            ? product.translations[0]?.weight
+            : product.translations[1]?.weight}
         </p>
         <p>
           {currentLanguageCode === "ar"
-            ? product.translations[0].country_origin
-            : product.translations[1].country_origin}
+            ? product.translations[0]?.country_origin
+            : product.translations[1]?.country_origin}
         </p>
       </div>
 

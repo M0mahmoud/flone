@@ -139,9 +139,9 @@ function ProductModal({
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
                 <h2>
-                  {currentLanguageCode === "ar"
-                    ? product.translations[0].name
-                    : product.translations[1].name}
+                  {/* {currentLanguageCode === "ar"
+                    ? product.translations[0]?.name
+                    : product.translations[1]?.name} */}
                 </h2>
                 <div className="product-details-price">
                   {/* {discountedprice !== null ? (
@@ -168,9 +168,9 @@ function ProductModal({
                 )}
                 <div className="pro-details-list">
                   <p>
-                    {currentLanguageCode === "ar"
-                      ? product.translations[0].description
-                      : product.translations[1].description}
+                    {/* {currentLanguageCode === "ar"
+                      ? product.translations[0]?.description
+                      : product.translations[1]?.description} */}
                   </p>
                 </div>
 

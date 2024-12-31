@@ -1,7 +1,13 @@
-import PropTypes from "prop-types";
 import React from "react";
+import { multilanguage } from "redux-multilanguage";
 
-const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
+const SectionTitleWithText = ({
+  spaceTopClass,
+  spaceBottomClass,
+  strings,
+  allData,
+  currentLanguageCode,
+}) => {
   return (
     <div
       className={`welcome-area ${spaceTopClass ? spaceTopClass : ""} ${
@@ -10,13 +16,12 @@ const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
     >
       <div className="container">
         <div className="welcome-content text-center">
-          <h5>Who Are We</h5>
-          <h1>Welcome To Flone</h1>
+          <h5>{strings["who_are_we"]}</h5>
+          <h1>{strings["welcome_to_ajyal"]}</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt labor et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commo consequat irure{" "}
+            {currentLanguageCode !== "en"
+              ? allData?.about_us.en
+              : allData?.about_us.ar}
           </p>
         </div>
       </div>
@@ -24,9 +29,4 @@ const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
   );
 };
 
-SectionTitleWithText.propTypes = {
-  spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
-};
-
-export default SectionTitleWithText;
+export default multilanguage(SectionTitleWithText);

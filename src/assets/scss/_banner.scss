@@ -354,27 +354,19 @@
 
       margin: 0 0 36px;
 
-      letter-spacing: 4.3px;
-
       color: #000000;
       @media #{$lg-layout} {
         font-size: 20px;
 
         margin: 0 0 20px;
-
-        letter-spacing: 2.3px;
       }
       @media #{$md-layout} {
         font-size: 22px;
-
-        letter-spacing: 3.3px;
       }
       @media #{$xs-layout} {
         font-size: 20px;
 
         margin: 0 0 20px;
-
-        letter-spacing: 2.3px;
       }
     }
     > a {
@@ -646,7 +638,7 @@
       }
     }
     p {
-      font-family: $abrilfatface;
+      // font-family: $abrilfatface;
       font-size: 20px;
       line-height: 1;
 
@@ -1352,7 +1344,6 @@
     }
   }
 }
-
 
 .col-width-banner33-1 {
   position: relative;

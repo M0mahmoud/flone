@@ -92,8 +92,8 @@ const ProductGridListSingle = ({
             <h3>
               <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
                 {currentLanguageCode === "ar"
-                  ? product.translations[0].name
-                  : product.translations[1].name}
+                  ? product.translations[0]?.name
+                  : product.translations[1]?.name}
               </Link>
             </h3>
 
@@ -122,8 +122,8 @@ const ProductGridListSingle = ({
                       src={process.env.PUBLIC_URL + product.image_path}
                       alt={
                         currentLanguageCode === "ar"
-                          ? product.translations[0].name
-                          : product.translations[1].name
+                          ? product.translations[0]?.name
+                          : product.translations[1]?.name
                       }
                       loading="lazy"
                     />
@@ -148,8 +148,8 @@ const ProductGridListSingle = ({
                 <h3>
                   <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
                     {currentLanguageCode === "ar"
-                      ? product.translations[0].name
-                      : product.translations[1].name}
+                      ? product.translations[0]?.name
+                      : product.translations[1]?.name}
                   </Link>
                 </h3>
                 <div className="product-list-price">

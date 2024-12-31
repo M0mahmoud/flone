@@ -26,7 +26,7 @@ Renderer.propTypes = {
   days: PropTypes.number,
   hours: PropTypes.number,
   minutes: PropTypes.number,
-  seconds: PropTypes.number
+  seconds: PropTypes.number,
 };
 
 export default Renderer;

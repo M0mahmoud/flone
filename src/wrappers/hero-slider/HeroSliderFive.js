@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
+import "swiper/css/swiper.css"; // Import Swiper styles
 import axiosInstance from "../../api/api.js";
-import HeroSliderFiveSingle from "../../components/hero-slider/HeroSliderFiveSingle.js";
-// !DEL
+
 const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,57 +12,54 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axiosInstance.get("/sliders"); // API endpoint after base URL
-        setData(response.data || []); // Adjust this if your API response has a different structure
+        const response = await axiosInstance.get("/sliders");
+        setData(response.data || []); // Ensure response structure is correct
+        setLoading(false);
       } catch (err) {
         setLoading(false);
-        console.log("🚀 ~ fetchData ~ err:", err);
+        console.error("Error fetching data:", err);
       }
     };
+
     fetchData();
   }, []);
+
   const params = {
     effect: "fade",
-    loop: true,
+    loop: true, // Enable looping
     speed: 1000,
     autoplay: {
-      delay: 5000,
+      delay: 3500,
       disableOnInteraction: false,
     },
-    watchSlidesVisibility: true,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
-    renderPrevButton: () => (
-      <button className="swiper-button-prev ht-swiper-button-nav">
-        <i className="pe-7s-angle-left" />
-      </button>
-    ),
-    renderNextButton: () => (
-      <button className="swiper-button-next ht-swiper-button-nav">
-        <i className="pe-7s-angle-right" />
-      </button>
-    ),
   };
+
   return (
     <div
-      className={`slider-area ${spaceLeftClass ? spaceLeftClass : ""} ${
-        spaceRightClass ? spaceRightClass : ""
-      }`}
+      className={`slider-area ${spaceLeftClass || ""} ${spaceRightClass || ""}`}
     >
       <div className="slider-active nav-style-1">
-        <Swiper {...params}>
-          {loading
-            ? null
-            : data.map((single, key) => (
-                <HeroSliderFiveSingle
-                  data={single}
-                  key={key}
-                  sliderClass="swiper-slide"
-                />
-              ))}
-        </Swiper>
+        {loading || data.length === 0 ? (
+          <p>Loading slides...</p>
+        ) : (
+          <Swiper {...params}>
+            {data.map((single, key) => (
+              <div
+                key={key}
+                className="single-slider-2 slider-height-1 slider-height-res15 d-flex align-items-center slider-height-res bg-img"
+                style={{
+                  backgroundImage: `url(https://zaien.test.do-go.net/images/${single.image})`,
+                  minHeight: "80vh",
+                  backgroundPosition: "center",
+                }}
+              />
+            ))}
+          </Swiper>
+        )}
       </div>
     </div>
   );

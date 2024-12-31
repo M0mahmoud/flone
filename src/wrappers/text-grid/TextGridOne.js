@@ -1,9 +1,13 @@
-import PropTypes from "prop-types";
 import React from "react";
-import TextGridOneSingle from "../../components/text-grid/TextGridOneSingle.js";
-import textGridData from "../../data/text-grid/text-grid-one.json";
+import { multilanguage } from "redux-multilanguage";
+
 // !DEL
-const TextGridOne = ({ spaceBottomClass }) => {
+const TextGridOne = ({
+  spaceBottomClass,
+  allData,
+  currentLanguageCode,
+  strings,
+}) => {
   return (
     <div
       className={`about-mission-area ${
@@ -12,24 +16,42 @@ const TextGridOne = ({ spaceBottomClass }) => {
     >
       <div className="container">
         <div className="row">
-          {textGridData &&
-            textGridData.map((single, key) => {
-              return (
-                <TextGridOneSingle
-                  data={single}
-                  spaceBottomClass="mb-30"
-                  key={key}
-                />
-              );
-            })}
+          <div className="col-lg-4 col-md-4">
+            <div className={`single-mission mb-30`}>
+              <h3>{strings["our_vision"]}</h3>
+              <p>
+                {currentLanguageCode !== "en"
+                  ? allData?.vision.en
+                  : allData?.vision.ar}
+              </p>
+            </div>
+          </div>
+
+          <div className="col-lg-4 col-md-4">
+            <div className={`single-mission mb-30`}>
+              <h3>{strings["our_mission"]}</h3>
+              <p>
+                {currentLanguageCode !== "en"
+                  ? allData?.goal.en
+                  : allData?.goal.ar}
+              </p>
+            </div>
+          </div>
+
+          <div className="col-lg-4 col-md-4">
+            <div className={`single-mission mb-30`}>
+              <h3>{strings["our_goal"]}</h3>
+              <p>
+                {currentLanguageCode !== "en"
+                  ? allData?.mission.en
+                  : allData?.mission.ar}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-TextGridOne.propTypes = {
-  spaceBottomClass: PropTypes.string,
-};
-
-export default TextGridOne;
+export default multilanguage(TextGridOne);

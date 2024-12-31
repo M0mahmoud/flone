@@ -4,12 +4,10 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
-import LocationMap from "../../components/contact/LocationMap";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
 const Contact = ({ strings, currentLanguageCode }) => {
-  console.log("🚀 ~ Contact ~ currentLanguageCode:", currentLanguageCode);
   const [contactFormData, setContactFormData] = useState({
     name: "",
     email: "",
@@ -102,7 +100,19 @@ const Contact = ({ strings, currentLanguageCode }) => {
         <div className="contact-area pt-100 pb-100">
           <div className="container">
             <div className="contact-map mb-10">
-              <LocationMap latitude="47.444" longitude="-122.176" />
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22648.861673150106!2d31.489650380515496!3d30.58041192512891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7f044ed84e6db%3A0xc970f35c23cfc0a3!2sZagazig%2C%20El-Hariry%2C%20Zagazig%201%2C%20Al-Sharqia%20Governorate%2C%20Egypt!5e1!3m2!1sen!2sus!4v1735656148273!5m2!1sen!2sus"
+                width="1200"
+                height="500"
+                style={{
+                  border: 0,
+                  width:'100%'
+                }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="MAP"
+              ></iframe>
             </div>
             <div className="custom-row-2">
               <div className="col-lg-4 col-md-5">
@@ -112,15 +122,15 @@ const Contact = ({ strings, currentLanguageCode }) => {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="contact-info-dec">
-                      {mobiles?.map((el) => (
-                        <>
+                      {mobiles?.map((el, key) => (
+                        <div key={key}>
                           <p>{el.mobile}</p>
                           <p>
                             {currentLanguageCode === "en"
-                              ? el.translations[1].name
-                              : el.translations[0].name}
+                              ? el.translations[1]?.name
+                              : el.translations[0]?.name}
                           </p>
-                        </>
+                        </div>
                       ))}
                     </div>
                   </div>

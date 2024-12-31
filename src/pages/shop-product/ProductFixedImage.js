@@ -98,8 +98,8 @@ const ProductFixedImage = ({ location, currentLanguageCode }) => {
           spaceBottomClass="pb-90"
           productFullDesc={
             currentLanguageCode === "ar"
-              ? product.translations[0].description
-              : product.translations[1].description
+              ? product.translations[0]?.description
+              : product.translations[1]?.description
           }
         />
 

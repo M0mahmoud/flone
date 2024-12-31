@@ -7,7 +7,7 @@ import FeatureIconFour from "../../wrappers/feature-icon/FeatureIconFour";
 import HeroSliderFive from "../../wrappers/hero-slider/HeroSliderFive";
 import NewsletterTwo from "../../wrappers/newsletter/NewsletterTwo";
 import TabProductFour from "../../wrappers/product/TabProductFour";
-import TestimonialOne from "../../wrappers/testimonial/TestimonialOne";
+// import TestimonialOne from "../../wrappers/testimonial/TestimonialOne";
 // !DEL
 const HomeOrganicFood = () => {
   return (
@@ -48,19 +48,19 @@ const HomeOrganicFood = () => {
           spaceBottomClass="pb-95"
           dateTime="November 13, 2020 12:12:00"
         />
-        {/* testimonial */}
+        {/* testimonial
         <TestimonialOne
           spaceTopClass="pt-100"
           spaceBottomClass="pb-95"
           spaceLeftClass="ml-70"
           spaceRightClass="mr-70"
           bgColorClass="bg-gray-3"
-        />
+        /> */}
         {/* newsletter */}
         <NewsletterTwo
-          spaceTopClass="pt-100"
+          spaceTopClass=""
           spaceBottomClass="pb-100"
-          subscribeBtnClass="green-subscribe"
+          subscribeBtnClass=""
         />
       </LayoutThree>
     </Fragment>
