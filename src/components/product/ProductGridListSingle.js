@@ -1,25 +1,41 @@
-import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
+import {
+  addToWishlist,
+  deleteFromWishlist,
+} from "../../redux/actions/wishlistActions";
 import ProductModal from "./ProductModal";
 // !DEL // PRODUCTCARD
 const ProductGridListSingle = ({
   product,
   currency,
-  addToCart,
-  addToWishlist,
-  addToCompare,
   cartItem,
-  wishlistItem,
-  compareItem,
   sliderClassName,
   spaceBottomClass,
   currentLanguageCode,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
+  const [isFav, setIsFav] = useState(product.is_favorite);
+  const dispatch = useDispatch();
+  const handleWishlistToggle = () => {
+    if (isFav) {
+      // Remove from wishlist if it is already favorited
+      dispatch(deleteFromWishlist(product, addToast));
+      setIsFav((prev) => !prev);
+    } else {
+      // Add to wishlist if it is not yet favorited
+      dispatch(addToWishlist(product, addToast));
+      setIsFav((prev) => !prev);
+    }
+  };
+  const originalPrice = product.price;
+  const discountAmount = product.discount;
+  // Calculate discount percentage
+  const discountPercentage = (discountAmount / originalPrice) * 100;
 
   return (
     <Fragment>
@@ -38,27 +54,40 @@ const ProductGridListSingle = ({
                 src={process.env.PUBLIC_URL + product.image_path}
                 alt={product.name}
                 loading="lazy"
+                width={360}
+                height={360}
               />
             </Link>
+            {product.discount ? (
+              <div className="product-img-badges">
+                {product.discount ? (
+                  <span className="pink">-{discountPercentage}%</span>
+                ) : (
+                  ""
+                )}
+              </div>
+            ) : (
+              ""
+            )}
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
                 <button
-                  className={wishlistItem !== undefined ? "active" : ""}
-                  disabled={wishlistItem !== undefined}
-                  title={
-                    wishlistItem !== undefined
-                      ? "Added to wishlist"
-                      : "Add to wishlist"
-                  }
-                  onClick={() => addToWishlist(product, addToast)}
+                  className={!isFav ? "active" : ""}
+                  title={!isFav ? "Added to wishlist" : "Add to wishlist"}
+                  onClick={() => handleWishlistToggle()}
                 >
-                  <i className="pe-7s-like" />
+                  <i
+                    className={isFav ? "fa fa-heart" : "fa fa-heart-o"}
+                    style={{
+                      color: isFav ? "red" : "inherit",
+                    }}
+                  />
                 </button>
               </div>
               <div className="pro-same-action pro-cart">
                 {product.is_available ? (
                   <button
-                    onClick={() => addToCart(product, addToast)}
+                    // onClick={() => addToCart(product, addToast)}
                     className={
                       cartItem !== undefined && cartItem.quantity > 0
                         ? "active"
@@ -126,6 +155,8 @@ const ProductGridListSingle = ({
                           : product.translations[1]?.name
                       }
                       loading="lazy"
+                      width={360}
+                      height={360}
                     />
                   </Link>
                   {/* {product.discount || product.new ? (
@@ -185,7 +216,7 @@ const ProductGridListSingle = ({
                     <div className="shop-list-btn btn-hover">
                       {product.is_available ? (
                         <button
-                          onClick={() => addToCart(product, addToast)}
+                          // onClick={() => addToCart(product, addToast)}
                           className={
                             cartItem !== undefined && cartItem.quantity > 0
                               ? "active"
@@ -215,16 +246,16 @@ const ProductGridListSingle = ({
 
                     <div className="shop-list-wishlist ml-10">
                       <button
-                        className={wishlistItem !== undefined ? "active" : ""}
-                        disabled={wishlistItem !== undefined}
-                        title={
-                          wishlistItem !== undefined
-                            ? "Added to wishlist"
-                            : "Add to wishlist"
-                        }
-                        onClick={() => addToWishlist(product, addToast)}
+                        className={!isFav ? "active" : ""}
+                        title={!isFav ? "Added to wishlist" : "Add to wishlist"}
+                        onClick={() => handleWishlistToggle()}
                       >
-                        <i className="pe-7s-like" />
+                        <i
+                          className={isFav ? "fa fa-heart" : "fa fa-heart-o"}
+                          style={{
+                            color: isFav ? "red" : "inherit",
+                          }}
+                        />
                       </button>
                     </div>
                   </div>
@@ -244,28 +275,11 @@ const ProductGridListSingle = ({
         // finalproductprice={finalProductPrice}
         // finaldiscountedprice={finalDiscountedPrice}
         cartitem={cartItem}
-        wishlistitem={wishlistItem}
-        compareitem={compareItem}
-        addtocart={addToCart}
         addtowishlist={addToWishlist}
-        addtocompare={addToCompare}
         addtoast={addToast}
       />
     </Fragment>
   );
-};
-
-ProductGridListSingle.propTypes = {
-  addToCart: PropTypes.func,
-  addToCompare: PropTypes.func,
-  addToWishlist: PropTypes.func,
-  cartItem: PropTypes.object,
-  compareItem: PropTypes.object,
-  currency: PropTypes.object,
-  product: PropTypes.object,
-  sliderClassName: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
-  wishlistItem: PropTypes.object,
 };
 
 export default multilanguage(ProductGridListSingle);

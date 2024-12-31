@@ -5,6 +5,8 @@ import Tab from "react-bootstrap/Tab";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../api/api";
 import SectionTitleThree from "../../components/section-title/SectionTitleThree";
+import Product from "./Product";
+
 // import ProductGridTwo from "./ProductGridTwo";
 // !DEL
 const TabProductFour = ({ spaceBottomClass, productTabClass }) => {
@@ -127,68 +129,3 @@ TabProductFour.propTypes = {
 };
 
 export default TabProductFour;
-
-const Product = ({ product }) => (
-  <div key={product.id} className="col-xl-3 col-md-6 col-lg-4 col-sm-6">
-    <div className="product-wrap-2 mb-25">
-      {/* Product Image */}
-      <div className="product-img">
-        <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-          <img
-            className="default-img"
-            src={product.image_path}
-            alt={product.name}
-            loading="lazy"
-            width={270}
-            height={270}
-          />
-          {product.image && (
-            <img
-              className="hover-img"
-              src={product.image_path}
-              alt={product.name}
-              loading="lazy"
-              width={270}
-              height={270}
-            />
-          )}
-        </Link>
-        {product.promotion ? (
-          <div className="product-img-badges">
-            <span className="pink">-{product.promotion}%</span>
-          </div>
-        ) : null}
-      </div>
-      {/* Product Content */}
-      <div className="product-content-2">
-        {/* Title and Price */}
-        <div className="title-price-wrap-2">
-          <h3>
-            <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-              {product.name}
-            </Link>
-          </h3>
-          <div className="price-2">
-            {product.price > 0 ? (
-              <span>${product.price}</span>
-            ) : (
-              <span>Contact for price</span>
-            )}
-          </div>
-        </div>
-
-        {/* Wishlist */}
-        <div className="pro-wishlist-2">
-          <button
-            className={product.is_favorite ? "active" : ""}
-            title={
-              product.is_favorite ? "Added to wishlist" : "Add to wishlist"
-            }
-          >
-            <i className="fa fa-heart-o" />
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-);

@@ -2,9 +2,14 @@ import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swiper from "react-id-swiper";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
 import { getProductCartQuantity } from "../../helpers/product";
+import {
+  addToWishlist,
+  deleteFromWishlist,
+} from "../../redux/actions/wishlistActions";
 import Rating from "./sub-components/ProductRating";
 // !DEL
 function ProductModal({
@@ -22,7 +27,20 @@ function ProductModal({
   // const { discountedprice } = props;
   // const { finalproductprice } = props;
   // const { finaldiscountedprice } = props;
-
+  const [isFav, setIsFav] = useState(product.is_favorite);
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const handleWishlistToggle = () => {
+    if (isFav) {
+      // Remove from wishlist if it is already favorited
+      dispatch(deleteFromWishlist(product, addToast));
+      setIsFav((prev) => !prev);
+    } else {
+      // Add to wishlist if it is not yet favorited
+      dispatch(addToWishlist(product, addToast));
+      setIsFav((prev) => !prev);
+    }
+  };
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
   const [selectedProductColor, setSelectedProductColor] = useState(
@@ -139,9 +157,9 @@ function ProductModal({
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
                 <h2>
-                  {/* {currentLanguageCode === "ar"
+                  {currentLanguageCode === "ar"
                     ? product.translations[0]?.name
-                    : product.translations[1]?.name} */}
+                    : product.translations[1]?.name}
                 </h2>
                 <div className="product-details-price">
                   {/* {discountedprice !== null ? (
@@ -168,9 +186,9 @@ function ProductModal({
                 )}
                 <div className="pro-details-list">
                   <p>
-                    {/* {currentLanguageCode === "ar"
+                    {currentLanguageCode === "ar"
                       ? product.translations[0]?.description
-                      : product.translations[1]?.description} */}
+                      : product.translations[1]?.description}
                   </p>
                 </div>
 
@@ -317,16 +335,16 @@ function ProductModal({
                     </div>
                     <div className="pro-details-wishlist">
                       <button
-                        className={wishlistitem !== undefined ? "active" : ""}
-                        disabled={wishlistitem !== undefined}
-                        title={
-                          wishlistitem !== undefined
-                            ? "Added to wishlist"
-                            : "Add to wishlist"
-                        }
-                        onClick={() => addtowishlist(product, addtoast)}
+                        className={!isFav ? "active" : ""}
+                        title={!isFav ? "Added to wishlist" : "Add to wishlist"}
+                        onClick={() => handleWishlistToggle()}
                       >
-                        <i className="pe-7s-like" />
+                        <i
+                          className={isFav ? "fa fa-heart" : "fa fa-heart-o"}
+                          style={{
+                            color: isFav ? "red" : "inherit",
+                          }}
+                        />
                       </button>
                     </div>
                   </div>

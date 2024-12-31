@@ -12,8 +12,6 @@ const ProductGrid = ({
   addToWishlist,
   addToCompare,
   cartItems,
-  wishlistItems,
-  compareItems,
   sliderClassName,
   spaceBottomClass,
 }) => {
@@ -31,16 +29,6 @@ const ProductGrid = ({
             addToCompare={addToCompare}
             cartItem={
               cartItems.filter((cartItem) => cartItem.id === product.id)[0]
-            }
-            wishlistItem={
-              wishlistItems.filter(
-                (wishlistItem) => wishlistItem.id === product.id
-              )[0]
-            }
-            compareItem={
-              compareItems.filter(
-                (compareItem) => compareItem.id === product.id
-              )[0]
             }
             key={product.id}
           />

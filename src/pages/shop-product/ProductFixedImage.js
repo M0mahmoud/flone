@@ -5,13 +5,17 @@ import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
+
+import { multilanguage } from "redux-multilanguage";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
+import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 // import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 // !DEL
-const ProductFixedImage = ({ location, currentLanguageCode }) => {
+const ProductFixedImage = ({ location, currentLanguageCode, strings }) => {
   const [product, setProduct] = useState(null);
+  const [RelatedProduct, setRelatedProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { pathname } = location;
@@ -19,24 +23,12 @@ const ProductFixedImage = ({ location, currentLanguageCode }) => {
 
   useEffect(() => {
     const fetchProduct = async () => {
+      setLoading(true); // Start loading
+      setError(null); // Reset errors
       try {
         const response = await axiosInstance.get(`/item/${PRODUCT_ID}`);
-        setProduct(response.data);
-      } catch (error) {
-        console.error("Failed to fetch product", error);
-        // Optionally handle the error state
-      }
-    };
-
-    fetchProduct();
-  }, [PRODUCT_ID]);
-  useEffect(() => {
-    setLoading(true); // Start loading
-    setError(null); // Reset errors
-    const fetchProduct = async () => {
-      try {
-        const response = await axiosInstance.get(`/item/${PRODUCT_ID}`);
-        setProduct(response.data);
+        setProduct(response.data.item);
+        setRelatedProduct(response.data.related);
         setLoading(false); // Stop loading once data is received
       } catch (error) {
         console.error("Failed to fetch product", error);
@@ -69,16 +61,27 @@ const ProductFixedImage = ({ location, currentLanguageCode }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Product Page</title>
+        <title>
+          {" "}
+          {!loading && currentLanguageCode === "ar"
+            ? product?.translations[0]?.name
+            : product?.translations[1]?.name || ""}
+        </title>
         <meta
           name="description"
-          content="Product page of flone react minimalist eCommerce template."
+          content={
+            !loading && currentLanguageCode === "ar"
+              ? product?.translations[0]?.description
+              : product?.translations[1]?.description || ""
+          }
         />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["home"]}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Shop Product
+        {strings["shopProduct"]}
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -98,16 +101,16 @@ const ProductFixedImage = ({ location, currentLanguageCode }) => {
           spaceBottomClass="pb-90"
           productFullDesc={
             currentLanguageCode === "ar"
-              ? product.translations[0]?.description
-              : product.translations[1]?.description
+              ? product?.translations[0]?.description
+              : product?.translations[1]?.description
           }
         />
 
         {/* related product slider */}
-        {/* <RelatedProductSlider
+        <RelatedProductSlider
           spaceBottomClass="pb-95"
-          category={product.category[0]}
-        /> */}
+          category={RelatedProduct}
+        />
       </LayoutOne>
     </Fragment>
   );
@@ -124,8 +127,7 @@ const mapStateToProps = (state, ownProps) => {
     product: state.productData.products.filter(
       (single) => single.id === itemId
     )[0],
-    currentLanguageCode: state.multilanguage.currentLanguageCode,
   };
 };
 
-export default connect(mapStateToProps)(ProductFixedImage);
+export default connect(mapStateToProps)(multilanguage(ProductFixedImage));

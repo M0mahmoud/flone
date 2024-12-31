@@ -1,39 +1,36 @@
 import {
   ADD_TO_WISHLIST,
   DELETE_FROM_WISHLIST,
-  DELETE_ALL_FROM_WISHLIST
+  WISHLIST_FAILURE,
+  WISHLIST_FETCH,
 } from "../actions/wishlistActions";
 
 const initState = [];
 
 const wishlistReducer = (state = initState, action) => {
-  const wishlistItems = state,
-    product = action.payload;
+  switch (action.type) {
+    case WISHLIST_FETCH:
+      return action.payload;
+    case ADD_TO_WISHLIST:
+      if (!state.find((item) => item.id === action.payload.item.id)) {
+        return [
+          ...state,
+          { id: action.payload.item.id, message: action.payload.message },
+        ];
+      }
+      return state;
+    case DELETE_FROM_WISHLIST:
+      // Filter out the item that needs to be deleted
+      return state.filter((item) => item.id !== action.payload.item.id);
 
-  if (action.type === ADD_TO_WISHLIST) {
-    const wishlistItem = wishlistItems.filter(
-      item => item.id === product.id
-    )[0];
-    if (wishlistItem === undefined) {
-      return [...wishlistItems, product];
-    } else {
-      return wishlistItems;
-    }
+    case WISHLIST_FAILURE:
+      // Optionally handle failures, possibly logging or setting an error state
+      console.error("Wishlist operation failed:", action.payload);
+      return state;
+
+    default:
+      return state;
   }
-
-  if (action.type === DELETE_FROM_WISHLIST) {
-    const remainingItems = (wishlistItems, product) =>
-      wishlistItems.filter(wishlistItem => wishlistItem.id !== product.id);
-    return remainingItems(wishlistItems, product);
-  }
-
-  if (action.type === DELETE_ALL_FROM_WISHLIST) {
-    return wishlistItems.filter(item => {
-      return false;
-    });
-  }
-
-  return wishlistItems;
 };
 
 export default wishlistReducer;

@@ -2,25 +2,29 @@ import PropTypes from "prop-types";
 import React from "react";
 // !DEL
 const ProductImageFixed = ({ product }) => {
+  const originalPrice = product?.price;
+  const discountAmount = product?.discount;
+  // Calculate discount percentage
+  const discountPercentage = (discountAmount / originalPrice) * 100;
+
   return (
     <div className="product-large-image-wrapper">
-      {/* {product.discount || product.new ? (
+      {product?.discount || product?.new ? (
         <div className="product-img-badges">
-          {product.discount ? (
-            <span className="pink">-{product.discount}%</span>
+          {product?.discount ? (
+            <span className="pink">-{discountPercentage}%</span>
           ) : (
             ""
           )}
-          {product.new ? <span className="purple">New</span> : ""}
         </div>
       ) : (
         ""
-      )} */}
+      )}
 
       <div className="product-fixed-image">
-        {product.image_path ? (
+        {product?.image_path ? (
           <img
-            src={product.image_path}
+            src={product?.image_path}
             alt="IMAGEs"
             className="img-fluid"
             loading="lazy"
@@ -29,6 +33,13 @@ const ProductImageFixed = ({ product }) => {
           ""
         )}
       </div>
+      <img
+        src={product?.cover_path}
+        alt="COVER"
+        style={{
+          marginBlock: "50px",
+        }}
+      />
     </div>
   );
 };

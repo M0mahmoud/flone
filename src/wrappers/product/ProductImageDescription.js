@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import { useToasts } from "react-toast-notifications";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
 import ProductImageFixed from "../../components/product/ProductImageFixed";
 // !DEL
@@ -10,13 +9,7 @@ const ProductImageDescription = ({
   spaceBottomClass,
   product,
   cartItems,
-  wishlistItems,
 }) => {
-  const wishlistItem = wishlistItems.filter(
-    (wishlistItem) => wishlistItem.id === product.id
-  )[0];
-  const { addToast } = useToasts();
-
   return (
     <div
       className={`shop-area ${spaceTopClass ? spaceTopClass : ""} ${
@@ -30,12 +23,7 @@ const ProductImageDescription = ({
           </div>
           <div className="col-lg-6 col-md-6">
             {/* product description info */}
-            <ProductDescriptionInfo
-              product={product}
-              cartItems={cartItems}
-              wishlistItem={wishlistItem}
-              addToast={addToast}
-            />
+            <ProductDescriptionInfo product={product} cartItems={cartItems} />
           </div>
         </div>
       </div>
