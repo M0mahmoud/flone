@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
@@ -29,17 +28,6 @@ const ProductImageDescription = ({
       </div>
     </div>
   );
-};
-
-ProductImageDescription.propTypes = {
-  cartItems: PropTypes.array,
-  compareItems: PropTypes.array,
-  currency: PropTypes.object,
-  galleryType: PropTypes.string,
-  product: PropTypes.object,
-  spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string,
-  wishlistItems: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {

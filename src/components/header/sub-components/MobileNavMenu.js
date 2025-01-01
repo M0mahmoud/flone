@@ -14,19 +14,23 @@ const MobileNavMenu = ({ strings }) => {
           <Link to={process.env.PUBLIC_URL + "/shop"}>{strings["shop"]}</Link>
         </li>
         <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/"}>{strings["home"]}</Link>
+          <Link to={process.env.PUBLIC_URL + "/about"}>
+            {strings["about_us"]}
+          </Link>
+        </li>
+        <li className="menu-item-has-children">
+          <Link to={process.env.PUBLIC_URL + "/offers"}>
+            {strings["offers"]}
+          </Link>
+        </li>
+        <li className="menu-item-has-children">
+          <Link to={process.env.PUBLIC_URL + "/contact"}>
+            {strings["contact_us"]}
+          </Link>
         </li>
         <li className="menu-item-has-children">
           <Link to={process.env.PUBLIC_URL + "/wishlist"}>
             {strings["wishlist"]}
-          </Link>
-        </li>
-        <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/about"}>{strings["about"]}</Link>
-        </li>
-        <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/contact"}>
-            {strings["contact"]}
           </Link>
         </li>
       </ul>

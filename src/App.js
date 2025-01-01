@@ -12,6 +12,9 @@ const HomeOrganicFood = lazy(() => import("./pages/home/HomeOrganicFood"));
 
 // shop pages
 const ShopGridNoSidebar = lazy(() => import("./pages/shop/ShopGridNoSidebar"));
+const OffersGridNoSidebar = lazy(() =>
+  import("./pages/shop/OffersGridNoSidebar")
+);
 
 // product pages
 const ProductFixedImage = lazy(() =>
@@ -63,6 +66,7 @@ const App = (props) => {
 
                 {/* Shop pages */}
                 <Route path={"/shop"} component={ShopGridNoSidebar} />
+                <Route path={"/offers"} component={OffersGridNoSidebar} />
 
                 {/* Shop product pages */}
                 <Route path={"/product/:id"} component={ProductFixedImage} />

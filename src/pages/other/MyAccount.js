@@ -110,6 +110,33 @@ const MyAccount = ({ location, strings }) => {
     }
   };
 
+  const handleAddressChange = (index, e) => {
+    const updatedAddresses = user.addresses.map((address, i) => {
+      if (i === index) {
+        return { ...address, [e.target.name]: e.target.value };
+      }
+      return address;
+    });
+    setUser({ ...user, addresses: updatedAddresses });
+  };
+
+  const handleAddressSubmit = async (index, e) => {
+    e.preventDefault();
+    const address = user.addresses[index];
+    try {
+      const response = await axiosInstance.post(
+        `/user/addresses/edit/${address.id}`,
+        address
+      );
+      if (response.status === 200) {
+        addToast("Address updated successfully", { appearance: "success" });
+      }
+    } catch (error) {
+      console.error("Failed to update address:", error);
+      addToast("Failed to update address", { appearance: "error" });
+    }
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -281,34 +308,135 @@ const MyAccount = ({ location, strings }) => {
                             <div className="account-info-wrapper">
                               <h4>{strings["address_book_entries"]}</h4>
                             </div>
-                            <div className="entries-wrapper">
-                              <div className="row">
-                                <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                  <div className="entries-info text-center">
-                                    <p>John Doe</p>
-                                    <p>Paul Park </p>
-                                    <p>Lorem ipsum dolor set amet</p>
-                                    <p>NYC</p>
-                                    <p>New York</p>
+                            {user?.addresses?.map((address, index) => (
+                              <>
+                                <p>
+                                  <span>{index + 1} .</span> Address {index + 1}
+                                </p>
+                                <form
+                                  onSubmit={(e) =>
+                                    handleAddressSubmit(index, e)
+                                  }
+                                >
+                                  <div className="row">
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>{strings["first_name"]}</label>
+                                        <input
+                                          type="text"
+                                          name="f_name"
+                                          value={address.f_name}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>{strings["last_name"]}</label>
+                                        <input
+                                          type="text"
+                                          name="l_name"
+                                          value={address.l_name}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>{strings["country"]}</label>
+                                        <input
+                                          type="text"
+                                          name="country"
+                                          value={address.country}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>
+                                          {strings["street_address"]}
+                                        </label>
+                                        <input
+                                          placeholder={
+                                            strings["apartment_suite"]
+                                          }
+                                          type="text"
+                                          name="street"
+                                          value={address.street}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>{strings["town_city"]}</label>
+                                        <input
+                                          type="text"
+                                          name="city"
+                                          value={address.city}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>{strings["postcode_zip"]}</label>
+                                        <input
+                                          type="text"
+                                          name="zip"
+                                          value={address.zip}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>{strings["phone"]}</label>
+                                        <input
+                                          type="text"
+                                          name="phone"
+                                          value={address.phone}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-lg-6 col-md-6">
+                                      <div className="billing-info mb-20">
+                                        <label>
+                                          {strings["email_address"]}
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="email"
+                                          value={address.email}
+                                          onChange={(e) =>
+                                            handleAddressChange(index, e)
+                                          }
+                                        />
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
-                                  <div className="entries-edit-delete text-center">
-                                    <button className="edit">
-                                      {strings["edit"]}
-                                    </button>
-                                    <button>{strings["delete"]}</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="billing-back-btn">
-                              <div className="billing-btn">
-                                <button type="submit">
-                                  {strings["continue"]}
-                                </button>
-                              </div>
-                            </div>
+                                  <button type="submit" className="btn">
+                                    {strings["update"]}
+                                  </button>
+                                </form>
+                              </>
+                            ))}
                           </div>
                         </Card.Body>
                       </Accordion.Collapse>

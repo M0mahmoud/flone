@@ -12,7 +12,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ShopProducts from "../../wrappers/product/ShopProducts";
 import ShopTopbar from "../../wrappers/product/ShopTopbar";
 
-const ShopGridNoSidebar = ({ location, strings }) => {
+const OffersGridNoSidebar = ({ location, strings }) => {
   const [layout, setLayout] = useState("grid three-column");
   const [filterSortValue, setFilterSortValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,15 +30,16 @@ const ShopGridNoSidebar = ({ location, strings }) => {
 
   useEffect(() => {
     const fetchItems = async () => {
-      setLoading(true); // Set loading to false after fetching
+      setLoading(true); // Set loading to true before fetching
+
       try {
-        const response = await axiosInstance.get("/items", {
+        const response = await axiosInstance.get("/offers", {
           params: { sort: filterSortValue },
         });
-        if (response.data && Array.isArray(response.data)) {
-          setAllData(response.data);
+        if (response.data) {
+          setAllData(response.data.data);
           // Implement slicing to mimic pagination
-          setCurrentData(response.data.slice(offset, offset + pageLimit));
+          setCurrentData(response.data.data.slice(offset, offset + pageLimit));
         } else {
           setAllData([]);
           setCurrentData([]);
@@ -65,7 +66,7 @@ const ShopGridNoSidebar = ({ location, strings }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>{strings["shop"]}</title>
+        <title>{strings["offers"]}</title>
         <meta
           name="description"
           content="Shop page of flone react minimalist eCommerce template."
@@ -76,7 +77,7 @@ const ShopGridNoSidebar = ({ location, strings }) => {
         {strings["home"]}
       </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        {strings["shop"]}
+        {strings["offers"]}
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -119,9 +120,9 @@ const ShopGridNoSidebar = ({ location, strings }) => {
   );
 };
 
-ShopGridNoSidebar.propTypes = {
+OffersGridNoSidebar.propTypes = {
   location: PropTypes.object,
   products: PropTypes.array,
 };
 
-export default connect()(multilanguage(ShopGridNoSidebar));
+export default connect()(multilanguage(OffersGridNoSidebar));

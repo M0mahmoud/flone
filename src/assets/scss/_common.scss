@@ -1344,7 +1344,7 @@ input {
 
   width: 100%;
   height: 45px;
-  padding-left: 10px;
+  padding-inline-start: 10px;
 
   color: #333;
   border: 2px solid #eceff8;
@@ -1354,12 +1354,12 @@ input {
 
 select {
   font-size: 14px;
-
   width: 100%;
-
+  height: 45px;
   color: #333;
+  border: 2px solid #eceff8;
   border: 0 solid #eceff8;
-  background: transparent;
+  background: #eceff8;
   box-shadow: none;
 }
 
@@ -1959,4 +1959,38 @@ a.default-btn {
   to {
     transform: rotate(360deg);
   }
+}
+
+.address-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  input {
+    width: 20px;
+    margin-inline-end: 10px;
+    background-color: $theme-color;
+  }
+  label {
+    margin: 0 0 7px;
+    color: #000;
+    font-size: 15px;
+  }
+}
+
+.btn {
+  background-color: #f2f2f2;
+  border: medium none;
+  color: #000;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 16px 35px 17px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.btn:hover {
+  background: #008342;
+  color: #fff;
 }
