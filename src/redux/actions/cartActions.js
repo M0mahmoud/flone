@@ -1,80 +1,95 @@
+import axiosInstance from "../../api/api";
+
 export const ADD_TO_CART = "ADD_TO_CART";
-export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
+export const GET_CART = "GET_CART";
+export const UPDATE_QUANTITY = "UPDATE_QUANTITY"; // Replaces DECREASE_QUANTITY for clarity
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
+export const ERROR_CART = "ERROR_CART"; // Corrected the error action type
 
-//add to cart
-export const addToCart = (
-  item,
-  addToast,
-  quantityCount,
-  selectedProductColor,
-  selectedProductSize
-) => {
-  return dispatch => {
-    if (addToast) {
-      addToast("Added To Cart", { appearance: "success", autoDismiss: true });
-    }
-    dispatch({
-      type: ADD_TO_CART,
-      payload: {
-        ...item,
-        quantity: quantityCount,
-        selectedProductColor: selectedProductColor
-          ? selectedProductColor
-          : item.selectedProductColor
-          ? item.selectedProductColor
-          : null,
-        selectedProductSize: selectedProductSize
-          ? selectedProductSize
-          : item.selectedProductSize
-          ? item.selectedProductSize
-          : null
-      }
+// Get all items in the cart
+export const getCartItems = () => (dispatch) => {
+  axiosInstance
+    .get("/cart")
+    .then((response) => {
+      dispatch({ type: GET_CART, payload: response.data });
+    })
+    .catch((error) => {
+      dispatch({ type: ERROR_CART, payload: error });
     });
-  };
-};
-//decrease from cart
-export const decreaseQuantity = (item, addToast) => {
-  return dispatch => {
-    if (addToast) {
-      addToast("Item Decremented From Cart", {
-        appearance: "warning",
-        autoDismiss: true
-      });
-    }
-    dispatch({ type: DECREASE_QUANTITY, payload: item });
-  };
-};
-//delete from cart
-export const deleteFromCart = (item, addToast) => {
-  return dispatch => {
-    if (addToast) {
-      addToast("Removed From Cart", { appearance: "error", autoDismiss: true });
-    }
-    dispatch({ type: DELETE_FROM_CART, payload: item });
-  };
-};
-//delete all from cart
-export const deleteAllFromCart = addToast => {
-  return dispatch => {
-    if (addToast) {
-      addToast("Removed All From Cart", {
-        appearance: "error",
-        autoDismiss: true
-      });
-    }
-    dispatch({ type: DELETE_ALL_FROM_CART });
-  };
 };
 
-// get stock of cart item
-export const cartItemStock = (item, color, size) => {
-  if (item.stock) {
-    return item.stock;
-  } else {
-    return item.variation
-      .filter(single => single.color === color)[0]
-      .size.filter(single => single.name === size)[0].stock;
+// Add item to cart
+export const addToCart = (item, addToast, quantityCount) => (dispatch) => {
+  if (addToast) {
+    addToast("Added To Cart", { appearance: "success", autoDismiss: true });
   }
+  axiosInstance
+    .post("/add-to-cart", {
+      item_id: item.id,
+      qty: quantityCount,
+    })
+    .then((response) => {
+      dispatch({
+        type: ADD_TO_CART,
+        payload: { ...response.data, item, quantityCount },
+      });
+    })
+    .catch((error) => {
+      dispatch({ type: ERROR_CART, payload: error });
+    });
+};
+
+// Update quantity of an item in the cart
+export const updateQuantity = (item, addToast, quantityCount) => (dispatch) => {
+  if (addToast) {
+    addToast("Product Updated", { appearance: "warning", autoDismiss: true });
+  }
+  axiosInstance
+    .post("/update-qty-cart", {
+      item_id: item.item_id || item.id,
+      qty: quantityCount,
+    })
+    .then((response) => {
+      dispatch({
+        type: UPDATE_QUANTITY,
+        payload: { ...response.data, item, quantityCount },
+      });
+    })
+    .catch((error) => {
+      dispatch({ type: ERROR_CART, payload: error });
+    });
+};
+
+// Remove an item from the cart
+export const deleteFromCart = (item, addToast) => (dispatch) => {
+  if (addToast) {
+    addToast("Removed From Cart", { appearance: "error", autoDismiss: true });
+  }
+  axiosInstance
+    .post("/remove-from-cart", { item_id: item.id })
+    .then((response) => {
+      dispatch({ type: DELETE_FROM_CART, payload: { ...response.data, item } });
+    })
+    .catch((error) => {
+      dispatch({ type: ERROR_CART, payload: error });
+    });
+};
+
+// Delete all items from the cart
+export const deleteAllFromCart = (addToast) => (dispatch) => {
+  if (addToast) {
+    addToast("Removed All From Cart", {
+      appearance: "error",
+      autoDismiss: true,
+    });
+  }
+  axiosInstance
+    .post("/remove-all-cart")
+    .then((response) => {
+      dispatch({ type: DELETE_ALL_FROM_CART, payload: response.data });
+    })
+    .catch((error) => {
+      dispatch({ type: ERROR_CART, payload: error });
+    });
 };

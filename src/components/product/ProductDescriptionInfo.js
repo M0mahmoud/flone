@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
-// import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import {
   addToWishlist,
@@ -13,12 +12,10 @@ import {
 // !DEL
 const ProductDescriptionInfo = ({
   product,
-  cartItems,
   addToCart,
   currentLanguageCode,
   strings,
 }) => {
-  const [selectedProductSize] = useState("");
   const [quantityCount, setQuantityCount] = useState(1);
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(product?.is_favorite);
@@ -131,14 +128,7 @@ const ProductDescriptionInfo = ({
           <div className="pro-details-cart btn-hover">
             {product.is_available ? (
               <button
-                onClick={() =>
-                  addToCart(
-                    product,
-                    addToast,
-                    quantityCount,
-                    selectedProductSize
-                  )
-                }
+                onClick={() => addToCart(product, addToast, quantityCount)}
                 disabled={!product.is_available}
               >
                 {strings["addToCart"]}
@@ -183,22 +173,8 @@ ProductDescriptionInfo.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (
-      item,
-      addToast,
-      quantityCount,
-      selectedProductColor,
-      selectedProductSize
-    ) => {
-      dispatch(
-        addToCart(
-          item,
-          addToast,
-          quantityCount,
-          selectedProductColor,
-          selectedProductSize
-        )
-      );
+    addToCart: (item, addToast, quantityCount) => {
+      dispatch(addToCart(item, addToast, quantityCount));
     },
   };
 };

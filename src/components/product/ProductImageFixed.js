@@ -33,13 +33,16 @@ const ProductImageFixed = ({ product }) => {
           ""
         )}
       </div>
-      <img
-        src={product?.cover_path}
-        alt="COVER"
-        style={{
-          marginBlock: "50px",
-        }}
-      />
+      {product?.image_path && (
+        <img
+          src={product?.cover_path}
+          alt="COVER"
+          loading="lazy"
+          style={{
+            marginBlock: "50px",
+          }}
+        />
+      )}
     </div>
   );
 };

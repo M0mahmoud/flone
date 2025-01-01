@@ -1,41 +1,46 @@
-import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+// import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
-import { getDiscountPrice } from "../../helpers/product";
+import Loading from "../../components/Loading";
 import LayoutOne from "../../layouts/LayoutOne";
 import {
   addToCart,
-  cartItemStock,
-  decreaseQuantity,
   deleteAllFromCart,
   deleteFromCart,
+  getCartItems,
+  updateQuantity,
 } from "../../redux/actions/cartActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
 const Cart = ({
   location,
-  cartItems,
   currency,
-  decreaseQuantity,
-  addToCart,
-  deleteFromCart,
   deleteAllFromCart,
   strings,
+  currentLanguageCode,
 }) => {
-  const [quantityCount] = useState(1);
-  const { addToast } = useToasts();
   const { pathname } = location;
-  let cartTotalPrice = 0;
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const { items: cartItems, loading } = useSelector((state) => state.cartData);
 
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, [dispatch]);
+
+  if (loading) return <Loading />;
+  const cartTotalPrice = cartItems?.reduce((total, item) => {
+    return total + (item.price - item.discount) * item.pivot.qty; // Assuming each item contains a pivot object with qty property
+  }, 0);
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Cart</title>
+        <title>Flone | {strings["CART_Title"]}</title>
         <meta
           name="description"
           content="Cart page of flone react minimalist eCommerce template."
@@ -54,171 +59,34 @@ const Cart = ({
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
+            {cartItems && cartItems?.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your cart items</h3>
+                <h3 className="cart-page-title">
+                  {strings["CART_PAGE_TITLE"]}
+                </h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Qty</th>
-                            <th>Subtotal</th>
-                            <th>action</th>
+                            <th>{strings["CART_TABLE_IMAGE"]}</th>
+                            <th>{strings["CART_TABLE_PRODUCT_NAME"]}</th>
+                            <th>{strings["CART_TABLE_UNIT_PRICE"]}</th>
+                            <th>{strings["CART_TABLE_QTY"]}</th>
+                            <th>{strings["CART_TABLE_SUBTOTAL"]}</th>
+                            <th>{strings["CART_TABLE_ACTION"]}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {cartItems.map((cartItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              cartItem.price,
-                              cartItem.discount
-                            );
-                            const finalProductPrice = (
-                              cartItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
-
-                            discountedPrice != null
-                              ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
-                              : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
-                            return (
-                              <tr key={key}>
-                                <td className="product-thumbnail">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
-                                    }
-                                  >
-                                    <img
-                                      className="img-fluid"
-                                      src={
-                                        process.env.PUBLIC_URL +
-                                        cartItem.image[0]
-                                      }
-                                      alt=""
-                                    />
-                                  </Link>
-                                </td>
-
-                                <td className="product-name">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
-                                    }
-                                  >
-                                    {cartItem.name}
-                                  </Link>
-                                  {cartItem.selectedProductColor &&
-                                  cartItem.selectedProductSize ? (
-                                    <div className="cart-item-variation">
-                                      <span>
-                                        Color: {cartItem.selectedProductColor}
-                                      </span>
-                                      <span>
-                                        Size: {cartItem.selectedProductSize}
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    ""
-                                  )}
-                                </td>
-
-                                <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
-                                    <Fragment>
-                                      <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
-                                      </span>
-                                      <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
-                                      </span>
-                                    </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
-                                    </span>
-                                  )}
-                                </td>
-
-                                <td className="product-quantity">
-                                  <div className="cart-plus-minus">
-                                    <button
-                                      className="dec qtybutton"
-                                      onClick={() =>
-                                        decreaseQuantity(cartItem, addToast)
-                                      }
-                                    >
-                                      -
-                                    </button>
-                                    <input
-                                      className="cart-plus-minus-box"
-                                      type="text"
-                                      value={cartItem.quantity}
-                                      readOnly
-                                    />
-                                    <button
-                                      className="inc qtybutton"
-                                      onClick={() =>
-                                        addToCart(
-                                          cartItem,
-                                          addToast,
-                                          quantityCount
-                                        )
-                                      }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity &&
-                                        cartItem.quantity >=
-                                          cartItemStock(
-                                            cartItem,
-                                            cartItem.selectedProductColor,
-                                            cartItem.selectedProductSize
-                                          )
-                                      }
-                                    >
-                                      +
-                                    </button>
-                                  </div>
-                                </td>
-                                <td className="product-subtotal">
-                                  {discountedPrice !== null
-                                    ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
-                                    : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
-                                </td>
-
-                                <td className="product-remove">
-                                  <button
-                                    onClick={() =>
-                                      deleteFromCart(cartItem, addToast)
-                                    }
-                                  >
-                                    <i className="fa fa-times"></i>
-                                  </button>
-                                </td>
-                              </tr>
-                            );
-                          })}
+                          {!loading &&
+                            cartItems?.map((cartItem, key) => (
+                              <TR
+                                cartItem={cartItem}
+                                key={cartItem.id}
+                                currentLanguageCode={currentLanguageCode}
+                              />
+                            ))}
                         </tbody>
                       </table>
                     </div>
@@ -228,15 +96,13 @@ const Cart = ({
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                        >
-                          Continue Shopping
+                        <Link to={process.env.PUBLIC_URL + "/shop"}>
+                          {strings["CART_CONTINUE_SHOPPING"]}
                         </Link>
                       </div>
                       <div className="cart-clear">
                         <button onClick={() => deleteAllFromCart(addToast)}>
-                          Clear Shopping Cart
+                          {strings["CART_CLEAR_CART"]}
                         </button>
                       </div>
                     </div>
@@ -244,7 +110,7 @@ const Cart = ({
                 </div>
 
                 <div className="row">
-                  <div className="col-lg-4 col-md-6">
+                  {/* <div className="col-lg-4 col-md-6">
                     <div className="cart-tax">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
@@ -305,30 +171,30 @@ const Cart = ({
                         </form>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-lg-4 col-md-12">
                     <div className="grand-totall">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gary-cart">
-                          Cart Total
+                          {strings["CART_GRAND_TOTAL"]}
                         </h4>
                       </div>
                       <h5>
-                        Total products{" "}
+                        {strings["CART_TOTAL_PRODUCTS"]}{" "}
                         <span>
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
-                        Grand Total{" "}
+                        {strings["CART_GRAND_TOTAL"]}{" "}
                         <span>
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
                         </span>
                       </h4>
                       <Link to={process.env.PUBLIC_URL + "/checkout"}>
-                        Proceed to Checkout
+                        {strings["CART_PROCEED_TO_CHECKOUT"]}
                       </Link>
                     </div>
                   </div>
@@ -342,9 +208,9 @@ const Cart = ({
                       <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Shop Now
+                      {strings["CART_EMPTY_TITLE"]} <br />
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
+                        {strings["CART_EMPTY_BUTTON"]}
                       </Link>
                     </div>
                   </div>
@@ -356,16 +222,6 @@ const Cart = ({
       </LayoutOne>
     </Fragment>
   );
-};
-
-Cart.propTypes = {
-  addToCart: PropTypes.func,
-  cartItems: PropTypes.array,
-  currency: PropTypes.object,
-  decreaseQuantity: PropTypes.func,
-  location: PropTypes.object,
-  deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -380,14 +236,17 @@ const mapDispatchToProps = (dispatch) => {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
     },
-    decreaseQuantity: (item, addToast) => {
-      dispatch(decreaseQuantity(item, addToast));
+    updateQuantity: (item, addToast, quantityCount) => {
+      dispatch(updateQuantity(item, addToast, quantityCount));
     },
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
     },
     deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
+    },
+    getCartItems: () => {
+      dispatch(getCartItems());
     },
   };
 };
@@ -396,3 +255,89 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(multilanguage(Cart));
+
+const TR = ({ cartItem, currentLanguageCode }) => {
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const discountPercentage = (cartItem.discount / cartItem.price) * 100;
+
+  return (
+    <tr key={cartItem.id}>
+      <td className="product-thumbnail">
+        <Link to={process.env.PUBLIC_URL + "/product/" + cartItem.id}>
+          <img
+            className="img-fluid"
+            src={cartItem.image_path}
+            alt={cartItem.name}
+            width={110}
+            height={140}
+          />
+        </Link>
+      </td>
+
+      <td className="product-name">
+        <Link to={process.env.PUBLIC_URL + "/product/" + cartItem.id}>
+          {currentLanguageCode === "ar"
+            ? cartItem.translations[0]?.name
+            : cartItem.translations[1]?.name}
+        </Link>
+      </td>
+
+      <td className="product-price-cart">
+        {cartItem.price ? (
+          <div className="product-img-badges">
+            <span className="pink">{cartItem.price}</span>
+          </div>
+        ) : (
+          ""
+        )}
+      </td>
+
+      <td className="product-quantity">
+        <div className="cart-plus-minus">
+          <button
+            className="dec qtybutton"
+            onClick={() => {
+              dispatch(
+                updateQuantity(cartItem, addToast, cartItem.pivot.qty - 1)
+              );
+            }} // Directly increment the quantity
+            disabled={cartItem.pivot.qty <= 1} // Disable if quantity is 1 or less
+          >
+            -
+          </button>
+          <input
+            type="text"
+            className="cart-plus-minus-box"
+            value={cartItem.pivot.qty}
+            readOnly
+          />
+          <button
+            className="inc qtybutton"
+            onClick={() => {
+              dispatch(
+                updateQuantity(cartItem, addToast, cartItem.pivot.qty + 1)
+              );
+            }}
+            disabled={!cartItem.is_available}
+          >
+            +
+          </button>
+        </div>
+      </td>
+      <td className="product-subtotal">
+        {((cartItem.price - cartItem?.discount) * cartItem.pivot.qty).toFixed(
+          2
+        )}
+        <br />
+        <span className="purple">-{discountPercentage}%</span>
+      </td>
+
+      <td className="product-remove">
+        <button onClick={() => dispatch(deleteFromCart(cartItem, addToast))}>
+          <i className="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
+  );
+};

@@ -28,7 +28,11 @@ export default function Product({ product }) {
   const discountPercentage = (discountAmount / originalPrice) * 100;
 
   return (
-    <div key={product.id} className="col-xl-3 col-md-6 col-lg-4 col-sm-6">
+    <div
+      key={product.id}
+      className="col-xl-3 col-md-6 col-lg-4 col-sm-6"
+      style={{ minWidth: "250px" }}
+    >
       <div className="product-wrap-2 mb-25">
         {/* Product Image */}
         <div className="product-img">

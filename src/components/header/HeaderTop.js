@@ -11,6 +11,7 @@ const HeaderTop = ({
   currentLanguageCode,
   dispatch,
   borderStyle,
+  strings,
 }) => {
   return (
     <div
@@ -23,13 +24,12 @@ const HeaderTop = ({
         setCurrency={setCurrency}
         currentLanguageCode={currentLanguageCode}
         dispatch={dispatch}
+        strings={strings}
       />
       <div className="header-offer">
         <p>
-          Free delivery on order over{" "}
-          <span>
-            {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)}
-          </span>
+          {strings["free"]}
+          <span>{200}</span>
         </p>
       </div>
     </div>

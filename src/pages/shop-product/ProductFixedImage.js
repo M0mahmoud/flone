@@ -118,16 +118,6 @@ const ProductFixedImage = ({ location, currentLanguageCode, strings }) => {
 
 ProductFixedImage.propTypes = {
   location: PropTypes.object,
-  product: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const itemId = ownProps.match.params.id;
-  return {
-    product: state.productData.products.filter(
-      (single) => single.id === itemId
-    )[0],
-  };
-};
-
-export default connect(mapStateToProps)(multilanguage(ProductFixedImage));
+export default connect()(multilanguage(ProductFixedImage));

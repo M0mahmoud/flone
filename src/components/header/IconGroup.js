@@ -1,17 +1,23 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteFromCart } from "../../redux/actions/cartActions";
+import { deleteFromCart, getCartItems } from "../../redux/actions/cartActions";
+import { getWishlist } from "../../redux/actions/wishlistActions";
 import MenuCart from "./sub-components/MenuCart";
+
 // !DEL
 const IconGroup = ({
-  currency,
   cartData,
   wishlistData,
   deleteFromCart,
   iconWhiteClass,
 }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItems());
+    dispatch(getWishlist());
+  }, [dispatch]);
+
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -49,19 +55,19 @@ const IconGroup = ({
         </button>
         <div className="account-dropdown">
           <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
-              </Link>
-            </li>
+            {localStorage.getItem("authToken") ? (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                  my account
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                  Register
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -77,21 +83,17 @@ const IconGroup = ({
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
-            {cartData && cartData.length ? cartData.length : 0}
+            {cartData?.items.length ? cartData?.items.length : 0}
           </span>
         </button>
         {/* menu cart */}
-        <MenuCart
-          cartData={cartData}
-          currency={currency}
-          deleteFromCart={deleteFromCart}
-        />
+        <MenuCart cartData={cartData} deleteFromCart={deleteFromCart} />
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
-            {cartData && cartData.length ? cartData.length : 0}
+            {cartData?.items.length ? cartData?.items.length : 0}
           </span>
         </Link>
       </div>
@@ -107,21 +109,10 @@ const IconGroup = ({
   );
 };
 
-IconGroup.propTypes = {
-  cartData: PropTypes.array,
-  compareData: PropTypes.array,
-  currency: PropTypes.object,
-  iconWhiteClass: PropTypes.string,
-  deleteFromCart: PropTypes.func,
-  wishlistData: PropTypes.array,
-};
-
 const mapStateToProps = (state) => {
   return {
-    currency: state.currencyData,
     cartData: state.cartData,
     wishlistData: state.wishlistData,
-    compareData: state.compareData,
   };
 };
 

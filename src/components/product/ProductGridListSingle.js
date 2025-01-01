@@ -16,7 +16,9 @@ const ProductGridListSingle = ({
   sliderClassName,
   spaceBottomClass,
   currentLanguageCode,
+  addToCart,
 }) => {
+  console.log("🚀 ~ cartItem:", cartItem);
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
   const [isFav, setIsFav] = useState(product.is_favorite);
@@ -87,20 +89,20 @@ const ProductGridListSingle = ({
               <div className="pro-same-action pro-cart">
                 {product.is_available ? (
                   <button
-                    // onClick={() => addToCart(product, addToast)}
+                    onClick={() => addToCart(product, addToast, 1)}
                     className={
-                      cartItem !== undefined && cartItem.quantity > 0
+                      cartItem !== undefined && cartItem?.quantity > 0
                         ? "active"
                         : ""
                     }
-                    disabled={cartItem !== undefined && cartItem.quantity > 0}
+                    disabled={cartItem !== undefined && cartItem?.quantity > 0}
                     title={
                       cartItem !== undefined ? "Added to cart" : "Add to cart"
                     }
                   >
                     {" "}
                     <i className="pe-7s-cart"></i>{" "}
-                    {cartItem !== undefined && cartItem.quantity > 0
+                    {cartItem !== undefined && cartItem?.quantity > 0
                       ? "Added"
                       : "Add to cart"}
                   </button>
@@ -216,14 +218,14 @@ const ProductGridListSingle = ({
                     <div className="shop-list-btn btn-hover">
                       {product.is_available ? (
                         <button
-                          // onClick={() => addToCart(product, addToast)}
+                          onClick={() => addToCart(product, addToast, 1)}
                           className={
-                            cartItem !== undefined && cartItem.quantity > 0
+                            cartItem !== undefined && cartItem?.quantity > 0
                               ? "active"
                               : ""
                           }
                           disabled={
-                            cartItem !== undefined && cartItem.quantity > 0
+                            cartItem !== undefined && cartItem?.quantity > 0
                           }
                           title={
                             cartItem !== undefined
@@ -233,7 +235,7 @@ const ProductGridListSingle = ({
                         >
                           {" "}
                           <i className="pe-7s-cart"></i>{" "}
-                          {cartItem !== undefined && cartItem.quantity > 0
+                          {cartItem !== undefined && cartItem?.quantity > 0
                             ? "Added"
                             : "Add to cart"}
                         </button>
@@ -277,6 +279,7 @@ const ProductGridListSingle = ({
         cartitem={cartItem}
         addtowishlist={addToWishlist}
         addtoast={addToast}
+        addToCart={addToCart}
       />
     </Fragment>
   );

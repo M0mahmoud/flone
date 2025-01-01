@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { animateScroll } from "react-scroll";
+import { multilanguage } from "redux-multilanguage";
+import axiosInstance from "../../api/api";
 // !DEL
 const FooterTwo = ({
   backgroundColorClass,
@@ -13,7 +15,10 @@ const FooterTwo = ({
   footerTopSpaceBottomClass,
   footerLogo,
   backgroundImage,
+  currentLanguageCode,
+  strings,
 }) => {
+  const [footer, setFooter] = useState({});
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
 
@@ -23,6 +28,13 @@ const FooterTwo = ({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/settings")
+      .then((res) => setFooter(res.data))
+      .catch(() => setFooter({}));
   }, []);
 
   const scrollToTop = () => {
@@ -67,37 +79,29 @@ const FooterTwo = ({
             </Link>
           </div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim
+            {footer && currentLanguageCode === "ar"
+              ? footer?.settings?.translations[0]?.about_us
+              : footer?.settings?.translations[1]?.about_us}
           </p>
           <div className="footer-social">
             <ul>
-              <li>
-                <a href="//www.facebook.com">
-                  <i className="fa fa-facebook" />
-                </a>
-              </li>
-              <li>
-                <a href="//www.dribbble.com">
-                  <i className="fa fa-dribbble" />
-                </a>
-              </li>
-              <li>
-                <a href="//www.pinterest.com">
-                  <i className="fa fa-pinterest-p" />
-                </a>
-              </li>
-              <li>
-                <a href="//www.twitter.com">
-                  <i className="fa fa-twitter" />
-                </a>
-              </li>
-              <li>
-                <a href="//www.linkedin.com">
-                  <i className="fa fa-linkedin" />
-                </a>
-              </li>
+              {footer?.socails?.map((el, index) => (
+                <li key={el.id || index}>
+                  <a href={el.url} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={`https://zaien.test.do-go.net/images/${el.icon}`}
+                      alt={`Social media icon ${index + 1}`}
+                      className="social-media-icon"
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -116,9 +120,11 @@ const FooterTwo = ({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Flone
+                {footer && currentLanguageCode === "ar"
+                  ? footer?.settings?.translations[0]?.title
+                  : footer?.settings?.translations[1]?.title}
               </a>
-              . All Rights Reserved.
+              {strings["footerRights"]}
             </p>
           </div>
         </div>
@@ -145,4 +151,4 @@ FooterTwo.propTypes = {
   spaceRightClass: PropTypes.string,
 };
 
-export default FooterTwo;
+export default multilanguage(FooterTwo);

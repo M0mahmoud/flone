@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swiper from "react-id-swiper";
 import { connect, useDispatch } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
-import { getProductCartQuantity } from "../../helpers/product";
 import {
   addToWishlist,
   deleteFromWishlist,
@@ -15,18 +14,11 @@ import Rating from "./sub-components/ProductRating";
 function ProductModal({
   product,
   currentLanguageCode,
-  wishlistitem,
   addtocart,
-  addtowishlist,
   addtoast,
-  cartitems,
   show,
   onHide,
 }) {
-  // const { currency } = props;
-  // const { discountedprice } = props;
-  // const { finalproductprice } = props;
-  // const { finaldiscountedprice } = props;
   const [isFav, setIsFav] = useState(product.is_favorite);
   const { addToast } = useToasts();
   const dispatch = useDispatch();
@@ -53,13 +45,6 @@ function ProductModal({
     product.variation ? product.variation[0].size[0].stock : product.stock
   );
   const [quantityCount, setQuantityCount] = useState(1);
-
-  const productCartQty = getProductCartQuantity(
-    cartitems,
-    product,
-    selectedProductColor,
-    selectedProductSize
-  );
 
   useEffect(() => {
     if (
@@ -300,13 +285,13 @@ function ProductModal({
                         readOnly
                       />
                       <button
-                        onClick={() =>
-                          setQuantityCount(
-                            quantityCount < productStock - productCartQty
-                              ? quantityCount + 1
-                              : quantityCount
-                          )
-                        }
+                        // onClick={() =>
+                        //   setQuantityCount(
+                        //     quantityCount < productStock - productCartQty
+                        //       ? quantityCount + 1
+                        //       : quantityCount
+                        //   )
+                        // }
                         className="inc qtybutton"
                       >
                         +
@@ -316,15 +301,9 @@ function ProductModal({
                       {productStock && productStock > 0 ? (
                         <button
                           onClick={() =>
-                            addtocart(
-                              product,
-                              addtoast,
-                              quantityCount,
-                              selectedProductColor,
-                              selectedProductSize
-                            )
+                            addtocart(product, addtoast, quantityCount)
                           }
-                          disabled={productCartQty >= productStock}
+                          // disabled={productCartQty >= productStock}
                         >
                           {" "}
                           Add To Cart{" "}
@@ -358,22 +337,22 @@ function ProductModal({
   );
 }
 
-ProductModal.propTypes = {
-  addtoast: PropTypes.func,
-  addtocart: PropTypes.func,
-  addtocompare: PropTypes.func,
-  addtowishlist: PropTypes.func,
-  cartitems: PropTypes.array,
-  compareitem: PropTypes.object,
-  currency: PropTypes.object,
-  // discountedprice: PropTypes.number,
-  // finaldiscountedprice: PropTypes.number,
-  // finalproductprice: PropTypes.number,
-  onHide: PropTypes.func,
-  product: PropTypes.object,
-  show: PropTypes.bool,
-  wishlistitem: PropTypes.object,
-};
+// ProductModal.propTypes = {
+//   addtoast: PropTypes.func,
+//   addtocart: PropTypes.func,
+//   addtocompare: PropTypes.func,
+//   addtowishlist: PropTypes.func,
+//   cartitems: PropTypes.array,
+//   compareitem: PropTypes.object,
+//   currency: PropTypes.object,
+//   // discountedprice: PropTypes.number,
+//   // finaldiscountedprice: PropTypes.number,
+//   // finalproductprice: PropTypes.number,
+//   onHide: PropTypes.func,
+//   product: PropTypes.object,
+//   show: PropTypes.bool,
+//   wishlistitem: PropTypes.object,
+// };
 
 const mapStateToProps = (state) => {
   return {

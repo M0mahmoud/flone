@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import Swiper from "react-id-swiper";
 import { multilanguage } from "redux-multilanguage";
@@ -6,21 +5,24 @@ import Product from "./Product";
 
 const RelatedProductSlider = ({ spaceBottomClass, category, strings }) => {
   const settings = {
-    loop: false,
-    slidesPerView: 4,
-    grabCursor: true,
+    slidesPerView: 4, // Default number of slides per view
+    spaceBetween: 30, // Space between slides in px
+    loop: true, // Enables looping of slides
     breakpoints: {
-      1024: {
-        slidesPerView: 4,
+      320: {
+        // when window width is >= 320px
+        slidesPerView: 1,
+        spaceBetween: 20,
       },
       768: {
-        slidesPerView: 3,
-      },
-      640: {
+        // when window width is >= 768px
         slidesPerView: 2,
+        spaceBetween: 30,
       },
-      320: {
-        slidesPerView: 1,
+      1024: {
+        // when window width is >= 1024px
+        slidesPerView: 3,
+        spaceBetween: 40,
       },
     },
   };
@@ -38,18 +40,13 @@ const RelatedProductSlider = ({ spaceBottomClass, category, strings }) => {
         <div className="row">
           <Swiper {...settings}>
             {category.map((product) => (
-              <Product product={product} />
+              <Product product={product} key={product.id} />
             ))}
           </Swiper>
         </div>
       </div>
     </div>
   );
-};
-
-RelatedProductSlider.propTypes = {
-  category: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
 };
 
 export default multilanguage(RelatedProductSlider);

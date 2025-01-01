@@ -4,13 +4,14 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Paginator from "react-hooks-paginator";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
+import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ShopProducts from "../../wrappers/product/ShopProducts";
 import ShopTopbar from "../../wrappers/product/ShopTopbar";
 
-const ShopGridNoSidebar = ({ location }) => {
+const ShopGridNoSidebar = ({ location, strings }) => {
   const [layout, setLayout] = useState("grid three-column");
   const [filterSortValue, setFilterSortValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,16 +57,18 @@ const ShopGridNoSidebar = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Shop Page</title>
+        <title>{strings["shop"]}</title>
         <meta
           name="description"
           content="Shop page of flone react minimalist eCommerce template."
         />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["home"]}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Shop
+        {strings["shop"]}
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -113,10 +116,4 @@ ShopGridNoSidebar.propTypes = {
   products: PropTypes.array,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    products: state.productData.products,
-  };
-};
-
-export default connect(mapStateToProps)(ShopGridNoSidebar);
+export default connect()(multilanguage(ShopGridNoSidebar));

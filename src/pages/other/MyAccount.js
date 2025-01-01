@@ -5,11 +5,13 @@ import Card from "react-bootstrap/Card";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { useToasts } from "react-toast-notifications";
+import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
+import Loading from "../../components/Loading";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
-const MyAccount = ({ location }) => {
+const MyAccount = ({ location, strings }) => {
   const { pathname } = location;
   const [user, setUser] = useState({
     fname: "",
@@ -109,21 +111,23 @@ const MyAccount = ({ location }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | My Account</title>
+        <title>Ajyal | {strings["my_account"]}</title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["home"]}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        My Account
+        {strings["my_account"]}
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -138,7 +142,7 @@ const MyAccount = ({ location }) => {
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="0">
                           <h3 className="panel-title">
-                            <span>1 .</span> Edit your account information{" "}
+                            <span>1 .</span> {strings["edit_account_info"]}
                           </h3>
                         </Accordion.Toggle>
                       </Card.Header>
@@ -149,13 +153,13 @@ const MyAccount = ({ location }) => {
                             className="myaccount-info-wrapper"
                           >
                             <div className="account-info-wrapper">
-                              <h4>My Account Information</h4>
-                              <h5>Your Personal Details</h5>
+                              <h4>{strings["account_info"]}</h4>
+                              <h5>{strings["personal_details"]}</h5>
                             </div>
                             <div className="row">
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>First Name</label>
+                                  <label>{strings["first_name"]}</label>
                                   <input
                                     type="text"
                                     name="fname"
@@ -166,7 +170,7 @@ const MyAccount = ({ location }) => {
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Last Name</label>
+                                  <label>{strings["last_name"]}</label>
                                   <input
                                     type="text"
                                     name="lname"
@@ -177,7 +181,7 @@ const MyAccount = ({ location }) => {
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
-                                  <label>Email Address</label>
+                                  <label>{strings["email_address"]}</label>
                                   <input
                                     type="email"
                                     name="email"
@@ -188,7 +192,7 @@ const MyAccount = ({ location }) => {
                               </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Telephone</label>
+                                  <label>{strings["telephone"]}</label>
                                   <input
                                     type="text"
                                     name="phone"
@@ -200,7 +204,9 @@ const MyAccount = ({ location }) => {
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Update</button>
+                                <button type="submit">
+                                  {strings["update"]}
+                                </button>
                               </div>
                             </div>
                           </form>
@@ -211,7 +217,7 @@ const MyAccount = ({ location }) => {
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="1">
                           <h3 className="panel-title">
-                            <span>2 .</span> Change your password
+                            <span>2 .</span> {strings["change_password"]}
                           </h3>
                         </Accordion.Toggle>
                       </Card.Header>
@@ -222,13 +228,14 @@ const MyAccount = ({ location }) => {
                             className="myaccount-info-wrapper"
                           >
                             <div className="account-info-wrapper">
-                              <h4>Change Password</h4>
-                              <h5>Your Password</h5>
+                              <h4>{strings["change_password"]}</h4>
+                              <h5>{strings["password"]}</h5>
                             </div>
                             <div className="row">
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
-                                  <label>Password</label>
+                                  <label>{strings["password"]}</label>
+
                                   <input
                                     type="password"
                                     name="password"
@@ -239,7 +246,7 @@ const MyAccount = ({ location }) => {
                               </div>
                               <div className="col-lg-12 col-md-12">
                                 <div className="billing-info">
-                                  <label>Password Confirm</label>
+                                  <label>{strings["password_confirm"]}</label>
                                   <input
                                     type="password"
                                     name="confirmPassword"
@@ -251,7 +258,9 @@ const MyAccount = ({ location }) => {
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit">
+                                  {strings["continue"]}
+                                </button>
                               </div>
                             </div>
                           </form>
@@ -262,7 +271,7 @@ const MyAccount = ({ location }) => {
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="2">
                           <h3 className="panel-title">
-                            <span>3 .</span> Modify your address book entries{" "}
+                            <span>3 .</span> {strings["modify_address_book"]}
                           </h3>
                         </Accordion.Toggle>
                       </Card.Header>
@@ -270,7 +279,7 @@ const MyAccount = ({ location }) => {
                         <Card.Body>
                           <div className="myaccount-info-wrapper">
                             <div className="account-info-wrapper">
-                              <h4>Address Book Entries</h4>
+                              <h4>{strings["address_book_entries"]}</h4>
                             </div>
                             <div className="entries-wrapper">
                               <div className="row">
@@ -285,15 +294,19 @@ const MyAccount = ({ location }) => {
                                 </div>
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-edit-delete text-center">
-                                    <button className="edit">Edit</button>
-                                    <button>Delete</button>
+                                    <button className="edit">
+                                      {strings["edit"]}
+                                    </button>
+                                    <button>{strings["delete"]}</button>
                                   </div>
                                 </div>
                               </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
-                                <button type="submit">Continue</button>
+                                <button type="submit">
+                                  {strings["continue"]}
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -315,4 +328,4 @@ MyAccount.propTypes = {
   location: PropTypes.object,
 };
 
-export default MyAccount;
+export default multilanguage(MyAccount);
