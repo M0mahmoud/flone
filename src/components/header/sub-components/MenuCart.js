@@ -11,17 +11,17 @@ const MenuCart = ({
   strings,
 }) => {
   // Correctly calculate the total price using reduce to ensure it's calculated once and not in render method
-  const cartTotalPrice = cartData?.items.reduce((total, item) => {
+  const cartTotalPrice = cartData?.items?.reduce((total, item) => {
     return total + (item.price - item.discount) * item.pivot.qty;
   }, 0);
 
   const { addToast } = useToasts();
   return (
     <div className="shopping-cart-content">
-      {cartData && cartData?.items.length > 0 ? (
+      {cartData && cartData?.items?.length > 0 ? (
         <>
           <ul>
-            {cartData?.items.map((single, key) => {
+            {cartData?.items?.map((single, key) => {
               const itemTotalPrice =
                 (single.price - single.discount) * single.pivot.qty;
 
