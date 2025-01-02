@@ -57,7 +57,7 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
     };
 
     try {
-      const response = await axiosInstance.post("/checkout", checkoutData);
+      await axiosInstance.post("/checkout", checkoutData);
       // Handle successful checkout response
       addToast(strings["order_placed"], { appearance: "success" });
     } catch (error) {

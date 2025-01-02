@@ -1994,3 +1994,23 @@ a.default-btn {
   background: #008342;
   color: #fff;
 }
+
+.product-large-image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.product-img-badges .pink {
+  background: #ff6f61;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.zoom-lens {
+  z-index: 10;
+}
+
+.zoom-result {
+  z-index: 10;
+}

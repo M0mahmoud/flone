@@ -1,11 +1,29 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ReactImageMagnify from "react-image-magnify";
+
 // !DEL
 const ProductImageFixed = ({ product }) => {
   const originalPrice = product?.price;
   const discountAmount = product?.discount;
   // Calculate discount percentage
   const discountPercentage = (discountAmount / originalPrice) * 100;
+  const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false);
+
+    useEffect(() => {
+      const media = window.matchMedia(query);
+      setMatches(media.matches);
+
+      const listener = () => setMatches(media.matches);
+      media.addEventListener("change", listener);
+
+      return () => media.removeEventListener("change", listener);
+    }, [query]);
+
+    return matches;
+  };
+  const isMobileOrTablet = useMediaQuery("(max-width: 768px)");
 
   return (
     <div className="product-large-image-wrapper">
@@ -22,16 +40,44 @@ const ProductImageFixed = ({ product }) => {
       )}
 
       <div className="product-fixed-image">
-        {product?.image_path ? (
-          <img
-            src={product?.image_path}
-            alt="IMAGEs"
-            className="img-fluid"
-            loading="lazy"
-          />
-        ) : (
-          ""
-        )}
+        <div>
+          {!isMobileOrTablet ? (
+            <ReactImageMagnify
+              {...{
+                smallImage: {
+                  alt: "Wristwatch by Ted Baker London",
+                  isFluidWidth: true,
+                  src: product?.image_path,
+                },
+                largeImage: {
+                  src: product?.image_path,
+                  width: 600,
+                  height: 600,
+                },
+                lensStyle: {
+                  width: 50,
+                  height: 50,
+                  background: "hsla(0, 0%, 100%, .3)",
+                  border: "1px solid #ccc",
+                },
+              }}
+              style={{
+                zIndex: 9990,
+              }}
+            />
+          ) : (
+            // Fallback for mobile/tablet
+            <img
+              src={product?.image_path}
+              alt="Product"
+              className="w-full h-auto"
+              style={{
+                marginBlock: "50px",
+                width: "100%",
+              }}
+            />
+          )}
+        </div>
       </div>
       {product?.image_path && (
         <img
@@ -40,6 +86,7 @@ const ProductImageFixed = ({ product }) => {
           loading="lazy"
           style={{
             marginBlock: "50px",
+            width: "100%",
           }}
         />
       )}
