@@ -18,7 +18,6 @@ const ProductGridListSingle = ({
   currentLanguageCode,
   addToCart,
 }) => {
-  console.log("🚀 ~ cartItem:", cartItem);
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
   const [isFav, setIsFav] = useState(product.is_favorite);

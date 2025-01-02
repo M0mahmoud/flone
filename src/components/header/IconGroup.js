@@ -14,8 +14,10 @@ const IconGroup = ({
 }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCartItems());
-    dispatch(getWishlist());
+    if (localStorage.getItem("authToken")) {
+      dispatch(getCartItems());
+      dispatch(getWishlist());
+    }
   }, [dispatch]);
 
   const handleClick = (e) => {
