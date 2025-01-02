@@ -85,7 +85,7 @@ const IconGroup = ({
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
-            {cartData?.items.length ? cartData?.items.length : 0}
+            {cartData?.items?.length ? cartData?.items?.length : 0}
           </span>
         </button>
         {/* menu cart */}
@@ -95,7 +95,7 @@ const IconGroup = ({
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
-            {cartData?.items.length ? cartData?.items.length : 0}
+            {cartData?.items?.length ? cartData?.items?.length : 0}
           </span>
         </Link>
       </div>
