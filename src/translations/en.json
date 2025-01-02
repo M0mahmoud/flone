@@ -25,6 +25,7 @@
   "CART_GRAND_TOTAL": "Grand Total",
   "CART_PROCEED_TO_CHECKOUT": "Proceed to Checkout",
   "CART_EMPTY_TITLE": "No items found in cart",
+  "EMPTY_TITLE": "No items found",
   "CART_EMPTY_BUTTON": "Shop Now",
   "view_cart": "View Cart",
   "no_items_in_cart": "No items added to cart",
@@ -272,5 +273,8 @@
   "address_added_success": "Address added successfully.",
   "address_add_failed": "Failed to add new address. Please try again.",
   "place_order_with_points": "Place Order with Points",
-  "place_order_with_cod": "Place Order with Cash on Delivery"
+  "place_order_with_cod": "Place Order with Cash on Delivery",
+  "Checkoutsuccessful!": "Checkout successful!",
+  "Checkoutwasnotsuccessful": "Checkout was not successful. Please check your input.",
+  "Checkoutfailed": "Checkout failed. Please try again."
 }

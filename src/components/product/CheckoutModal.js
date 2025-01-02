@@ -1,6 +1,7 @@
 // import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
 // !DEL
@@ -10,8 +11,10 @@ function CheckoutModal({
   show,
   onHide,
   strings,
+  quantityCount,
 }) {
   const [deliveryFees, setDeliveryFees] = useState("");
+  const { addToast } = useToasts();
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -43,33 +46,39 @@ function CheckoutModal({
 
     // Prepare the payload for the checkout API request
     const checkoutData = {
-      product_id: product.id,
-      price: product.price,
-      delivery_fees: deliveryFees,
-      full_name: `${formData.fName} ${formData.lName}`,
-      phone: formData.phone,
+      f_name: formData.fName,
+      l_name: formData.lName,
       email: formData.email,
+      phone: formData.phone,
       country: formData.country,
       city: formData.city,
       zip: formData.zip,
       street: formData.street,
       notes: formData.notes,
-      type: "cod",
+      type: "cod", // assuming type 'cod' is needed by your backend
+      cart: [{ item_id: product.id, qty: quantityCount }],
     };
 
     try {
+      // Modify the endpoint if your base URL is already included in the axios instance configuration
       const response = await axiosInstance.post("/checkout", checkoutData);
       if (response.data.status === "success") {
-        // Handle success (e.g., show a success message, close modal, etc.)
-        alert("Checkout successful!");
-        onHide(); // Close the modal
+        // Handle success
+        addToast(strings["Checkoutsuccessful"], { appearance: "success" });
+        onHide(); // Assuming `onHide` is a function to close the modal or form
+      } else {
+        // If the response status is not success
+        addToast(strings["Checkoutwasnotsuccessful"], {
+          appearance: "error",
+        });
       }
     } catch (error) {
-      // Handle errors (e.g., validation errors, network issues)
+      // Handle errors
       console.error("Checkout failed", error);
-      alert("Checkout failed. Please try again.");
+      addToast(strings["Checkoutfailed"], { appearance: "error" });
     }
   };
+
   return (
     <Fragment>
       <Modal
@@ -78,12 +87,31 @@ function CheckoutModal({
         className="product-quickview-modal-wrapper"
         style={{
           direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+          zIndex: "9999999999999",
         }}
       >
         <Modal.Header closeButton>
           <Modal.Title>{strings["checkout_title"]}</Modal.Title>
         </Modal.Header>
         <div className="modal-body p-0">
+          <div className="d-flex  justify-content-between align-items-center">
+            <div className="d-flex gap-3 align-items-center">
+              <img
+                src={product?.image_path}
+                alt="Product Images"
+                width={100}
+                height={100}
+                className="rounded"
+              />
+              <p>
+                {currentLanguageCode === "ar"
+                  ? product.translations[0]?.name
+                  : product.translations[1].name}
+                <br />
+                {product.price} X {quantityCount}
+              </p>
+            </div>
+          </div>
           <form>
             <Modal.Body className="p-0">
               <div className="checkout-modal-content p-3">
@@ -191,7 +219,7 @@ function CheckoutModal({
                     <span>{strings["total"]}</span>
                     <span>
                       LE{" "}
-                      {parseFloat(product.price) +
+                      {parseFloat(product.price * quantityCount) +
                         parseFloat(deliveryFees || 0)}
                     </span>
                   </div>
@@ -200,7 +228,7 @@ function CheckoutModal({
               </div>
             </Modal.Body>
             <Modal.Footer className="d-flex flex-column gap-2">
-              <button className="btn btn-primary w-100">
+              <button onClick={handleSubmit} className="btn btn-primary w-100">
                 {strings["pay_on_delivery"]}
               </button>
             </Modal.Footer>

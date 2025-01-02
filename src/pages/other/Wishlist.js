@@ -24,6 +24,7 @@ const Wishlist = ({
   wishlistItems,
   deleteFromWishlist,
   currentLanguageCode,
+  strings,
 }) => {
   const { addToast } = useToasts();
   const { pathname } = location;
@@ -224,9 +225,9 @@ const Wishlist = ({
                       <i className="pe-7s-like"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Add Items
+                      {strings["EMPTY_TITLE"]} <br />{" "}
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
+                        {strings["shop"]}
                       </Link>
                     </div>
                   </div>

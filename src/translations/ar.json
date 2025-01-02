@@ -25,6 +25,7 @@
   "CART_GRAND_TOTAL": "الإجمالي الكلي",
   "CART_PROCEED_TO_CHECKOUT": "الذهاب للدفع",
   "CART_EMPTY_TITLE": "لم يتم العثور على عناصر في السلة",
+  "EMPTY_TITLE": "لم يتم العثور على عناصر",
   "CART_EMPTY_BUTTON": "تسوق الآن",
   "view_cart": "عرض السلة",
   "no_items_in_cart": "لم يتم إضافة أي عناصر إلى السلة",
@@ -273,5 +274,8 @@
   "address_added_success": "تم إضافة العنوان بنجاح.",
   "address_add_failed": "فشل في إضافة العنوان. حاول مجدداً.",
   "place_order_with_points": "إتمام الطلب بالنقاط",
-  "place_order_with_cod": "إتمام الطلب عند الاستلام"
+  "place_order_with_cod": "إتمام الطلب عند الاستلام",
+  "Checkoutsuccessful": "تم الدفع بنجاح!",
+  "Checkoutwasnotsuccessful": "لم ينجح الدفع. يرجى التحقق من بياناتك.",
+  "Checkoutfailed": "فشل الدفع. يرجى المحاولة مرة أخرى."
 }

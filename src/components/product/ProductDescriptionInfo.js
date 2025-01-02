@@ -176,6 +176,7 @@ const ProductDescriptionInfo = ({
         product={product}
         currentLanguageCode={currentLanguageCode}
         strings={strings}
+        quantityCount={quantityCount}
       />
     </>
   );
