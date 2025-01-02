@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import { Link } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
 import SectionTitleThree from "../../components/section-title/SectionTitleThree";
 import Product from "./Product";
 
 // import ProductGridTwo from "./ProductGridTwo";
 // !DEL
-const TabProductFour = ({ spaceBottomClass, productTabClass }) => {
+const TabProductFour = ({ spaceBottomClass, productTabClass, strings }) => {
   const [activeTab, setActiveTab] = useState("bestSeller"); // Default active tab
   const [productsData, setProductsData] = useState({
     newArrival: [],
@@ -55,7 +56,7 @@ const TabProductFour = ({ spaceBottomClass, productTabClass }) => {
     <div className={`product-area ${spaceBottomClass ? spaceBottomClass : ""}`}>
       <div className="container">
         <SectionTitleThree
-          titleText="Featured Product"
+          titleText={strings["featuredProduct"]}
           positionClass="text-center"
         />
         <Tab.Container
@@ -70,26 +71,22 @@ const TabProductFour = ({ spaceBottomClass, productTabClass }) => {
           >
             <Nav.Item>
               <Nav.Link eventKey="newArrival">
-                <h4>New Arrivals</h4>
+                <h4>{strings["newArrivals"]}</h4>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="bestSeller">
-                <h4>Best Sellers</h4>
+                <h4>{strings["bestSellers"]}</h4>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="saleItems">
-                <h4>Sale Items</h4>
+                <h4>{strings["saleItems"]}</h4>
               </Nav.Link>
             </Nav.Item>
           </Nav>
           <Tab.Content>
-            {loading && (
-              <div className="loading-spinner">
-                <p>Loading...</p>
-              </div>
-            )}
+            {loading && <div className="loading-spinner"></div>}
             <Tab.Pane eventKey="newArrival">
               <div className="row">
                 {products.map((product) => (
@@ -115,7 +112,7 @@ const TabProductFour = ({ spaceBottomClass, productTabClass }) => {
         </Tab.Container>
         <div className="view-more text-center mt-20 toggle-btn6 col-12">
           <Link className="loadMore6" to={process.env.PUBLIC_URL + "/shop"}>
-            VIEW MORE PRODUCTS
+            {strings["viewMoreProducts"]}
           </Link>
         </div>
       </div>
@@ -128,4 +125,4 @@ TabProductFour.propTypes = {
   spaceBottomClass: PropTypes.string,
 };
 
-export default TabProductFour;
+export default multilanguage(TabProductFour);
