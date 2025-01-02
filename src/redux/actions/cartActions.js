@@ -21,6 +21,10 @@ export const getCartItems = () => (dispatch) => {
 
 // Add item to cart
 export const addToCart = (item, addToast, quantityCount) => (dispatch) => {
+  if (!localStorage.getItem("authToken")) {
+    addToast("Must Login", { appearance: "warning", autoDismiss: true });
+    return;
+  }
   if (addToast) {
     addToast("Added To Cart", { appearance: "success", autoDismiss: true });
   }

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import FooterTwo from "../wrappers/footer/FooterTwo";
 import HeaderOne from "../wrappers/header/HeaderOne";
+import FixedFooter from "./FixedFooter";
 // !DEL
 const LayoutThree = ({
   children,
@@ -29,6 +30,7 @@ const LayoutThree = ({
         copyrightColorClass="copyright-gray"
         footerLogo="/assets/img/logo/logo.png"
       />
+      <FixedFooter />
     </Fragment>
   );
 };

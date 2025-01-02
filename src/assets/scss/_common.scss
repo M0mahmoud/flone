@@ -2014,3 +2014,22 @@ a.default-btn {
 .zoom-result {
   z-index: 10;
 }
+
+.new-footer {
+  background-color: #fff;
+  padding: 10px 0;
+  .row {
+    justify-content: space-between;
+    padding: 0 30px;
+    a {
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  @media (min-width: 768px) {
+    display: none;
+  }
+}

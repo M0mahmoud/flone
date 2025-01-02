@@ -9,6 +9,10 @@ export const WISHLIST_FETCH = "WISHLIST_FETCH";
 // add to wishlist
 export const addToWishlist = (item, addToast) => {
   return (dispatch) => {
+    if (!localStorage.getItem("authToken")) {
+      addToast("Must Login", { appearance: "warning", autoDismiss: true });
+      return;
+    }
     if (addToast) {
       addToast("Added To Wishlist", {
         appearance: "success",
