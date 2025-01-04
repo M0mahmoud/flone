@@ -158,7 +158,7 @@
       li {
         position: relative;
 
-        margin-right: 10px;
+        margin-inline-end: 10px;
         a {
           font-size: 15px;
 
@@ -178,7 +178,7 @@
     ul {
       display: flex;
       li {
-        margin-left: 10px;
+        margin-inline-start: 10px;
         a {
           font-size: 16px;
         }
@@ -233,9 +233,9 @@
     .blog-comment-img {
       flex: 0 0 120px;
 
-      margin-right: 28px;
+      margin-inline-end: 28px;
       @media #{$xs-layout} {
-        margin-right: 28px;
+        margin-inline-end: 28px;
         margin-bottom: 20px;
       }
       img {
@@ -276,7 +276,7 @@
     }
     &.ml-120 {
       @media #{$xs-layout} {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
     }
   }
@@ -308,7 +308,7 @@
       input {
         height: 45px;
         margin-bottom: 30px;
-        padding-left: 20px;
+        padding-inline-start: 20px;
 
         color: #333;
         border: 1px solid #eaeaea;
@@ -321,7 +321,7 @@
         height: 250px;
         margin-bottom: 20px;
         padding-top: 20px;
-        padding-left: 20px;
+        padding-inline-start: 20px;
 
         color: #333;
         border: 1px solid #eaeaea;

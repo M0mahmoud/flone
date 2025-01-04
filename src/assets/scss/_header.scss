@@ -117,12 +117,12 @@
     @media #{$md-layout} {
       margin-top: 0;
 
-      text-align: left !important;
+      text-align: start !important;
     }
     @media #{$xs-layout} {
       margin-top: 0;
 
-      text-align: left !important;
+      text-align: start !important;
     }
   }
 }
@@ -173,7 +173,7 @@
           li {
             display: block;
 
-            margin-left: 0;
+            margin-inline-start: 0;
             padding: 0 20px;
             a {
               font-size: 13px;
@@ -184,7 +184,7 @@
 
               padding-top: 0;
 
-              text-align: left;
+              text-align: start;
               text-transform: capitalize;
 
               color: #333;
@@ -212,7 +212,7 @@
               opacity: 1;
             }
             &:hover a {
-              padding-left: 12px;
+              padding-inline-start: 12px;
             }
           }
         }
@@ -231,7 +231,7 @@
           transition: all 0.5s ease 0s;
           transform: rotateX(90deg);
           transform-origin: center top 0;
-          text-align: left;
+          text-align: start;
 
           background-color: #fff;
           box-shadow: 0 1px 7px -2px rgba(0, 0, 0, 0.3);
@@ -243,7 +243,7 @@
             float: left;
 
             width: 33.33%;
-            margin-left: 0;
+            margin-inline-start: 0;
             padding: 0;
             ul {
               li.mega-menu-title {
@@ -264,7 +264,7 @@
                   }
                 }
                 &:hover a {
-                  padding-left: 0;
+                  padding-inline-start: 0;
                 }
               }
               li {
@@ -281,7 +281,7 @@
 
                   padding-top: 0;
 
-                  text-align: left;
+                  text-align: start;
                   text-transform: capitalize;
 
                   color: #333;
@@ -307,7 +307,7 @@
                 }
                 &.mega-menu-img {
                   &:hover a {
-                    padding-left: 0;
+                    padding-inline-start: 0;
                   }
                   a {
                     &::before {
@@ -319,7 +319,7 @@
                   opacity: 1;
                 }
                 &:hover a {
-                  padding-left: 12px;
+                  padding-inline-start: 12px;
                 }
               }
             }
@@ -363,7 +363,7 @@
             position: relative;
             top: 0;
 
-            margin-left: 1px;
+            margin-inline-start: 1px;
           }
         }
         &:hover a {
@@ -375,7 +375,7 @@
   &.menu-white {
     nav {
       ul {
-        text-align: left;
+        text-align: start;
         li {
           padding: 0 30px 0 0;
           @media #{$xx-layout} {
@@ -436,10 +436,6 @@
   }
 }
 
-
-
-
-
 .header-right-wrap {
   display: flex;
   justify-content: flex-end;
@@ -454,15 +450,15 @@
   .same-style {
     position: relative;
 
-    margin-left: 14px;
+    margin-inline-start: 14px;
     @media #{$lg-layout} {
-      margin-left: 10px;
+      margin-inline-start: 10px;
     }
     @media #{$md-layout} {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
     @media #{$xs-layout} {
-      margin-left: 20px;
+      margin-inline-start: 20px;
     }
     > a,
     button {
@@ -475,7 +471,7 @@
       background: none;
     }
     &:first-child {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &:hover > a,
     &:hover > button {
@@ -495,7 +491,7 @@
       transition: all 0.5s ease 0s;
       transform: rotateX(90deg);
       transform-origin: center top 0;
-      text-align: left;
+      text-align: start;
 
       opacity: 0;
       background: #fff none repeat scroll 0 0;
@@ -537,7 +533,7 @@
 
             color: #000;
             &:hover {
-              padding-left: 5px;
+              padding-inline-start: 5px;
 
               color: $theme-color;
             }
@@ -560,15 +556,15 @@
   .same-style.cart-wrap,
   .same-style.header-wishlist,
   .same-style.header-compare {
-    margin-left: 15px;
+    margin-inline-start: 15px;
     @media #{$lg-layout} {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
     @media #{$md-layout} {
-      margin-left: 20px;
+      margin-inline-start: 20px;
     }
     @media #{$xs-layout} {
-      margin-left: 20px;
+      margin-inline-start: 20px;
     }
     button,
     & > a {
@@ -663,9 +659,9 @@
         overflow-y: auto;
 
         max-height: 400px;
-        margin-right: -15px;
+        margin-inline-end: -15px;
         padding-top: 20px;
-        padding-right: 15px;
+        padding-inline-end: 15px;
         li {
           position: relative;
 
@@ -679,7 +675,7 @@
           .shopping-cart-img {
             flex: 0 0 82px;
 
-            margin-right: 15px;
+            margin-inline-end: 15px;
           }
           .shopping-cart-title {
             h4 {
@@ -687,7 +683,7 @@
               line-height: 16px;
 
               margin: 0;
-              margin-right: 20px;
+              margin-inline-end: 20px;
               a {
                 line-height: 1.2;
 
@@ -939,7 +935,6 @@
   }
 }
 
-
 /* header 3 */
 
 .header-padding-2 .container-fluid {
@@ -1008,9 +1003,9 @@
   .same-language-currency {
     position: relative;
 
-    margin-right: 54px;
+    margin-inline-end: 54px;
     @media #{$xs-layout} {
-      margin-right: 15px;
+      margin-inline-end: 15px;
     }
     &:before {
       position: absolute;
@@ -1032,7 +1027,7 @@
       display: none;
     }
     &:last-child {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     span {
       line-height: 54px;
@@ -1074,7 +1069,7 @@
       transition: all 0.5s ease 0s;
       transform: rotateX(90deg);
       transform-origin: center top 0;
-      text-align: left;
+      text-align: start;
 
       opacity: 0;
       background: #fff none repeat scroll 0 0;
@@ -1249,27 +1244,25 @@
 }
 
 .home-sidebar-right {
-  margin-left: 375px;
+  margin-inline-start: 375px;
 
-  border-left: 1px solid #efefef;
+  border-inline-start: 1px solid #efefef;
   @media #{$xx-layout} {
-    margin-left: 300px;
+    margin-inline-start: 300px;
   }
   @media #{$xl-layout} {
-    margin-left: 280px;
+    margin-inline-start: 280px;
   }
   @media #{$lg-layout} {
-    margin-left: 250px;
+    margin-inline-start: 250px;
   }
   @media #{$md-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   @media #{$xs-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
-
-
 
 .sidebar-menu {
   padding: 0 0 0 108px;
@@ -1332,7 +1325,7 @@
           li {
             display: block;
 
-            margin-left: 0;
+            margin-inline-start: 0;
             padding: 0 20px;
             a {
               font-size: 13px;
@@ -1343,7 +1336,7 @@
 
               padding-top: 0;
 
-              text-align: left;
+              text-align: start;
               text-transform: capitalize;
 
               color: #333;
@@ -1371,7 +1364,7 @@
               opacity: 1;
             }
             &:hover a {
-              padding-left: 12px;
+              padding-inline-start: 12px;
             }
           }
         }
@@ -1395,7 +1388,7 @@
           transition: all 0.5s ease 0s;
           transform: rotateX(90deg);
           transform-origin: center top 0;
-          text-align: left;
+          text-align: start;
 
           background-color: #fff;
           box-shadow: 0 1px 7px -2px rgba(0, 0, 0, 0.3);
@@ -1413,7 +1406,7 @@
             float: left;
 
             width: 33.33%;
-            margin-left: 0;
+            margin-inline-start: 0;
             padding: 0;
             ul {
               li.mega-menu-title {
@@ -1434,7 +1427,7 @@
                   }
                 }
                 &:hover a {
-                  padding-left: 0;
+                  padding-inline-start: 0;
                 }
               }
               li {
@@ -1451,7 +1444,7 @@
 
                   padding-top: 0;
 
-                  text-align: left;
+                  text-align: start;
                   text-transform: capitalize;
 
                   color: #333;
@@ -1477,7 +1470,7 @@
                 }
                 &.mega-menu-img {
                   &:hover a {
-                    padding-left: 0;
+                    padding-inline-start: 0;
                   }
                   a {
                     &::before {
@@ -1489,7 +1482,7 @@
                   opacity: 1;
                 }
                 &:hover a {
-                  padding-left: 12px;
+                  padding-inline-start: 12px;
                 }
               }
             }
@@ -1525,7 +1518,7 @@
           span {
             float: right;
 
-            padding-right: 20px;
+            padding-inline-end: 20px;
           }
         }
         &:hover a {
@@ -1536,7 +1529,6 @@
   }
 }
 
-
 .header-hm4-none {
   display: none;
   @media #{$xs-layout} {
@@ -1546,7 +1538,6 @@
     display: block;
   }
 }
-
 
 /* home 5 */
 
@@ -1586,8 +1577,6 @@
   }
 }
 
-
-
 /* home 7 */
 
 .clickable-mainmenu {
@@ -1614,7 +1603,7 @@
   }
 
   .sidebar-menu {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 }
 .clickable-mainmenu {
@@ -1698,7 +1687,7 @@
 
         margin: 0 30px 0 0;
         &:last-child {
-          margin-right: 0;
+          margin-inline-end: 0;
         }
         &:before {
           position: absolute;
@@ -1769,8 +1758,6 @@
   }
 }
 
-
-
 .header-hm-7.stick {
   .clickable-menu {
     margin-top: 19px;
@@ -1823,10 +1810,10 @@
 .header-hm-7 {
   .header-right-wrap {
     @media #{$md-layout} {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     @media #{$xs-layout} {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     .same-style {
       &.cart-wrap {
@@ -1847,17 +1834,16 @@
   }
 }
 
-
 /* home 8 */
 
 .header-hm8 {
   .header-right-wrap {
     margin-top: 6px;
     @media #{$md-layout} {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     @media #{$xs-layout} {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     .same-style {
       &.cart-wrap {
@@ -1920,10 +1906,10 @@
   }
   .logo {
     @media #{$md-layout} {
-      text-align: left!important;
+      text-align: start !important;
     }
     @media #{$xs-layout} {
-      text-align: left!important;
+      text-align: start !important;
     }
   }
 }
@@ -1944,8 +1930,6 @@
 }
 
 /* home 9 */
-
-
 
 .header-hm9 {
   .main-menu {
@@ -1971,11 +1955,11 @@
     margin-top: 13px;
     @media #{$md-layout} {
       margin-top: 0;
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     @media #{$xs-layout} {
       margin-top: 0;
-      margin-right: 0;
+      margin-inline-end: 0;
     }
     @media #{$xs-layout} {
       .same-style.cart-wrap {
@@ -2010,7 +1994,6 @@
   }
 }
 
-
 /* header hm10 */
 
 @media #{$sm-layout} {
@@ -2032,7 +2015,6 @@
   }
 }
 
-
 @media #{$xs-layout} {
   .header-hm9 {
     .header-right-wrap {
@@ -2047,13 +2029,9 @@
   }
 }
 
-
 .mobile-aside-button {
   padding: 0;
 }
-
-
-
 
 /* offcanvas mobile menu */
 
@@ -2089,11 +2067,11 @@
       li {
         display: inline-block;
 
-        margin-right: 25px;
+        margin-inline-end: 25px;
         i {
           font-size: 16px;
 
-          margin-right: 5px;
+          margin-inline-end: 5px;
         }
 
         a {
@@ -2103,7 +2081,7 @@
         }
 
         &:last-child {
-          margin-right: 0;
+          margin-inline-end: 0;
         }
       }
     }
@@ -2119,11 +2097,10 @@
   width: 400px;
   max-width: 100%;
   height: 100vh;
-  padding-left: 60px;
+  padding-inline-start: 60px;
 
   transition: 0.6s;
   transform: translateX(100%);
-
 
   &.active {
     transform: translateX(0);
@@ -2152,7 +2129,6 @@
   color: #fff;
   border: none;
   background: #343538;
-
 
   // @media #{$sm-layout}{
   //     width: 50px;
@@ -2200,7 +2176,7 @@
   left: 0;
 
   width: calc(100% - 60px);
-  margin-left: 60px;
+  margin-inline-start: 60px;
   padding: 10px;
 
   background-color: #e6e6e6;
@@ -2303,7 +2279,7 @@
 
   ul {
     &.sub-menu {
-      margin-left: 25px;
+      margin-inline-start: 25px;
 
       transition: 0.3s;
       & > li {
@@ -2327,7 +2303,6 @@
       a {
         text-transform: uppercase;
       }
-
 
       &.menu-item-has-children {
         position: relative;
@@ -2398,7 +2373,7 @@
 
     margin: 0 10px;
     &:first-child {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
 
     @media #{$sm-layout} {
@@ -2447,7 +2422,6 @@
   }
 }
 
-
 .transparent-bar {
   position: absolute;
   z-index: 999;
@@ -2467,7 +2441,6 @@
   }
 }
 
-
 .mobile-menu-middle {
   margin-bottom: 50px;
   .lang-curr-style {
@@ -2479,7 +2452,6 @@
       border: none;
       background: none;
     }
-
 
     .title {
       font-weight: 500;

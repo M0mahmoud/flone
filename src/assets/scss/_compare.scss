@@ -42,7 +42,7 @@
               a {
                 font-size: 13px;
                 i {
-                  padding-right: 5px;
+                  padding-inline-end: 5px;
                 }
                 &:hover {
                   color: $theme-color;
@@ -136,7 +136,7 @@
             .amount {
               &.old {
                 text-decoration: line-through;
-                margin-right: 10px;
+                margin-inline-end: 10px;
                 color: #8e8e8e;
               }
             }
@@ -155,7 +155,7 @@
           &.product-rating {
             i {
               color: #343538;
-              margin-right: 5px;
+              margin-inline-end: 5px;
 
               &.yellow {
                 color: #ffa900;

@@ -144,9 +144,9 @@
 
   overflow: hidden;
 
-  margin-right: 94px;
+  margin-inline-end: 94px;
   @media #{$xs-layout} {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
   &::before {
     position: absolute;
@@ -176,13 +176,13 @@
     line-height: 1;
 
     margin: 0;
-    padding-right: 45px;
+    padding-inline-end: 45px;
 
     letter-spacing: -0.25px;
 
     color: #242424;
     @media #{$xs-layout} {
-      padding-right: 0;
+      padding-inline-end: 0;
     }
   }
 }
@@ -247,8 +247,8 @@
   p {
     width: 600px;
     max-width: 100%;
-    margin-right: auto;
-    margin-left: auto;
+    margin-inline-end: auto;
+    margin-inline-start: auto;
   }
 
   &.bottom-border {

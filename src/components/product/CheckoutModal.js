@@ -1,20 +1,23 @@
 // import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
+import { deleteAllFromCart } from "../../redux/actions/cartActions";
 // !DEL
 function CheckoutModal({
-  product,
+  quantityCount,
   currentLanguageCode,
   show,
   onHide,
   strings,
-  quantityCount,
+  products,
 }) {
   const [deliveryFees, setDeliveryFees] = useState("");
   const { addToast } = useToasts();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -56,7 +59,10 @@ function CheckoutModal({
       street: formData.street,
       notes: formData.notes,
       type: "cod", // assuming type 'cod' is needed by your backend
-      cart: [{ item_id: product.id, qty: quantityCount }],
+      cart: products.map((product) => ({
+        item_id: product.id,
+        qty: product?.pivot?.qty || quantityCount || 1,
+      })),
     };
 
     try {
@@ -65,6 +71,8 @@ function CheckoutModal({
       if (response.data.status === "success") {
         // Handle success
         addToast(strings["Checkoutsuccessful"], { appearance: "success" });
+        dispatch(deleteAllFromCart(addToast));
+
         onHide(); // Assuming `onHide` is a function to close the modal or form
       } else {
         // If the response status is not success
@@ -95,22 +103,24 @@ function CheckoutModal({
         </Modal.Header>
         <div className="modal-body p-0">
           <div className="d-flex  justify-content-between align-items-center">
-            <div className="d-flex gap-3 align-items-center">
-              <img
-                src={product?.image_path}
-                alt="Product Images"
-                width={100}
-                height={100}
-                className="rounded"
-              />
-              <p>
-                {currentLanguageCode === "ar"
-                  ? product.translations[0]?.name
-                  : product.translations[1].name}
-                <br />
-                {product.price} X {quantityCount}
-              </p>
-            </div>
+            {products?.map((el) => (
+              <div className="d-flex gap-3 align-items-center" key={el.id}>
+                <img
+                  src={el?.image_path}
+                  alt="el Images"
+                  width={100}
+                  height={100}
+                  className="rounded"
+                />
+                <p>
+                  {currentLanguageCode === "ar"
+                    ? el.translations[0]?.name
+                    : el.translations[1].name}
+                  <br />
+                  {el.price} X {el?.pivot?.qty || 1}
+                </p>
+              </div>
+            ))}
           </div>
           <form>
             <Modal.Body className="p-0">
@@ -212,15 +222,20 @@ function CheckoutModal({
                   <p className="fw-bold mb-3">{strings["shipping_cost"]}</p>
                   <div className="d-flex justify-content-between">
                     <span>{strings["shipping_price"]}</span>
-                    <span>LE {deliveryFees || "49.00"}</span>
+                    <span>LE {deliveryFees}</span>
                   </div>
                   <hr />
                   <div className="d-flex justify-content-between fw-bold">
                     <span>{strings["total"]}</span>
                     <span>
                       LE{" "}
-                      {parseFloat(product.price * quantityCount) +
-                        parseFloat(deliveryFees || 0)}
+                      {products.reduce(
+                        (total, product) =>
+                          total + product.price * product?.pivot?.qty ||
+                          quantityCount ||
+                          1,
+                        0
+                      ) + parseFloat(deliveryFees || 0)}
                     </span>
                   </div>
                   <p className="text-muted mt-1">{strings["tax_included"]}</p>

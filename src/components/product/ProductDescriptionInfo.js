@@ -177,6 +177,7 @@ const ProductDescriptionInfo = ({
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
+        products={[product]}
         currentLanguageCode={currentLanguageCode}
         strings={strings}
         quantityCount={quantityCount}

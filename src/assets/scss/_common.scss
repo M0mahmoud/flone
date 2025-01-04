@@ -24,9 +24,9 @@ body {
   font-weight: 400;
   font-style: normal;
   line-height: 24px;
-
   color: #000;
   background-color: $white;
+  text-align: start !important;
 }
 
 h1,
@@ -182,16 +182,16 @@ a:hover {
 
 .m-0 {
   margin-top: 0;
-  margin-right: 0;
+  margin-inline-end: 0;
   margin-bottom: 0;
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 .p-0 {
   padding-top: 0;
-  padding-right: 0;
+  padding-inline-end: 0;
   padding-bottom: 0;
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 /*************************
@@ -299,79 +299,79 @@ a:hover {
 *************************/
 
 .mr-0 {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 
 .mr-10 {
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 
 .mr-12 {
-  margin-right: 12px;
+  margin-inline-end: 12px;
 }
 
 .mr-15 {
-  margin-right: 15px;
+  margin-inline-end: 15px;
 }
 
 .mr-20 {
-  margin-right: 20px;
+  margin-inline-end: 20px;
 }
 
 .mr-30 {
-  margin-right: 30px;
+  margin-inline-end: 30px;
 }
 
 .mr-35 {
-  margin-right: 35px;
+  margin-inline-end: 35px;
 }
 
 .mr-40 {
-  margin-right: 40px;
+  margin-inline-end: 40px;
 }
 
 .mr-50 {
-  margin-right: 50px;
+  margin-inline-end: 50px;
 }
 
 .mr-60 {
-  margin-right: 60px;
+  margin-inline-end: 60px;
 }
 
 .mr-70 {
-  margin-right: 70px;
+  margin-inline-end: 70px;
 }
 
 .mr-80 {
-  margin-right: 80px;
+  margin-inline-end: 80px;
 }
 
 .mr-90 {
-  margin-right: 90px;
+  margin-inline-end: 90px;
 }
 
 .mr-100 {
-  margin-right: 100px;
+  margin-inline-end: 100px;
 }
 
 .mr-110 {
-  margin-right: 110px;
+  margin-inline-end: 110px;
 }
 
 .mr-120 {
-  margin-right: 120px;
+  margin-inline-end: 120px;
 }
 
 .mr-130 {
-  margin-right: 130px;
+  margin-inline-end: 130px;
 }
 
 .mr-140 {
-  margin-right: 140px;
+  margin-inline-end: 140px;
 }
 
 .mr-150 {
-  margin-right: 150px;
+  margin-inline-end: 150px;
 }
 
 /*************************
@@ -488,91 +488,91 @@ a:hover {
 *************************/
 
 .ml-0 {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 .ml-10 {
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 
 .ml-12 {
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 
 .ml-15 {
-  margin-left: 15px;
+  margin-inline-start: 15px;
 }
 
 .ml-20 {
-  margin-left: 20px;
+  margin-inline-start: 20px;
 }
 
 .ml-30 {
-  margin-left: 30px;
+  margin-inline-start: 30px;
 }
 
 .ml-40 {
-  margin-left: 40px;
+  margin-inline-start: 40px;
 }
 
 .ml-50 {
-  margin-left: 50px;
+  margin-inline-start: 50px;
 }
 
 .ml-55 {
-  margin-left: 55px;
+  margin-inline-start: 55px;
 }
 
 .ml-60 {
-  margin-left: 60px;
+  margin-inline-start: 60px;
 }
 
 .ml-70 {
-  margin-left: 70px;
+  margin-inline-start: 70px;
 }
 .ml-75 {
-  margin-left: 75px;
+  margin-inline-start: 75px;
 }
 
 .ml-80 {
-  margin-left: 80px;
+  margin-inline-start: 80px;
 }
 
 .ml-90 {
-  margin-left: 90px;
+  margin-inline-start: 90px;
 }
 .ml-95 {
-  margin-left: 95px;
+  margin-inline-start: 95px;
 }
 
 .ml-100 {
-  margin-left: 100px;
+  margin-inline-start: 100px;
 }
 
 .ml-110 {
-  margin-left: 110px;
+  margin-inline-start: 110px;
 }
 
 .ml-120 {
-  margin-left: 120px;
+  margin-inline-start: 120px;
 }
 
 .ml-130 {
-  margin-left: 130px;
+  margin-inline-start: 130px;
 }
 
 .ml-140 {
-  margin-left: 140px;
+  margin-inline-start: 140px;
 }
 .ml-145 {
-  margin-left: 145px;
+  margin-inline-start: 145px;
 }
 
 .ml-150 {
-  margin-left: 150px;
+  margin-inline-start: 150px;
 }
 .ml-ntv5 {
-  margin-left: -5px;
+  margin-inline-start: -5px;
 }
 
 /*************************
@@ -780,75 +780,75 @@ a:hover {
 *************************/
 
 .pr-0 {
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 
 .pr-10 {
-  padding-right: 10px;
+  padding-inline-end: 10px;
 }
 
 .pr-15 {
-  padding-right: 15px;
+  padding-inline-end: 15px;
 }
 
 .pr-20 {
-  padding-right: 20px;
+  padding-inline-end: 20px;
 }
 
 .pr-30 {
-  padding-right: 30px;
+  padding-inline-end: 30px;
 }
 
 .pr-40 {
-  padding-right: 40px;
+  padding-inline-end: 40px;
 }
 
 .pr-50 {
-  padding-right: 50px;
+  padding-inline-end: 50px;
 }
 
 .pr-60 {
-  padding-right: 60px;
+  padding-inline-end: 60px;
 }
 
 .pr-70 {
-  padding-right: 70px;
+  padding-inline-end: 70px;
 }
 
 .pr-80 {
-  padding-right: 80px;
+  padding-inline-end: 80px;
 }
 
 .pr-90 {
-  padding-right: 90px;
+  padding-inline-end: 90px;
 }
 
 .pr-100 {
-  padding-right: 100px;
+  padding-inline-end: 100px;
 }
 
 .pr-110 {
-  padding-right: 110px;
+  padding-inline-end: 110px;
 }
 
 .pr-120 {
-  padding-right: 120px;
+  padding-inline-end: 120px;
 }
 
 .pr-130 {
-  padding-right: 130px;
+  padding-inline-end: 130px;
 }
 
 .pr-140 {
-  padding-right: 140px;
+  padding-inline-end: 140px;
 }
 
 .pr-155 {
-  padding-right: 155px;
+  padding-inline-end: 155px;
 }
 
 .pr-270 {
-  padding-right: 270px;
+  padding-inline-end: 270px;
 }
 
 /*************************
@@ -1036,79 +1036,79 @@ a:hover {
 *************************/
 
 .pl-0 {
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 .pl-10 {
-  padding-left: 10px;
+  padding-inline-start: 10px;
 }
 
 .pl-15 {
-  padding-left: 15px;
+  padding-inline-start: 15px;
 }
 
 .pl-20 {
-  padding-left: 20px;
+  padding-inline-start: 20px;
 }
 
 .pl-30 {
-  padding-left: 30px;
+  padding-inline-start: 30px;
 }
 
 .pl-40 {
-  padding-left: 40px;
+  padding-inline-start: 40px;
 }
 
 .pl-50 {
-  padding-left: 50px;
+  padding-inline-start: 50px;
 }
 
 .pl-60 {
-  padding-left: 60px;
+  padding-inline-start: 60px;
 }
 
 .pl-70 {
-  padding-left: 70px;
+  padding-inline-start: 70px;
 }
 
 .pl-80 {
-  padding-left: 80px;
+  padding-inline-start: 80px;
 }
 
 .pl-90 {
-  padding-left: 90px;
+  padding-inline-start: 90px;
 }
 
 .pl-100 {
-  padding-left: 100px;
+  padding-inline-start: 100px;
 }
 
 .pl-110 {
-  padding-left: 110px;
+  padding-inline-start: 110px;
 }
 
 .pl-120 {
-  padding-left: 120px;
+  padding-inline-start: 120px;
 }
 
 .pl-130 {
-  padding-left: 130px;
+  padding-inline-start: 130px;
 }
 
 .pl-140 {
-  padding-left: 140px;
+  padding-inline-start: 140px;
 }
 
 .pl-150 {
-  padding-left: 150px;
+  padding-inline-start: 150px;
 }
 
 .pl-155 {
-  padding-left: 155px;
+  padding-inline-start: 155px;
 }
 
 .pl-190 {
-  padding-left: 190px;
+  padding-inline-start: 190px;
 }
 
 /***************************
@@ -1366,7 +1366,7 @@ select {
 option {
   font-size: 14px;
 
-  padding-left: 10px;
+  padding-inline-start: 10px;
 
   border: 0 solid #626262;
   background: #fff;
@@ -1395,30 +1395,30 @@ textarea:focus {
 }
 
 .input-group.divcenter.input-group .form-control {
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 
 .custom-row {
   display: flex;
   flex-wrap: wrap;
 
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-inline-end: -15px;
+  margin-inline-start: -15px;
   @media #{$xl-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
   @media #{$lg-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
   @media #{$md-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
   @media #{$xs-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
 }
 
@@ -1426,66 +1426,66 @@ textarea:focus {
   display: flex;
   flex-wrap: wrap;
 
-  margin-right: -5px;
-  margin-left: -5px;
+  margin-inline-end: -5px;
+  margin-inline-start: -5px;
   & div[class^="col-"] {
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-inline-end: 5px;
+    padding-inline-start: 5px;
     @media #{$md-layout} {
-      padding-right: 15px;
-      padding-left: 15px;
+      padding-inline-end: 15px;
+      padding-inline-start: 15px;
     }
     @media #{$xs-layout} {
-      padding-right: 15px;
-      padding-left: 15px;
+      padding-inline-end: 15px;
+      padding-inline-start: 15px;
     }
   }
   @media #{$xl-layout} {
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-inline-end: -5px;
+    margin-inline-start: -5px;
   }
   @media #{$lg-layout} {
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-inline-end: -5px;
+    margin-inline-start: -5px;
   }
   @media #{$md-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
   @media #{$xs-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
 }
 .custom-row-3 {
   display: flex;
   flex-wrap: wrap;
 
-  margin-right: -13.6px;
-  margin-left: -13.6px;
+  margin-inline-end: -13.6px;
+  margin-inline-start: -13.6px;
   & div[class^="col-"] {
-    padding-right: 13.6px;
-    padding-left: 13.6px;
+    padding-inline-end: 13.6px;
+    padding-inline-start: 13.6px;
     @media #{$xs-layout} {
-      padding-right: 15px;
-      padding-left: 15px;
+      padding-inline-end: 15px;
+      padding-inline-start: 15px;
     }
   }
   @media #{$xl-layout} {
-    margin-right: -13.6px;
-    margin-left: -13.6px;
+    margin-inline-end: -13.6px;
+    margin-inline-start: -13.6px;
   }
   @media #{$lg-layout} {
-    margin-right: -13.6px;
-    margin-left: -13.6px;
+    margin-inline-end: -13.6px;
+    margin-inline-start: -13.6px;
   }
   @media #{$md-layout} {
-    margin-right: -13.6px;
-    margin-left: -13.6px;
+    margin-inline-end: -13.6px;
+    margin-inline-start: -13.6px;
   }
   @media #{$xs-layout} {
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-inline-end: -15px;
+    margin-inline-start: -15px;
   }
 }
 
@@ -1497,32 +1497,32 @@ textarea:focus {
   width: 100%;
   max-width: 20%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-inline-end: 15px;
+  padding-inline-start: 15px;
   @media #{$xl-layout} {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-inline-end: 15px;
+    padding-inline-start: 15px;
   }
   @media #{$lg-layout} {
     flex: 0 0 33.333%;
 
     max-width: 33.333%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-inline-end: 15px;
+    padding-inline-start: 15px;
   }
   @media #{$md-layout} {
     flex: 0 0 50%;
 
     max-width: 50%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-inline-end: 15px;
+    padding-inline-start: 15px;
   }
   @media #{$xs-layout} {
     flex: 0 0 100%;
 
     max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-inline-end: 15px;
+    padding-inline-start: 15px;
   }
   @media #{$sm-layout} {
     flex: 0 0 50%;
@@ -1839,21 +1839,21 @@ a.default-btn {
 
 .padding-10-row-col {
   .row {
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-inline-end: -5px;
+    margin-inline-start: -5px;
     div[class^="col-"] {
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-inline-end: 5px;
+      padding-inline-start: 5px;
     }
   }
 }
 .padding-20-row-col {
   .row {
-    margin-right: -10px;
-    margin-left: -10px;
+    margin-inline-end: -10px;
+    margin-inline-start: -10px;
     div[class^="col-"] {
-      padding-right: 10px;
-      padding-left: 10px;
+      padding-inline-end: 10px;
+      padding-inline-start: 10px;
     }
   }
 }

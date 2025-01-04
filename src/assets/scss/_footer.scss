@@ -136,66 +136,66 @@
   }
   @media #{$xx-layout} {
     &.ml-95 {
-      margin-left: 20px;
+      margin-inline-start: 20px;
     }
     &.ml-145 {
-      margin-left: 50px;
+      margin-inline-start: 50px;
     }
   }
   @media #{$xl-layout} {
     &.ml-95 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-145 {
-      margin-left: 20px;
+      margin-inline-start: 20px;
     }
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-ntv5 {
-      margin-left: -50px;
+      margin-inline-start: -50px;
     }
   }
   @media #{$lg-layout} {
     &.ml-95 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-145 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-ntv5 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
   @media #{$md-layout} {
     &.ml-95 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-145 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-ntv5 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
   @media #{$xs-layout} {
     &.ml-95 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-145 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.ml-ntv5 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 
@@ -224,28 +224,28 @@
 .footer-widget.ml-50,
 .footer-widget.ml-75 {
   @media #{$md-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   @media #{$xs-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   @media #{$lg-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
 .footer-widget.ml-70 {
   @media #{$md-layout} {
-    margin-left: -130px;
+    margin-inline-start: -130px;
   }
   @media #{$xs-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   @media #{$sm-layout} {
-    margin-left: -90px;
+    margin-inline-start: -90px;
   }
   @media #{$lg-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
@@ -273,38 +273,38 @@
 .footer-area {
   position: relative;
   &.ml-10 {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   @media #{$xl-layout} {
     &.ml-70 {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
     &.mr-70 {
-      margin-right: 15px;
+      margin-inline-end: 15px;
     }
   }
   @media #{$lg-layout} {
     &.ml-70 {
-      margin-left: 30px;
+      margin-inline-start: 30px;
     }
     &.mr-70 {
-      margin-right: 30px;
+      margin-inline-end: 30px;
     }
   }
   @media #{$md-layout} {
     &.ml-70 {
-      margin-left: 40px;
+      margin-inline-start: 40px;
     }
     &.mr-70 {
-      margin-right: 40px;
+      margin-inline-end: 40px;
     }
   }
   @media #{$xs-layout} {
     &.ml-70 {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
     &.mr-70 {
-      margin-right: 15px;
+      margin-inline-end: 15px;
     }
   }
 }

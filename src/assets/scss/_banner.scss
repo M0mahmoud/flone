@@ -871,15 +871,15 @@
 
 .banner-area-2 {
   .container-fluid {
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-inline-end: 10px;
+    padding-inline-start: 10px;
     @media #{$md-layout} {
-      padding-right: 30px;
-      padding-left: 30px;
+      padding-inline-end: 30px;
+      padding-inline-start: 30px;
     }
     @media #{$xs-layout} {
-      padding-right: 15px;
-      padding-left: 15px;
+      padding-inline-end: 15px;
+      padding-inline-start: 15px;
     }
   }
   &.pb-85 {
@@ -1136,7 +1136,7 @@
     top: 20%;
     left: 50px;
 
-    padding-right: 15px;
+    padding-inline-end: 15px;
 
     &--right {
       left: 50%;
@@ -1326,7 +1326,7 @@
     justify-content: center;
   }
   .medical-contact-img {
-    margin-right: 20px;
+    margin-inline-end: 20px;
   }
   .medical-contact-number {
     h2 {

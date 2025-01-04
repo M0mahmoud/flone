@@ -79,21 +79,21 @@
   &.ml-70 {
     @media #{$md-layout,
     $sm-layout} {
-      margin-left: 30px;
+      margin-inline-start: 30px;
     }
     @media #{$xs-layout} {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
   }
 
   &.mr-70 {
     @media #{$md-layout,
     $sm-layout} {
-      margin-right: 30px;
+      margin-inline-end: 30px;
     }
     @media #{
     $xs-layout} {
-      margin-right: 15px;
+      margin-inline-end: 15px;
     }
   }
 }

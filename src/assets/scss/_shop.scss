@@ -19,7 +19,7 @@
       display: flex;
     }
     .shop-select {
-      margin-right: 50px;
+      margin-inline-end: 50px;
       select {
         font-size: 14px;
 
@@ -47,14 +47,14 @@
     button {
       font-size: 18px;
 
-      margin-left: 20px;
+      margin-inline-start: 20px;
       padding: 0;
 
       color: #606060;
       border: none;
       background: none;
       &:first-child {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
       &.active {
         color: #fa6bff;
@@ -115,7 +115,7 @@
         &.old {
           font-size: 18px;
 
-          margin-left: 15px;
+          margin-inline-start: 15px;
 
           text-decoration: line-through;
 
@@ -144,7 +144,7 @@
 
         position: relative;
 
-        margin-left: 40px;
+        margin-inline-start: 40px;
 
         color: #ffcf75;
         &:before {

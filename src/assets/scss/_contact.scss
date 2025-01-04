@@ -30,7 +30,7 @@
 
     margin-bottom: 40px;
     .contact-icon {
-      margin-right: 20px;
+      margin-inline-end: 20px;
       i {
         font-size: 20px;
         line-height: 40px;
@@ -170,8 +170,8 @@
 .contact-form-style {
   .row {
     & div[class^="col-"] {
-      padding-right: 15px;
-      padding-left: 15px;
+      padding-inline-end: 15px;
+      padding-inline-start: 15px;
     }
   }
 }

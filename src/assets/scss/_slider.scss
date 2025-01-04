@@ -65,7 +65,7 @@
     @media #{$sm-layout} {
       padding: 0 0 0;
 
-      text-align: left;
+      text-align: start;
     }
     h3 {
       font-size: 24px;
@@ -137,7 +137,7 @@
         text-align: center;
       }
       @media #{$sm-layout} {
-        text-align: left;
+        text-align: start;
       }
     }
   }
@@ -163,99 +163,99 @@
 
 .swiper-slide .slider-content * {
   -webkit-animation-duration: 1.3s;
-          animation-duration: 1.3s;
+  animation-duration: 1.3s;
 
   -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
 .swiper-slide-active {
   .slider-animated-1 {
     h3 {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
-      -webkit-animation-delay: 1.0s;
-              animation-delay: 1.0s;
+      animation-name: fadeInUp;
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
     }
     h1 {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.3s;
-              animation-delay: 1.3s;
+      animation-delay: 1.3s;
     }
     h5 {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.5s;
-              animation-delay: 1.5s;
+      animation-delay: 1.5s;
     }
     p {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.5s;
-              animation-delay: 1.5s;
+      animation-delay: 1.5s;
     }
     a {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
     &.slider-single-img img {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
     &.single-slider-img4 img {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
     &.slider-singleimg-hm9 img {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
     &.slider-singleimg-hm11 img {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
     .content-img img {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
-      -webkit-animation-delay: 1.0s;
-              animation-delay: 1.0s;
+      animation-name: fadeInUp;
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
     }
   }
   .slider-animated-2 {
     h3 {
       -webkit-animation-name: fadeInLeft;
-              animation-name: fadeInLeft;
-      -webkit-animation-delay: 1.0s;
-              animation-delay: 1.0s;
+      animation-name: fadeInLeft;
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
     }
     h1 {
       -webkit-animation-name: fadeInLeft;
-              animation-name: fadeInLeft;
+      animation-name: fadeInLeft;
       -webkit-animation-delay: 1.3s;
-              animation-delay: 1.3s;
+      animation-delay: 1.3s;
     }
     a {
       -webkit-animation-name: fadeInLeft;
-              animation-name: fadeInLeft;
+      animation-name: fadeInLeft;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
     &.slider-singleimg-hm10 img {
       -webkit-animation-name: fadeInRight;
-              animation-name: fadeInRight;
+      animation-name: fadeInRight;
       -webkit-animation-delay: 1.6s;
-              animation-delay: 1.6s;
+      animation-delay: 1.6s;
     }
   }
 }
@@ -393,41 +393,40 @@
     opacity: 1;
   }
   &.ml-10 {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   @media #{$xl-layout} {
     &.ml-70 {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
     &.mr-70 {
-      margin-right: 15px;
+      margin-inline-end: 15px;
     }
   }
   @media #{$lg-layout} {
     &.ml-70 {
-      margin-left: 30px;
+      margin-inline-start: 30px;
     }
     &.mr-70 {
-      margin-right: 30px;
+      margin-inline-end: 30px;
     }
   }
   @media #{$md-layout} {
     &.ml-70 {
-      margin-left: 40px;
+      margin-inline-start: 40px;
     }
     &.mr-70 {
-      margin-right: 40px;
+      margin-inline-end: 40px;
     }
   }
   @media #{$xs-layout} {
     &.ml-70 {
-      margin-left: 15px;
+      margin-inline-start: 15px;
     }
     &.mr-70 {
-      margin-right: 15px;
+      margin-inline-end: 15px;
     }
   }
-
 
   .swiper-pagination-bullets {
     position: absolute;
@@ -480,14 +479,14 @@
     position: relative;
 
     margin-bottom: 0;
-    margin-left: 135px;
+    margin-inline-start: 135px;
 
     color: #000000;
     @media #{$xs-layout} {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     @media #{$sm-layout} {
-      margin-left: 60px;
+      margin-inline-start: 60px;
     }
     &::before {
       position: absolute;
@@ -513,9 +512,9 @@
     }
 
     &.no-style {
-      margin-left: 0;
+      margin-inline-start: 0;
       @media #{$sm-layout} {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
       &:before {
         display: none;
@@ -747,10 +746,6 @@
   }
 }
 
-
-
-
-
 /* home 3 */
 
 .slider-height-2 {
@@ -855,21 +850,21 @@
     }
   }
   &.slider-content-4 {
-    margin-left: 112px;
+    margin-inline-start: 112px;
     @media #{$xx-layout} {
-      margin-left: 30px;
+      margin-inline-start: 30px;
     }
     @media #{$xl-layout} {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     @media #{$lg-layout} {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     @media #{$md-layout} {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     @media #{$xs-layout} {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     h1 {
       @media #{$md-layout} {
@@ -965,14 +960,13 @@
   }
 }
 
-
 /* slider hm4 */
 
 .slider-height-3 {
   height: 710px;
   & .container {
-    margin-right: inherit;
-    margin-left: inherit;
+    margin-inline-end: inherit;
+    margin-inline-start: inherit;
   }
   @media #{$xl-layout} {
     height: 570px;
@@ -1063,9 +1057,6 @@
     }
   }
 }
-
-
-
 
 /* slider 5 */
 
@@ -1218,10 +1209,9 @@
     opacity: 1;
   }
   &.ml-10 {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
-
 
 /* slider 6 hm7 */
 
@@ -1243,7 +1233,6 @@
     height: 500px;
   }
 }
-
 
 .slider-content-6 {
   h1 {
@@ -1333,7 +1322,6 @@
   }
 }
 
-
 /* slider hm8 */
 
 .slider-height-6 {
@@ -1357,7 +1345,6 @@
     margin: 0 0 0;
   }
 }
-
 
 /* slider hm9 */
 .slider-height-7 {
@@ -1389,9 +1376,9 @@
   @media #{$xs-layout} {
     width: 180px;
     max-width: 100%;
-    margin-left: 30px;
+    margin-inline-start: 30px;
 
-    text-align: left;
+    text-align: start;
   }
 
   h3 {
@@ -1481,10 +1468,10 @@
   @media #{$xs-layout} {
     margin-top: 30px;
     &.ml-100 {
-      margin-left: 20px;
+      margin-inline-start: 20px;
     }
     &.mr-100 {
-      margin-right: 20px;
+      margin-inline-end: 20px;
     }
   }
   @media #{$sm-layout} {
@@ -1492,22 +1479,21 @@
   }
   @media #{$md-layout} {
     &.ml-100 {
-      margin-left: 40px;
+      margin-inline-start: 40px;
     }
     &.mr-100 {
-      margin-right: 40px;
+      margin-inline-end: 40px;
     }
   }
   @media #{$lg-layout} {
     &.ml-100 {
-      margin-left: 70px;
+      margin-inline-start: 70px;
     }
     &.mr-100 {
-      margin-right: 70px;
+      margin-inline-end: 70px;
     }
   }
 }
-
 
 /* slider hm10 */
 
@@ -1531,25 +1517,23 @@
 .slider-singleimg-hm10 {
   @media #{$md-layout} {
     &.ml-40 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.mr-40 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$xs-layout} {
     &.ml-40 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     &.mr-40 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
 }
 
-
 /* home 11 */
-
 
 .slider-height-9 {
   height: 780px;
@@ -1694,7 +1678,6 @@
   }
 }
 
-
 /* home 12 */
 
 #section2 .fp-tableCell,
@@ -1707,8 +1690,6 @@
   display: flex;
   align-items: flex-end;
 }
-
-
 
 #section5 .fp-tableCell {
   height: auto !important;
@@ -1740,7 +1721,6 @@
   }
 }
 
-
 .fullpage-slider-mrg {
   margin-top: -34px;
   @media #{$xs-layout} {
@@ -1762,31 +1742,30 @@
   .slider-animated-1 {
     h3 {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 0.5s;
-              animation-delay: 0.5s;
+      animation-delay: 0.5s;
     }
     h1 {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
-      -webkit-animation-delay: 1.0s;
-              animation-delay: 1.0s;
+      animation-name: fadeInUp;
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s;
     }
     a {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 1.3s;
-              animation-delay: 1.3s;
+      animation-delay: 1.3s;
     }
     & img {
       -webkit-animation-name: fadeInUp;
-              animation-name: fadeInUp;
+      animation-name: fadeInUp;
       -webkit-animation-delay: 0.8s;
-              animation-delay: 0.8s;
+      animation-delay: 0.8s;
     }
   }
 }
-
 
 .slider12-img-2 {
   @media #{$xs-layout} {
@@ -1838,7 +1817,6 @@
   }
 }
 
-
 @media #{$xs-layout} {
   .fullpage-wrapper {
     padding-top: 130px;
@@ -1857,11 +1835,7 @@
   }
 }
 
-
-
-
 /* home 13 */
-
 
 .slider-content-13 {
   h5 {
@@ -1933,10 +1907,6 @@
   }
 }
 
-
-
-
-
 .slider-single-img-14 {
   position: relative;
   z-index: 9;
@@ -1991,7 +1961,7 @@
   @media #{$sm-layout} {
     margin: 0 0 30px;
 
-    text-align: left;
+    text-align: start;
   }
   h3 {
     font-size: 24px;
@@ -2096,7 +2066,6 @@
     }
   }
 }
-
 
 .slider-content-15 {
   h1 {
@@ -2240,10 +2209,10 @@
 
     color: #000000;
     @media #{$xs-layout} {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
     @media #{$sm-layout} {
-      margin-left: 60px;
+      margin-inline-start: 60px;
     }
 
     span {
@@ -2251,9 +2220,9 @@
     }
 
     &.no-style {
-      margin-left: 0;
+      margin-inline-start: 0;
       @media #{$sm-layout} {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
       &:before {
         display: none;
@@ -2362,7 +2331,6 @@
   }
 }
 
-
 .ht-swiper-button-nav {
   &:after {
     font-size: 0;
@@ -2392,7 +2360,6 @@
   }
 }
 
-
 .slider-content-medical {
   @media #{$xs-layout} {
     margin-top: 0;
@@ -2401,7 +2368,7 @@
     text-align: center;
   }
   @media #{$sm-layout} {
-    text-align: left;
+    text-align: start;
   }
   h3 {
     font-family: $josefin;
@@ -2467,7 +2434,6 @@
   }
 }
 
-
 .slider-content-red {
   @media #{$xs-layout} {
     margin-top: 0;
@@ -2476,7 +2442,7 @@
     text-align: center;
   }
   @media #{$sm-layout} {
-    text-align: left;
+    text-align: start;
   }
   h3 {
     font-family: $josefin;
@@ -2548,7 +2514,6 @@
   }
 }
 
-
 .slider-content-brown {
   @media #{$xs-layout} {
     margin-top: 0;
@@ -2557,7 +2522,7 @@
     text-align: center;
   }
   @media #{$sm-layout} {
-    text-align: left;
+    text-align: start;
   }
   h1 {
     font-size: 18px;
@@ -2643,7 +2608,7 @@
     text-align: center;
   }
   @media #{$sm-layout} {
-    text-align: left;
+    text-align: start;
   }
   h1 {
     font-size: 18px;
@@ -2753,7 +2718,6 @@
       line-height: 1.4;
 
       color: #000;
-
 
       @media #{$lg-layout,
       $md-layout} {

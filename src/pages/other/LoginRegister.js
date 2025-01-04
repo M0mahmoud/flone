@@ -4,13 +4,17 @@ import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
+import { getCartItems } from "../../redux/actions/cartActions";
+import { getWishlist } from "../../redux/actions/wishlistActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
 const LoginRegister = ({ location }) => {
   const { pathname } = location;
+  const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [msg, setMsg] = useState("");
@@ -34,6 +38,7 @@ const LoginRegister = ({ location }) => {
       const response = await axiosInstance.post("/register", formData); // Assuming axiosInstance is used here
       if (response.data.status === "success") {
         setMsg(response.data.message);
+        history.push("/my-account"); // Redirect to user dashboard
       }
     } catch (error) {
       if (error.response && error.response.data.errors) {
@@ -54,6 +59,8 @@ const LoginRegister = ({ location }) => {
         // Store the token and navigate to the user's profile page or dashboard
         localStorage.setItem("authToken", response.data.token);
         history.push("/my-account"); // Redirect to user dashboard
+        dispatch(getWishlist());
+        dispatch(getCartItems());
       }
     } catch (error) {
       if (error.response && error.response.data.errors) {

@@ -277,5 +277,7 @@
   "place_order_with_cod": "إتمام الطلب عند الاستلام",
   "Checkoutsuccessful": "تم الدفع بنجاح!",
   "Checkoutwasnotsuccessful": "لم ينجح الدفع. يرجى التحقق من بياناتك.",
-  "Checkoutfailed": "فشل الدفع. يرجى المحاولة مرة أخرى."
+  "Checkoutfailed": "فشل الدفع. يرجى المحاولة مرة أخرى.",
+  "USER_POINTS": "نقاط المستخدم",
+  "CASHBACK": "سجل الدخول للحصول ع كاش باك"
 }

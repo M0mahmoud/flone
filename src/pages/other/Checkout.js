@@ -1,45 +1,48 @@
-import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
-import Loading from "../../components/Loading";
+import CheckoutModal from "../../components/product/CheckoutModal";
 import LayoutOne from "../../layouts/LayoutOne";
 import { deleteAllFromCart } from "../../redux/actions/cartActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
-const Checkout = ({ location, strings, currentLanguageCode }) => {
+const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
   const dispatch = useDispatch();
-  const { items: cartItems, loading } = useSelector((state) => state.cartData);
   const [newAddressForm, setNewAddressForm] = useState({});
   const [user, setUser] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [notes, setNotes] = useState("");
   const [type, setType] = useState("cod");
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axiosInstance.get("/user");
-        setUser(response.data.user);
-        setAddresses(response.data.user.addresses);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
+      if (localStorage.getItem("authToken")) {
+        try {
+          const response = await axiosInstance.get("/user");
+          setUser(response.data.user);
+          setAddresses(response.data.user.addresses);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
       }
     };
 
     fetchData();
   }, []);
-  const cartTotalPrice = cartItems?.reduce((total, item) => {
+
+  const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
     return total + (item.price - item.discount) * (item.pivot?.qty || 1);
   }, 0);
+
   const handleAddressSelect = (value) => {
     const numericValue = parseInt(value, 10); // Convert value to integer if it's numeric
     console.log("Selected Address ID:", numericValue); // This will log the value to the console
@@ -87,10 +90,6 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <Fragment>
       <MetaTags>
@@ -112,9 +111,13 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
             <div className="col-lg-12">
-              <div className="billing-info mb-20"></div>
+              <div className="billing-info mb-20">
+                {!user && (
+                  <h2 className="text-center my-4">{strings["CASHBACK"]}</h2>
+                )}
+              </div>
             </div>
-            {cartItems && cartItems.length >= 1 ? (
+            {cartItems && cartItems?.items?.length >= 1 ? (
               <div className="row">
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
@@ -277,6 +280,17 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
                     <h3>{strings["your_order"]}</h3>
                     <div className="your-order-wrap gray-bg-4">
                       <div className="your-order-product-info">
+                        {user && (
+                          <div
+                            className="your-order-top mb-3"
+                            style={{ color: "#008342" }}
+                          >
+                            <ul>
+                              <li>{strings["USER_POINTS"]}</li>
+                              <li>{user?.points}</li>
+                            </ul>
+                          </div>
+                        )}
                         <div className="your-order-top">
                           <ul>
                             <li>{strings["product"]}</li>
@@ -285,19 +299,19 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
                         </div>
                         <div className="your-order-middle">
                           <ul>
-                            {cartItems.map((cartItem, key) => {
+                            {cartItems?.items.map((cartItem, key) => {
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
                                     {currentLanguageCode === "ar"
-                                      ? cartItem.translations[0]?.name
-                                      : cartItem.translations[1]?.name}{" "}
-                                    X {cartItem.pivot.qty}
+                                      ? cartItem?.translations[0]?.name
+                                      : cartItem?.translations[1]?.name}{" "}
+                                    X {cartItem.pivot?.qty || 1}
                                   </span>{" "}
                                   <span className="order-price">
                                     {(
-                                      (cartItem.price - cartItem?.discount) *
-                                      cartItem.pivot.qty
+                                      (cartItem?.price - cartItem?.discount) *
+                                      (cartItem?.pivot?.qty || 1)
                                     ).toFixed(2)}
                                   </span>
                                 </li>
@@ -323,31 +337,66 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button
-                        className="btn-hover mb-3"
-                        onClick={() => {
-                          setType("points");
-                          handleCheckout();
-                        }}
-                        disabled={user?.points < cartTotalPrice}
-                        style={{
-                          display:
-                            user?.points < cartTotalPrice ? "none" : "block",
-                        }}
-                        id="points-button"
-                      >
-                        {strings["place_order_with_points"]}
-                      </button>
-                      <button
-                        className="btn-hover"
-                        onClick={() => {
-                          setType("cod");
-                          handleCheckout();
-                        }}
-                        id="cod-button"
-                      >
-                        {strings["place_order_with_cod"]}
-                      </button>
+                      {user && (
+                        <button
+                          className="btn-hover mb-3"
+                          onClick={() => {
+                            setType("points");
+                            handleCheckout();
+                          }}
+                          disabled={
+                            Number(user?.points) <= Number(cartTotalPrice)
+                          } // Button is disabled if points are greater than or equal to total price
+                          style={{
+                            display:
+                              Number(user?.points) <= Number(cartTotalPrice)
+                                ? "none"
+                                : "block", // Button is hidden if points are greater than or equal to total price
+                          }}
+                          id="points-button"
+                        >
+                          {strings["place_order_with_points"]}
+                        </button>
+                      )}
+                      {user && (
+                        <button
+                          className="btn-hover"
+                          onClick={() => {
+                            setType("cod");
+                            handleCheckout();
+                          }}
+                          id="cod-button"
+                        >
+                          {strings["place_order_with_cod"]}
+                        </button>
+                      )}
+                      <div className="">
+                        {!user && (
+                          <button
+                            className="order-now"
+                            onClick={() => setModalShow(true)}
+                          >
+                            <span>{strings["order_now"]}</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24px"
+                              viewBox="0 0 24 24"
+                              fill="#FFF"
+                            >
+                              <path d="M0 0h24v24H0V0z" fill="none"></path>
+                              <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                            </svg>
+                          </button>
+                        )}
+                        <CheckoutModal
+                          show={modalShow}
+                          onHide={() => setModalShow(false)}
+                          products={cartItems?.items}
+                          currentLanguageCode={currentLanguageCode}
+                          strings={strings}
+                          quantityCount={1}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -374,12 +423,6 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
       </LayoutOne>
     </Fragment>
   );
-};
-
-Checkout.propTypes = {
-  cartItems: PropTypes.array,
-  currency: PropTypes.object,
-  location: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {

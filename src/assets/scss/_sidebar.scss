@@ -3,36 +3,36 @@
 .sidebar-style {
   @media #{$lg-layout} {
     &.mr-30 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$md-layout} {
     margin-top: 30px;
     &.mr-30 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$xs-layout} {
     margin-top: 30px;
     &.mr-30 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$lg-layout} {
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
   @media #{$md-layout} {
     margin-top: 30px;
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
   @media #{$xs-layout} {
     margin-top: 30px;
     &.ml-30 {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
   }
 }
@@ -106,7 +106,7 @@
               border-top-width: medium;
               border-right-width: medium;
               border-bottom-width: medium;
-              border-left-width: medium;
+              border-inline-start-width: medium;
             }
           }
         }
@@ -118,9 +118,9 @@
 
           width: 100%;
           padding: 0;
-          padding-left: 30px;
+          padding-inline-start: 30px;
 
-          text-align: left;
+          text-align: start;
           text-transform: capitalize;
 
           border: none;

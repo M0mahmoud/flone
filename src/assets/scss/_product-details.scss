@@ -3,17 +3,17 @@
 .product-details-img {
   @media #{$lg-layout} {
     &.mr-20 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$md-layout} {
     &.mr-20 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$xs-layout} {
     &.mr-20 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
 
@@ -220,7 +220,7 @@
     .review-left {
       display: flex;
       .review-name {
-        margin-right: 25px;
+        margin-inline-end: 25px;
         h4 {
           font-size: 16px;
           font-weight: 500;
@@ -234,7 +234,7 @@
         i {
           font-size: 12px;
 
-          margin-right: 1px;
+          margin-inline-end: 1px;
 
           color: #ffa900;
         }
@@ -260,9 +260,9 @@
 
 .single-review.child-review {
   margin-bottom: 0;
-  margin-left: 70px;
+  margin-inline-start: 70px;
   @media #{$xs-layout} {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
@@ -270,13 +270,13 @@
   @media #{$md-layout} {
     &.pl-50 {
       margin-top: 50px;
-      padding-left: 0;
+      padding-inline-start: 0;
     }
   }
   @media #{$xs-layout} {
     &.pl-50 {
       margin-top: 50px;
-      padding-left: 0;
+      padding-inline-start: 0;
     }
   }
   h3 {
@@ -495,14 +495,14 @@
     }
   }
   &.col-lg-6 {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-inline-end: 15px;
+    padding-inline-start: 15px;
     &.is-affixed {
-      padding-right: 0;
-      padding-left: 0;
+      padding-inline-end: 0;
+      padding-inline-start: 0;
       & .inner-wrapper-sticky {
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-inline-end: 15px;
+        padding-inline-start: 15px;
       }
     }
   }
@@ -511,12 +511,12 @@
 .product-details-gallery {
   @media #{$md-layout} {
     &.mr-20 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
   @media #{$xs-layout} {
     &.mr-20 {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
 }

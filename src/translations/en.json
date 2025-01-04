@@ -276,5 +276,7 @@
   "place_order_with_cod": "Place Order with Cash on Delivery",
   "Checkoutsuccessful!": "Checkout successful!",
   "Checkoutwasnotsuccessful": "Checkout was not successful. Please check your input.",
-  "Checkoutfailed": "Checkout failed. Please try again."
+  "Checkoutfailed": "Checkout failed. Please try again.",
+  "USER_POINTS": "Your Points",
+  "CASHBACK": "Log in to get cashback"
 }
