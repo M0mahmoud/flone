@@ -14,25 +14,36 @@ const initState = {
 const cartReducer = (state = initState, action) => {
   switch (action.type) {
     case GET_CART:
-      return { ...state, ...action.payload };
+      // Explicitly updating only the items array
+      return { ...state, items: action.payload.items || [] };
 
     case ADD_TO_CART:
       const { item, quantityCount } = action.payload;
-      return {
-        ...state,
-        items: state.items.map((it) =>
-          it.id === item.id ? { ...it, qty: quantityCount } : it
-        ),
-      };
+      const existingIndex = state.items.findIndex((it) => it.id === item.id);
+      if (existingIndex !== -1) {
+        // Update quantity if item exists
+        const newItems = state.items.slice();
+        newItems[existingIndex] = {
+          ...state.items[existingIndex],
+          qty: quantityCount,
+        };
+        return { ...state, items: newItems };
+      } else {
+        // Add new item if it does not exist
+        return {
+          ...state,
+          items: [...state.items, { ...item, qty: quantityCount }],
+        };
+      }
 
     case UPDATE_QUANTITY:
       return {
         ...state,
-        items: (state.items || []).map((it) =>
+        items: state.items.map((it) =>
           it.id === action.payload.item.id
             ? {
                 ...it,
-                pivot: { ...it.pivot, qty: action.payload.quantityCount },
+                pivot: { ...it.pivot, qty: action.payload.quantityCount }, // Safely assume pivot exists or consider adding a check
               }
             : it
         ),
@@ -45,14 +56,16 @@ const cartReducer = (state = initState, action) => {
       };
 
     case DELETE_ALL_FROM_CART:
-      return initState;
+      return { ...state, items: [] }; // Return to initial state for items only
 
     case ERROR_CART:
-      // Handle error state appropriately, possibly logging or setting an error message in state
+      // Optionally log the error or handle it more explicitly
+      console.error("Error processing a cart action:", action.payload);
       return state;
 
     default:
       return state;
   }
 };
+
 export default cartReducer;

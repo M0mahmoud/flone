@@ -1,18 +1,16 @@
-// import PropTypes from "prop-types";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
-import Loading from "../../components/Loading";
+
 import LayoutOne from "../../layouts/LayoutOne";
 import {
   addToCart,
   deleteAllFromCart,
   deleteFromCart,
-  getCartItems,
   updateQuantity,
 } from "../../redux/actions/cartActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -23,20 +21,16 @@ const Cart = ({
   deleteAllFromCart,
   strings,
   currentLanguageCode,
+  cartItems,
 }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
-  const dispatch = useDispatch();
-  const { items: cartItems, loading } = useSelector((state) => state.cartData);
 
-  useEffect(() => {
-    dispatch(getCartItems());
-  }, [dispatch]);
-
-  if (loading) return <Loading />;
-  const cartTotalPrice = cartItems?.reduce((total, item) => {
-    return total + (item.price - item.discount) * item.pivot.qty; // Assuming each item contains a pivot object with qty property
+  const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
+    const qty = item.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+    return total + (item.price - item.discount) * qty;
   }, 0);
+
   return (
     <Fragment>
       <MetaTags>
@@ -59,7 +53,7 @@ const Cart = ({
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {cartItems && cartItems?.length >= 1 ? (
+            {cartItems && cartItems?.items?.length >= 1 ? (
               <Fragment>
                 <h3 className="cart-page-title">
                   {strings["CART_PAGE_TITLE"]}
@@ -79,14 +73,13 @@ const Cart = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {!loading &&
-                            cartItems?.map((cartItem, key) => (
-                              <TR
-                                cartItem={cartItem}
-                                key={cartItem.id}
-                                currentLanguageCode={currentLanguageCode}
-                              />
-                            ))}
+                          {cartItems?.items?.map((cartItem) => (
+                            <TR
+                              cartItem={cartItem}
+                              key={cartItem.id}
+                              currentLanguageCode={currentLanguageCode}
+                            />
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -245,9 +238,6 @@ const mapDispatchToProps = (dispatch) => {
     deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
     },
-    getCartItems: () => {
-      dispatch(getCartItems());
-    },
   };
 };
 
@@ -260,6 +250,8 @@ const TR = ({ cartItem, currentLanguageCode }) => {
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const discountPercentage = (cartItem.discount / cartItem.price) * 100;
+  const qty = cartItem.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+  const itemTotalPrice = (cartItem.price - cartItem.discount) * qty;
 
   return (
     <tr key={cartItem.id}>
@@ -298,26 +290,22 @@ const TR = ({ cartItem, currentLanguageCode }) => {
           <button
             className="dec qtybutton"
             onClick={() => {
-              dispatch(
-                updateQuantity(cartItem, addToast, cartItem.pivot.qty - 1)
-              );
+              dispatch(updateQuantity(cartItem, addToast, qty - 1));
             }} // Directly increment the quantity
-            disabled={cartItem.pivot.qty <= 1} // Disable if quantity is 1 or less
+            disabled={qty <= 1} // Disable if quantity is 1 or less
           >
             -
           </button>
           <input
             type="text"
             className="cart-plus-minus-box"
-            value={cartItem.pivot.qty}
+            value={qty}
             readOnly
           />
           <button
             className="inc qtybutton"
             onClick={() => {
-              dispatch(
-                updateQuantity(cartItem, addToast, cartItem.pivot.qty + 1)
-              );
+              dispatch(updateQuantity(cartItem, addToast, qty + 1));
             }}
             disabled={!cartItem.is_available}
           >
@@ -326,9 +314,7 @@ const TR = ({ cartItem, currentLanguageCode }) => {
         </div>
       </td>
       <td className="product-subtotal">
-        {((cartItem.price - cartItem?.discount) * cartItem.pivot.qty).toFixed(
-          2
-        )}
+        {itemTotalPrice.toFixed(2)}
         <br />
         <span className="purple">-{discountPercentage}%</span>
       </td>

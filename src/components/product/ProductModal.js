@@ -5,6 +5,7 @@ import Swiper from "react-id-swiper";
 import { connect, useDispatch } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
+import { getIsFavoriteFromLocalStorage } from "../../helpers/Locale";
 import {
   addToWishlist,
   deleteFromWishlist,
@@ -19,7 +20,9 @@ function ProductModal({
   show,
   onHide,
 }) {
-  const [isFav, setIsFav] = useState(product.is_favorite);
+  const [isFav, setIsFav] = useState(
+    product.is_favorite || getIsFavoriteFromLocalStorage(product)
+  );
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const handleWishlistToggle = () => {

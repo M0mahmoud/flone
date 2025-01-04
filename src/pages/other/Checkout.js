@@ -2,18 +2,20 @@ import PropTypes from "prop-types";
 import React, { Fragment, useEffect, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
 import Loading from "../../components/Loading";
 import LayoutOne from "../../layouts/LayoutOne";
+import { deleteAllFromCart } from "../../redux/actions/cartActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
 const Checkout = ({ location, strings, currentLanguageCode }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
+  const dispatch = useDispatch();
   const { items: cartItems, loading } = useSelector((state) => state.cartData);
   const [newAddressForm, setNewAddressForm] = useState({});
   const [user, setUser] = useState(null);
@@ -36,7 +38,7 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
     fetchData();
   }, []);
   const cartTotalPrice = cartItems?.reduce((total, item) => {
-    return total + (item.price - item.discount) * item.pivot.qty;
+    return total + (item.price - item.discount) * (item.pivot?.qty || 1);
   }, 0);
   const handleAddressSelect = (value) => {
     const numericValue = parseInt(value, 10); // Convert value to integer if it's numeric
@@ -60,6 +62,7 @@ const Checkout = ({ location, strings, currentLanguageCode }) => {
       await axiosInstance.post("/checkout", checkoutData);
       // Handle successful checkout response
       addToast(strings["order_placed"], { appearance: "success" });
+      dispatch(deleteAllFromCart(addToast));
     } catch (error) {
       console.error("Checkout failed:", error);
       addToast(strings["checkout_failed"], { appearance: "error" });

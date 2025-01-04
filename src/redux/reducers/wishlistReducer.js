@@ -13,10 +13,7 @@ const wishlistReducer = (state = initState, action) => {
       return action.payload;
     case ADD_TO_WISHLIST:
       if (!state.find((item) => item.id === action.payload.item.id)) {
-        return [
-          ...state,
-          { id: action.payload.item.id, message: action.payload.message },
-        ];
+        return [...state, { ...action.payload.item }];
       }
       return state;
     case DELETE_FROM_WISHLIST:

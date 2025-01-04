@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import { getIsFavoriteFromLocalStorage } from "../../helpers/Locale";
 import {
   addToWishlist,
   deleteFromWishlist,
@@ -10,7 +11,9 @@ import {
 export default function Product({ product }) {
   const dispatch = useDispatch();
   const { addToast } = useToasts();
-  const [isFav, setIsFav] = useState(product.is_favorite);
+  const [isFav, setIsFav] = useState(
+    product.is_favorite || getIsFavoriteFromLocalStorage(product)
+  );
   const handleWishlistToggle = () => {
     if (isFav) {
       // Remove from wishlist if it is already favorited
@@ -94,10 +97,16 @@ export default function Product({ product }) {
           {/* Wishlist */}
           <div className="pro-wishlist-2">
             <button
-              className={product.is_favorite ? "active" : ""}
+              className={
+                product.is_favorite || getIsFavoriteFromLocalStorage(product)
+                  ? "active"
+                  : ""
+              }
               onClick={handleWishlistToggle}
               title={
-                product.is_favorite ? "Remove from wishlist" : "Add to wishlist"
+                product.is_favorite || getIsFavoriteFromLocalStorage(product)
+                  ? "Remove from wishlist"
+                  : "Add to wishlist"
               }
             >
               <i className={isFav ? "fa fa-heart" : "fa fa-heart-o"} />

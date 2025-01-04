@@ -10,9 +10,9 @@ const MenuCart = ({
   currentLanguageCode,
   strings,
 }) => {
-  // Correctly calculate the total price using reduce to ensure it's calculated once and not in render method
   const cartTotalPrice = cartData?.items?.reduce((total, item) => {
-    return total + (item.price - item.discount) * item.pivot.qty;
+    const qty = item.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+    return total + (item.price - item.discount) * qty;
   }, 0);
 
   const { addToast } = useToasts();
@@ -22,8 +22,8 @@ const MenuCart = ({
         <>
           <ul>
             {cartData?.items?.map((single, key) => {
-              const itemTotalPrice =
-                (single.price - single.discount) * single.pivot.qty;
+              const qty = single.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+              const itemTotalPrice = (single.price - single.discount) * qty;
 
               return (
                 <li className="single-shopping-cart" key={key}>
@@ -47,7 +47,7 @@ const MenuCart = ({
                       </Link>
                     </h4>
                     <h6>
-                      {strings["quantity"]}: {single.pivot.qty}
+                      {strings["quantity"]}: {qty}
                     </h6>
                     <span>${itemTotalPrice.toFixed(2)}</span>
                   </div>

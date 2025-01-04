@@ -12,13 +12,13 @@ const IconGroup = ({
   deleteFromCart,
   iconWhiteClass,
 }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (localStorage.getItem("authToken")) {
-      dispatch(getCartItems());
-      dispatch(getWishlist());
-    }
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (localStorage.getItem("authToken")) {
+  //     dispatch(getCartItems());
+  //     dispatch(getWishlist());
+  //   }
+  // }, [dispatch]);
 
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
@@ -122,6 +122,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
+    },
+    getWishlist: () => {
+      dispatch(getWishlist());
+    },
+    getCartItems: () => {
+      dispatch(getCartItems());
     },
   };
 };

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
+import { getIsFavoriteFromLocalStorage } from "../../helpers/Locale";
 import {
   addToWishlist,
   deleteFromWishlist,
@@ -20,7 +21,9 @@ const ProductGridListSingle = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
-  const [isFav, setIsFav] = useState(product.is_favorite);
+  const [isFav, setIsFav] = useState(
+    product.is_favorite || getIsFavoriteFromLocalStorage(product)
+  );
   const dispatch = useDispatch();
   const handleWishlistToggle = () => {
     if (isFav) {

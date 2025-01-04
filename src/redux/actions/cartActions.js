@@ -20,49 +20,49 @@ export const getCartItems = () => (dispatch) => {
 };
 
 // Add item to cart
-export const addToCart = (item, addToast, quantityCount) => (dispatch) => {
-  if (!localStorage.getItem("authToken")) {
-    addToast("Must Login", { appearance: "warning", autoDismiss: true });
-    return;
-  }
-  if (addToast) {
-    addToast("Added To Cart", { appearance: "success", autoDismiss: true });
-  }
-  axiosInstance
-    .post("/add-to-cart", {
-      item_id: item.id,
-      qty: quantityCount,
-    })
-    .then((response) => {
-      dispatch({
-        type: ADD_TO_CART,
-        payload: { ...response.data, item, quantityCount },
-      });
-    })
-    .catch((error) => {
-      dispatch({ type: ERROR_CART, payload: error });
+export const addToCart =
+  (item, addToast, quantityCount = 1) =>
+  (dispatch) => {
+    if (addToast) {
+      addToast("Added To Cart", { appearance: "success", autoDismiss: true });
+    }
+    dispatch({
+      type: ADD_TO_CART,
+      payload: { item, quantityCount },
     });
-};
+    if (localStorage.getItem("authToken")) {
+      axiosInstance
+        .post("/add-to-cart", {
+          item_id: item.id,
+          qty: quantityCount,
+        })
+        .then(() => {})
+        .catch((error) => {
+          dispatch({ type: ERROR_CART, payload: error });
+        });
+    }
+  };
 
 // Update quantity of an item in the cart
 export const updateQuantity = (item, addToast, quantityCount) => (dispatch) => {
   if (addToast) {
     addToast("Product Updated", { appearance: "warning", autoDismiss: true });
   }
-  axiosInstance
-    .post("/update-qty-cart", {
-      item_id: item.item_id || item.id,
-      qty: quantityCount,
-    })
-    .then((response) => {
-      dispatch({
-        type: UPDATE_QUANTITY,
-        payload: { ...response.data, item, quantityCount },
+  dispatch({
+    type: UPDATE_QUANTITY,
+    payload: { item, quantityCount },
+  });
+  if (localStorage.getItem("authToken")) {
+    axiosInstance
+      .post("/update-qty-cart", {
+        item_id: item.item_id || item.id,
+        qty: quantityCount,
+      })
+      .then(() => {})
+      .catch((error) => {
+        dispatch({ type: ERROR_CART, payload: error });
       });
-    })
-    .catch((error) => {
-      dispatch({ type: ERROR_CART, payload: error });
-    });
+  }
 };
 
 // Remove an item from the cart
@@ -70,14 +70,15 @@ export const deleteFromCart = (item, addToast) => (dispatch) => {
   if (addToast) {
     addToast("Removed From Cart", { appearance: "error", autoDismiss: true });
   }
-  axiosInstance
-    .post("/remove-from-cart", { item_id: item.id })
-    .then((response) => {
-      dispatch({ type: DELETE_FROM_CART, payload: { ...response.data, item } });
-    })
-    .catch((error) => {
-      dispatch({ type: ERROR_CART, payload: error });
-    });
+  dispatch({ type: DELETE_FROM_CART, payload: { item } });
+  if (localStorage.getItem("authToken")) {
+    axiosInstance
+      .post("/remove-from-cart", { item_id: item.id })
+      .then(() => {})
+      .catch((error) => {
+        dispatch({ type: ERROR_CART, payload: error });
+      });
+  }
 };
 
 // Delete all items from the cart
@@ -88,12 +89,13 @@ export const deleteAllFromCart = (addToast) => (dispatch) => {
       autoDismiss: true,
     });
   }
-  axiosInstance
-    .post("/remove-all-cart")
-    .then((response) => {
-      dispatch({ type: DELETE_ALL_FROM_CART, payload: response.data });
-    })
-    .catch((error) => {
-      dispatch({ type: ERROR_CART, payload: error });
-    });
+  dispatch({ type: DELETE_ALL_FROM_CART });
+  if (localStorage.getItem("authToken")) {
+    axiosInstance
+      .post("/remove-all-cart")
+      .then(() => {})
+      .catch((error) => {
+        dispatch({ type: ERROR_CART, payload: error });
+      });
+  }
 };

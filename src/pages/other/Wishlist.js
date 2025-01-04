@@ -1,25 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
-import axiosInstance from "../../api/api";
-import Loading from "../../components/Loading";
 import LayoutOne from "../../layouts/LayoutOne";
 import { addToCart } from "../../redux/actions/cartActions";
 import {
   addToWishlist,
   deleteFromWishlist,
-  WISHLIST_FAILURE,
-  WISHLIST_FETCH,
+  getWishlist,
 } from "../../redux/actions/wishlistActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
 const Wishlist = ({
   location,
-  cartItems,
   addToCart,
   wishlistItems,
   deleteFromWishlist,
@@ -28,31 +24,7 @@ const Wishlist = ({
 }) => {
   const { addToast } = useToasts();
   const { pathname } = location;
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false); // Local loading state
 
-  useEffect(() => {
-    setLoading(true); // Start loading
-    axiosInstance
-      .get("/user/my-favorites")
-      .then((response) => {
-        dispatch({
-          type: WISHLIST_FETCH,
-          payload: response.data,
-        });
-        setLoading(false); // Stop loading on success
-      })
-      .catch((error) => {
-        dispatch({
-          type: WISHLIST_FAILURE,
-          payload: error,
-        });
-        setLoading(false); // Stop loading on success
-      });
-  }, [dispatch]);
-  if (loading) {
-    return <Loading />;
-  }
   return (
     <Fragment>
       <MetaTags>
@@ -91,10 +63,6 @@ const Wishlist = ({
                         </thead>
                         <tbody>
                           {wishlistItems.map((wishlistItem, key) => {
-                            console.log(
-                              "🚀 ~ {wishlistItems.map ~ wishlistItems:",
-                              wishlistItems
-                            );
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -102,14 +70,13 @@ const Wishlist = ({
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product/" +
-                                      wishlistItem?.item_id
+                                      wishlistItem?.id
                                     }
                                   >
                                     <img
                                       className="img-fluid"
                                       src={
-                                        wishlistItem?.item?.image_path ||
-                                        "/deal.png"
+                                        wishlistItem?.image_path || "/deal.png"
                                       }
                                       alt="ITEMS"
                                     />
@@ -121,18 +88,18 @@ const Wishlist = ({
                                     to={
                                       process.env.PUBLIC_URL +
                                       "/product/" +
-                                      wishlistItem?.item_id
+                                      wishlistItem?.id
                                     }
                                   >
                                     {currentLanguageCode === "en"
-                                      ? wishlistItem?.item?.translations[1].name
-                                      : wishlistItem?.item?.translations[0]
-                                          .name || "NO MAME"}
+                                      ? wishlistItem?.translations[1].name
+                                      : wishlistItem?.translations[0].name ||
+                                        "NO MAME"}
                                   </Link>
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {wishlistItem?.item?.price}{" "}
+                                  {wishlistItem?.price}{" "}
                                 </td>
 
                                 <td className="product-wishlist-cart">
@@ -259,6 +226,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteFromWishlist: (item, addToast, quantityCount) => {
       dispatch(deleteFromWishlist(item, addToast, quantityCount));
+    },
+    getWishlist: () => {
+      dispatch(getWishlist());
     },
   };
 };
