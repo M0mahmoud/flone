@@ -74,12 +74,13 @@ const ProductImageFixed = ({ product }) => {
               style={{
                 marginBlock: "50px",
                 width: "100%",
+                maxHeight: "30vh",
               }}
             />
           )}
         </div>
       </div>
-      {product?.image_path && (
+      {!isMobileOrTablet && (
         <img
           src={product?.cover_path}
           alt="COVER"

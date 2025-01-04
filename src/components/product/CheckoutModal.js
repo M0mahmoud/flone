@@ -102,7 +102,7 @@ function CheckoutModal({
           <Modal.Title>{strings["checkout_title"]}</Modal.Title>
         </Modal.Header>
         <div className="modal-body p-0">
-          <div className="d-flex  justify-content-between align-items-center">
+          <div className="d-flex  justify-content-start align-items-center gap-3 p-1">
             {products?.map((el) => (
               <div className="d-flex gap-3 align-items-center" key={el.id}>
                 <img

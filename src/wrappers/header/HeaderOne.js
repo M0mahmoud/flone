@@ -8,7 +8,6 @@ import NavMenu from "../../components/header/NavMenu";
 // !DEL
 const HeaderOne = ({
   layout,
-  top,
   borderStyle,
   headerPaddingClass,
   headerPositionClass,
@@ -37,11 +36,12 @@ const HeaderOne = ({
       }`}
     >
       <div
-        className={`${headerPaddingClass ? headerPaddingClass : ""} ${
-          top === "visible" ? "d-none d-lg-block" : "d-none"
-        } header-top-area ${
-          borderStyle === "fluid-border" ? "border-none" : ""
-        }`}
+        className={`${headerPaddingClass ? headerPaddingClass : ""}
+            header-top-area ${
+              borderStyle === "fluid-border" ? "border-none" : ""
+            }
+            ${scroll > headerTop ? "stickTop stick" : ""} sticky-bar
+            `}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
           {/* header top */}

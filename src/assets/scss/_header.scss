@@ -19,8 +19,8 @@
 
 .sticky-bar.stick {
   position: fixed;
-  z-index: 999;
-  top: 0;
+  z-index: 999999999999999999999999;
+  top: 60px;
   left: 0;
 
   width: 100%;
@@ -66,6 +66,10 @@
       }
     }
   }
+}
+.sticky-bar.stickTop {
+  top: 0;
+  background-color: $theme-color;
 }
 .header-padding-1 .container-fluid {
   padding: 0 80px;
@@ -955,6 +959,8 @@
 
 .header-top-area {
   border-bottom: 1px solid #d5d4d4;
+  background: $theme-color;
+  color: #fff;
   .header-top-wap {
     display: flex;
     align-items: center;
@@ -962,13 +968,11 @@
     @media #{$xs-layout} {
       display: block;
 
-      margin-top: 8px;
       padding-bottom: 15px;
     }
     @media #{$sm-layout} {
       display: flex;
 
-      margin-top: 0;
       margin-bottom: 0;
     }
   }
@@ -982,7 +986,7 @@
 
     letter-spacing: 0.8px;
 
-    color: #555252;
+    color: #fff;
     span {
       color: #ff1c1c;
     }
@@ -1039,7 +1043,7 @@
       cursor: pointer;
       letter-spacing: 0.8px;
 
-      color: #555252;
+      color: #fff;
       @media #{$xs-layout} {
         line-height: 35px;
       }
@@ -1052,7 +1056,7 @@
         position: relative;
         top: 2px;
 
-        color: #555252;
+        color: #fff;
       }
     }
     .lang-car-dropdown {
@@ -1097,7 +1101,7 @@
 
       letter-spacing: 0.8px;
 
-      color: #555252;
+      color: #fff;
     }
     &:hover {
       & > a,
@@ -2001,7 +2005,6 @@
     .header-top-wap {
       display: block;
 
-      margin-top: 8px;
       margin-bottom: 15px;
       .language-currency-wrap {
         justify-content: center;
@@ -2011,6 +2014,20 @@
           text-align: center;
         }
       }
+    }
+  }
+}
+@media (max-width: 991px) {
+  .logo {
+    width: 100%;
+    display: block;
+    text-align: start;
+  }
+  .header-offer {
+    width: 100%;
+    padding-block: 10px;
+    p {
+      text-align: center;
     }
   }
 }

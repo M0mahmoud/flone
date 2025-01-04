@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
@@ -18,12 +18,30 @@ const ProductDescriptionInfo = ({
   strings,
 }) => {
   const [quantityCount, setQuantityCount] = useState(1);
+  console.log("🚀 ~ quantityCount:", quantityCount);
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(
     product?.is_favorite || getIsFavoriteFromLocalStorage(product)
   );
   const { addToast } = useToasts();
   const [modalShow, setModalShow] = useState(false);
+
+  const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false);
+
+    useEffect(() => {
+      const media = window.matchMedia(query);
+      setMatches(media.matches);
+
+      const listener = () => setMatches(media.matches);
+      media.addEventListener("change", listener);
+
+      return () => media.removeEventListener("change", listener);
+    }, [query]);
+
+    return matches;
+  };
+  const isMobileOrTablet = useMediaQuery("(max-width: 768px)");
 
   const handleWishlistToggle = () => {
     if (isFav) {
@@ -62,12 +80,12 @@ const ProductDescriptionInfo = ({
               ? product.translations[0]?.weight
               : product.translations[1].weight}
           </p>
-          <p>
+          {/* <p>
             <span>{strings["country"]} </span>
             {currentLanguageCode === "ar"
               ? product.translations[0]?.country_origin
               : product.translations[1].country_origin}
-          </p>
+          </p> */}
         </div>
 
         <div className="pro-details-size-color">
@@ -172,6 +190,17 @@ const ProductDescriptionInfo = ({
             </svg>
           </button>
         </div>
+        {isMobileOrTablet && (
+          <img
+            src={product?.cover_path}
+            alt="COVER"
+            loading="lazy"
+            style={{
+              marginBlock: "50px",
+              width: "100%",
+            }}
+          />
+        )}
       </div>
       <CheckoutModal
         show={modalShow}
@@ -182,6 +211,58 @@ const ProductDescriptionInfo = ({
         strings={strings}
         quantityCount={quantityCount}
       />
+      <div className="sticky-toolbar">
+        <div className="container-fluid">
+          <div className="row align-items-center justify-content-center">
+            <div className="pro-details-quality">
+              <div className="cart-plus-minus">
+                <button
+                  type="button"
+                  onClick={() => setQuantityCount(quantityCount - 1)} // Directly increment the quantity
+                  disabled={quantityCount === 1}
+                  className="dec qtybutton"
+                >
+                  -
+                </button>
+                <input
+                  className="cart-plus-minus-box"
+                  type="text"
+                  value={quantityCount}
+                  readOnly
+                />
+                <button
+                  type="button"
+                  onClick={() => setQuantityCount(quantityCount + 1)} // Directly increment the quantity
+                  className="inc qtybutton"
+                >
+                  +
+                </button>
+              </div>
+              <div className="pro-details-cart btn-hover">
+                {product.is_available ? (
+                  <button
+                    onClick={() => addToCart(product, addToast, quantityCount)}
+                    disabled={!product.is_available}
+                  >
+                    {strings["addToCart"]}
+                  </button>
+                ) : (
+                  <button disabled>{strings["outOfStock"]}</button>
+                )}
+              </div>
+            </div>
+            <div className="col-auto d-flex flex-column gap-2">
+              <span className="product-name">
+                {" "}
+                {currentLanguageCode === "ar"
+                  ? product.translations[0]?.name
+                  : product.translations[1].name}
+              </span>
+              <span className="price">LE {product.price}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

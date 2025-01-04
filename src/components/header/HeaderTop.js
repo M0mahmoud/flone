@@ -26,10 +26,9 @@ const HeaderTop = ({
         dispatch={dispatch}
         strings={strings}
       />
-      <div className="header-offer">
+      <div className="header-offer ">
         <p>
-          {strings["free"]}
-          <span>{200}</span>
+          {strings["free"]} <span>{200}</span>
         </p>
       </div>
     </div>

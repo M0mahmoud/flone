@@ -28,6 +28,11 @@ body {
   background-color: $white;
   text-align: start !important;
 }
+:lang(ar) {
+  body {
+    text-align: end !important;
+  }
+}
 
 h1,
 h2,
@@ -661,7 +666,7 @@ a:hover {
 .pt-100 {
   padding-top: 100px;
   @media #{$xs-layout} {
-    padding-top: 60px;
+    padding-top: 20px;
   }
 }
 
@@ -1739,6 +1744,7 @@ textarea:focus {
       width: 0;
 
       background: $theme-color;
+      background: #f4d50f;
     }
     &:hover::after {
       right: auto;
@@ -2031,5 +2037,130 @@ a.default-btn {
   }
   @media (min-width: 768px) {
     display: none;
+  }
+}
+
+.sticky-toolbar {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  background-color: #f8f9fa; // light gray background
+  border-top: 1px solid #dee2e6; // light border for the top
+  z-index: 9999999999999999;
+  .product-name {
+    font-weight: bold;
+  }
+
+  .price {
+    color: #007bff; // Bootstrap primary color
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .input-group {
+      width: 100%; // full width on small screens
+    }
+  }
+}
+
+.pro-details-quality {
+  display: flex;
+  align-items: center;
+
+  margin-block: 5px;
+  .cart-plus-minus {
+    position: relative;
+
+    display: inline-block;
+    overflow: hidden;
+
+    width: 80px;
+    height: 60px;
+    padding: 0;
+
+    border: 1px solid #e8e8e8;
+    .qtybutton {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      height: 60px;
+
+      position: absolute;
+
+      float: inherit;
+
+      width: 24px;
+      margin: 0;
+
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+      text-align: center;
+
+      color: #8f8f8f;
+      border: none;
+      background: none;
+    }
+    .dec.qtybutton {
+      top: 0;
+      left: 0;
+
+      height: 60px;
+    }
+    .inc.qtybutton {
+      top: 0;
+      right: 0;
+
+      height: 60px;
+    }
+    input.cart-plus-minus-box {
+      font-size: 14px;
+
+      float: left;
+
+      width: 80px;
+      height: 60px;
+      margin: 0;
+      padding: 0;
+
+      text-align: center;
+
+      color: #8f8f8f;
+      border: medium none;
+      background: transparent none repeat scroll 0 0;
+    }
+  }
+  .pro-details-cart {
+    margin: 0 25px 0 10px;
+    a,
+    button {
+      font-weight: bold;
+      line-height: 1;
+
+      z-index: 99;
+
+      display: inline-block;
+
+      padding: 12px 20px 12px;
+
+      text-transform: uppercase;
+
+      color: #fff;
+      border: none;
+      background: none;
+      background-color: rgb(0, 131, 66);
+
+      &:hover {
+        border: none;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        &:before,
+        &:after {
+          display: none;
+        }
+      }
+    }
   }
 }

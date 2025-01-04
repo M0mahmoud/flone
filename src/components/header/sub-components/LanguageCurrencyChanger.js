@@ -14,7 +14,7 @@ const LanguageCurrencyChanger = ({
   };
 
   return (
-    <div className="language-currency-wrap">
+    <div className="language-currency-wrap d-none d-lg-flex">
       <div className="same-language-currency language-style">
         <span>
           {currentLanguageCode === "en" ? "English" : "Arabic"}{" "}

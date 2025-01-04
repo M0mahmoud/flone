@@ -47,6 +47,11 @@ export default function Product({ product }) {
               loading="lazy"
               width={270}
               height={270}
+              style={
+                {
+                  // objectFit: "contain",
+                }
+              }
             />
             {product.discount ? (
               <div className="product-img-badges">

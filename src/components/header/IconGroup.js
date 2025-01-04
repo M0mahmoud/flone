@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteFromCart, getCartItems } from "../../redux/actions/cartActions";
 import { getWishlist } from "../../redux/actions/wishlistActions";
@@ -12,14 +12,6 @@ const IconGroup = ({
   deleteFromCart,
   iconWhiteClass,
 }) => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (localStorage.getItem("authToken")) {
-  //     dispatch(getCartItems());
-  //     dispatch(getWishlist());
-  //   }
-  // }, [dispatch]);
-
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -48,30 +40,20 @@ const IconGroup = ({
           </form>
         </div>
       </div>
-      <div className="same-style account-setting d-none d-lg-block">
-        <button
-          className="account-setting-active"
-          onClick={(e) => handleClick(e)}
+
+      <div className="same-style header-wishlist">
+        <Link
+          to={
+            process.env.PUBLIC_URL +
+            `${
+              localStorage.getItem("authToken")
+                ? "/my-account"
+                : "/login-register"
+            }`
+          }
         >
           <i className="pe-7s-user-female" />
-        </button>
-        <div className="account-dropdown">
-          <ul>
-            {localStorage.getItem("authToken") ? (
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                  my account
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                  Register
-                </Link>
-              </li>
-            )}
-          </ul>
-        </div>
+        </Link>
       </div>
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>

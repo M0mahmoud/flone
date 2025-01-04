@@ -8,6 +8,7 @@ const MobileLangCurrChange = ({ currentLanguageCode, dispatch, strings }) => {
   const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     dispatch(changeLanguage(languageCode));
+    window.location.reload();
   };
 
   const closeMobileMenu = () => {
