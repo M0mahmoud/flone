@@ -12,7 +12,6 @@ const FooterTwo = ({
   footerTopBackgroundColorClass,
   footerTopSpaceTopClass,
   footerTopSpaceBottomClass,
-  footerLogo,
   backgroundImage,
   currentLanguageCode,
   strings,
@@ -63,13 +62,17 @@ const FooterTwo = ({
       >
         <div className="container">
           <div className="footer-logo">
-            <Link to={process.env.PUBLIC_URL}>
+            <Link to={process.env.PUBLIC_URL + "/"}>
               <img
                 alt=""
-                src={
-                  process.env.PUBLIC_URL +
-                  `${footerLogo ? footerLogo : "/assets/img/logo/logo.png"}`
-                }
+                src={`${
+                  currentLanguageCode === "en"
+                    ? "/zein322 -01.svg"
+                    : "/zein322 -11.svg"
+                }`}
+                width={120}
+                height={120}
+                style={{ objectFit: "cover" }}
               />
             </Link>
           </div>

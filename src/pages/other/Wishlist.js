@@ -28,16 +28,20 @@ const Wishlist = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Wishlist</title>
+        <title>
+          {strings["Zain"]} | {strings["wishlist"]}
+        </title>
         <meta
           name="description"
           content="Wishlist page of flone react minimalist eCommerce template."
         />
       </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["home"]}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Wishlist
+        {strings["wishlist"]}
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -47,18 +51,20 @@ const Wishlist = ({
           <div className="container">
             {wishlistItems && wishlistItems.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your wishlist items</h3>
+                <h3 className="cart-page-title">
+                  {strings["wishlist_page_title"]}
+                </h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
                       <table>
                         <thead>
                           <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Add To Cart</th>
-                            <th>action</th>
+                            <th>{strings["image"]}</th>
+                            <th>{strings["product_name"]}</th>
+                            <th>{strings["unit_price"]}</th>
+                            <th>{strings["add_to_cart"]}</th>
+                            <th>{strings["action"]}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -145,7 +151,7 @@ const Wishlist = ({
                                     cartItem?.quantity > 0 
                                       ? "Added"
                                       : "Add to cart"} */}
-                                    Add
+                                    {strings["add_to_cart"]}
                                   </button>
                                   {/* ) : (
                                     <button disabled className="active">
@@ -177,7 +183,7 @@ const Wishlist = ({
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
                         <Link to={process.env.PUBLIC_URL + "/shop"}>
-                          Continue Shopping
+                          {strings["continue_shopping"]}
                         </Link>
                       </div>
                     </div>

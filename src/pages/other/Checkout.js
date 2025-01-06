@@ -93,7 +93,9 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Checkout</title>
+        <title>
+          {strings["Zain"]} | {strings["checkout"]}
+        </title>
         <meta
           name="description"
           content="Checkout page of flone react minimalist eCommerce template."

@@ -34,7 +34,9 @@ const About = ({ location, strings }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Ajyal | About us</title>
+        <title>
+          {strings["Zain"]}| {strings["about_us"]}
+        </title>
         <meta
           name="description"
           content="About page of flone react minimalist eCommerce template."

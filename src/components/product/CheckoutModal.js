@@ -15,7 +15,6 @@ function CheckoutModal({
   strings,
   products,
 }) {
-  const [deliveryFees, setDeliveryFees] = useState("");
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -29,12 +28,38 @@ function CheckoutModal({
     street: "",
     notes: "",
   });
+
+  const [cities, setCities] = useState([]);
+  const [deliveryFees, setDeliveryFees] = useState(0);
+
+  // Fetch cities on component load
   useEffect(() => {
     axiosInstance
-      .get("/settings")
-      .then((res) => setDeliveryFees(res?.data?.settings?.delivery_fees))
-      .catch(() => setDeliveryFees(""));
+      .get("/cities")
+      .then((res) => {
+        setCities(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cities", error);
+        setCities([]);
+      });
   }, []);
+
+  // Handle city change and calculate delivery fees
+  const handleCityChange = (e) => {
+    const selectedCityId = e.target.value;
+    const selectedCity = cities.find(
+      (city) => city.id === parseInt(selectedCityId)
+    );
+
+    setFormData((prevData) => ({
+      ...prevData,
+      city: selectedCity ? selectedCity.id : "",
+    }));
+
+    // Set delivery fees based on the selected city's delivery_tax
+    setDeliveryFees(selectedCity ? selectedCity.delivery_tax : 0);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,7 +79,7 @@ function CheckoutModal({
       email: formData.email,
       phone: formData.phone,
       country: formData.country,
-      city: formData.city,
+      city: String(formData.city),
       zip: formData.zip,
       street: formData.street,
       notes: formData.notes,
@@ -190,13 +215,20 @@ function CheckoutModal({
                     />
                   </div>
                   <div className="mb-3">
-                    <input
-                      type="text"
+                    <select
                       name="city"
                       value={formData.city}
-                      onChange={handleInputChange}
-                      placeholder={strings["city"]}
-                    />
+                      onChange={handleCityChange}
+                    >
+                      <option value="">{strings["select_city"]}</option>
+                      {cities.map((city) => (
+                        <option key={city.id} value={city.id}>
+                          {currentLanguageCode === "ar"
+                            ? city.translations[0].name
+                            : city.translations[1].name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="mb-3">
                     <input

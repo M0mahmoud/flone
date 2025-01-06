@@ -12,7 +12,7 @@ import { getCartItems } from "../../redux/actions/cartActions";
 import { getWishlist } from "../../redux/actions/wishlistActions";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
-const LoginRegister = ({ location }) => {
+const LoginRegister = ({ location, strings }) => {
   const { pathname } = location;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -88,15 +88,19 @@ const LoginRegister = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Login</title>
+        <title>
+          {strings["Zain"]} | {strings["login_register"]}
+        </title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."
         />
       </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+        {strings["home"]}
+      </BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Login Register
+        {strings["login_register"]}
       </BreadcrumbsItem>
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
@@ -110,12 +114,12 @@ const LoginRegister = ({ location }) => {
                     <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="login">
-                          <h4>Login</h4>
+                          <h4>{strings["login"]}</h4>
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link eventKey="register">
-                          <h4>Register</h4>
+                          <h4>{strings["register"]}</h4>
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
@@ -145,7 +149,7 @@ const LoginRegister = ({ location }) => {
                               )}
                               <div className="button-box">
                                 <button type="submit">
-                                  <span>Login</span>
+                                  <span>{strings["login"]}</span>
                                 </button>
                               </div>
                             </form>
@@ -221,7 +225,7 @@ const LoginRegister = ({ location }) => {
                               )}
                               <div className="button-box">
                                 <button type="submit">
-                                  <span>Register</span>
+                                  <span>{strings["register"]}</span>
                                 </button>
                               </div>
                             </form>

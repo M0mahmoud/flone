@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import MetaTags from "react-meta-tags";
+import { multilanguage } from "redux-multilanguage";
 import LayoutThree from "../../layouts/LayoutThree";
 import BannerFive from "../../wrappers/banner/BannerFive";
 import CountDownTwo from "../../wrappers/countdown/CountDownTwo";
@@ -9,11 +10,11 @@ import NewsletterTwo from "../../wrappers/newsletter/NewsletterTwo";
 import TabProductFour from "../../wrappers/product/TabProductFour";
 // import TestimonialOne from "../../wrappers/testimonial/TestimonialOne";
 // !DEL
-const HomeOrganicFood = () => {
+const HomeOrganicFood = ({ strings }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Ajyal</title>
+        <title>{strings["Zain"]}</title>
         <meta
           name="description"
           content="Organic food home of flone react minimalist eCommerce template."
@@ -67,4 +68,4 @@ const HomeOrganicFood = () => {
   );
 };
 
-export default HomeOrganicFood;
+export default multilanguage(HomeOrganicFood);

@@ -22,7 +22,7 @@
 .sticky-bar.stick {
   position: fixed;
   z-index: 999999999999999999999999;
-  top: 50px;
+  top: 45px;
   left: 0;
 
   width: 100%;
@@ -193,7 +193,7 @@
               text-align: start;
               text-transform: capitalize;
 
-              color: #333;
+              color: $theme-color;
               &:hover {
                 color: $theme-color;
               }
@@ -291,9 +291,9 @@
                   text-transform: capitalize;
 
                   color: #333;
-                  &:hover {
-                    color: $theme-color;
-                  }
+
+                  color: $theme-color;
+
                   &::before {
                     position: absolute;
                     z-index: 999;
@@ -362,7 +362,7 @@
 
           letter-spacing: 0.8px;
 
-          color: #555252;
+          color: $theme-color;
           i {
             font-size: 15px;
 
@@ -404,13 +404,14 @@
   }
 }
 .stick .main-menu.menu-white nav ul li a {
-  color: #555252;
-  &:hover {
-    color: $theme-color;
-  }
+  // color: #555252;
+  // &:hover {
+  color: $theme-color;
+  // }
 }
 
 .stick .main-menu nav ul li a {
+  color: $theme-color;
   line-height: 75px;
 }
 
@@ -2284,9 +2285,7 @@
         padding: 10px 0;
 
         color: #111;
-        &:hover {
-          color: $theme-color;
-        }
+        color: $theme-color;
 
         @media #{$sm-layout} {
           font-size: 14px;

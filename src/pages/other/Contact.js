@@ -82,7 +82,9 @@ const Contact = ({ strings, currentLanguageCode }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Ajyal | {strings["CONTACT_pageTitle"]}</title>
+        <title>
+          {strings["Zain"]} | {strings["CONTACT_pageTitle"]}
+        </title>
         <meta
           name="description"
           content="Contact of flone react minimalist eCommerce template."

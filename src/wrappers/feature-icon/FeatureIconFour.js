@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axiosInstance from "../../api/api.js";
 import FeatureIconFourSingle from "../../components/feature-icon/FeatureIconFourSingle.js";
-import featureIconData from "../../data/feature-icons/feature-icon-four.json";
 // !DEL
 const FeatureIconFour = ({
   spaceTopClass,
@@ -11,6 +11,29 @@ const FeatureIconFour = ({
   responsiveClass,
   bgImg,
 }) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axiosInstance.get("/features");
+        setData(response.data || []); // Ensure response structure is correct
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Handle loading state
+  if (loading) {
+    return <div className="loading-spinner" />;
+  }
   return (
     <div
       className={`support-area hm9-section-padding ${
@@ -30,8 +53,8 @@ const FeatureIconFour = ({
         }`}
       >
         <div className="row">
-          {featureIconData &&
-            featureIconData.map((single, key) => {
+          {data &&
+            data.map((single, key) => {
               return (
                 <FeatureIconFourSingle
                   data={single}

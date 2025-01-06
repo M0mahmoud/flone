@@ -7,12 +7,30 @@ import axiosInstance from "../../api/api.js";
 const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false);
+
+    useEffect(() => {
+      const media = window.matchMedia(query);
+      setMatches(media.matches);
+
+      const listener = () => setMatches(media.matches);
+      media.addEventListener("change", listener);
+
+      return () => media.removeEventListener("change", listener);
+    }, [query]);
+
+    return matches;
+  };
+  const isMobileOrTablet = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axiosInstance.get("/sliders");
+        const response = await axiosInstance.get(
+          isMobileOrTablet ? "/sliders-phone" : "sliders-web"
+        );
         setData(response.data || []); // Ensure response structure is correct
         setLoading(false);
       } catch (err) {
@@ -22,16 +40,16 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
     };
 
     fetchData();
-  }, []);
+  }, [isMobileOrTablet]);
 
   const params = {
     effect: "fade",
-    // loop: true, // Enable looping
-    // speed: 1000,
-    // autoplay: {
-    //   delay: 3500,
-    //   disableOnInteraction: false,
-    // },
+    loop: true, // Enable looping
+    speed: 1000,
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false,
+    },
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -44,7 +62,7 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
     >
       <div className="slider-active nav-style-1">
         {loading || data.length === 0 ? (
-          <p>Loading slides...</p>
+          <div className="loading-spinner"></div>
         ) : (
           <Swiper {...params}>
             {data.map((single, key) => (

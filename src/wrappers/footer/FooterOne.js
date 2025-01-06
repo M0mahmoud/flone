@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
+import axiosInstance from "../../api/api";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 
@@ -13,6 +15,8 @@ const FooterOne = ({
   containerClass,
   extraFooterClass,
   sideMenu,
+  currentLanguageCode,
+  strings,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
@@ -28,6 +32,61 @@ const FooterOne = ({
   const handleScroll = () => {
     setScroll(window.scrollY);
   };
+  const [socails, setSocails] = useState([]);
+  const [socialMediaTranslations, setSocialMediaTranslations] = useState({});
+
+  useEffect(() => {
+    axiosInstance
+      .get("/socails") // Assuming this is the endpoint providing social data
+      .then((res) => {
+        setSocails(res.data || []);
+
+        const translations = res.data.reduce((acc, el) => {
+          if (el.url) {
+            // Extract the domain from the URL
+            const domain = new URL(el.url).hostname.split(".")[1];
+            console.log("🚀 ~ translations ~ domain:", domain);
+
+            // Define a generic translation mapping for common platforms and URLs
+            const translationMap = {
+              facebook: {
+                en: "Facebook",
+                ar: "فيسبوك",
+              },
+              youtube: {
+                en: "YouTube",
+                ar: "يوتيوب",
+              },
+              instagram: {
+                en: "Instagram",
+                ar: "إنستغرام",
+              },
+              // WhatsApp
+              me: {
+                en: "WhatsApp",
+                ar: "واتساب",
+              },
+            };
+
+            // Default to the domain if no specific translation is found
+            const translate = (platform) =>
+              translationMap[platform] || { en: platform, ar: platform };
+
+            // Handle WhatsApp separately because it's a "wa.me" link
+            const platformName = domain
+              ? domain
+              : el.url.includes("wa.me")
+              ? "wa"
+              : el.url.split("/")[2]; // Fallback to domain name
+
+            acc[el.url] = translate(platformName);
+          }
+          return acc;
+        }, {});
+        setSocialMediaTranslations(translations); // Save translations to state
+      })
+      .catch(() => setSocails([]));
+  }, []);
 
   return (
     <footer
@@ -48,7 +107,7 @@ const FooterOne = ({
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo="/assets/img/logo/logo.png"
+              currentLanguageCode={currentLanguageCode}
               spaceBottomClass="mb-30"
             />
           </div>
@@ -59,67 +118,25 @@ const FooterOne = ({
           >
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
-                <h3>ABOUT US</h3>
+                <h3>{strings["about_us"]}</h3>
               </div>
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/about"}>About us</Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Store location
+                    <Link to={process.env.PUBLIC_URL + "/about"}>
+                      {strings["about_us"]}
                     </Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/contact"}>
-                      Contact
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Orders tracking
+                      {strings["contact_us"]}
                     </Link>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <div
-            className={`${
-              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-            }`}
-          >
-            <div
-              className={`${
-                sideMenu
-                  ? "footer-widget mb-30 ml-95"
-                  : "footer-widget mb-30 ml-50"
-              }`}
-            >
-              <div className="footer-title">
-                <h3>USEFUL LINKS</h3>
-              </div>
-              <div className="footer-list">
-                <ul>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Returns</Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Support Policy
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Size guide</Link>
-                  </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>FAQs</Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+
           <div
             className={`${
               sideMenu ? "col-xl-3 col-sm-4" : "col-lg-2 col-sm-6"
@@ -133,46 +150,28 @@ const FooterOne = ({
               }`}
             >
               <div className="footer-title">
-                <h3>FOLLOW US</h3>
+                <h3>{strings["CONTACT_SOCIAL_TITLE"]}</h3>
               </div>
               <div className="footer-list">
                 <ul>
-                  <li>
-                    <a
-                      href="//www.facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Facebook
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="//www.twitter.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Twitter
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="//www.instagram.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Instagram
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="//www.youtube.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Youtube
-                    </a>
-                  </li>
+                  {socails?.map((el, index) => (
+                    <li key={el.id || index}>
+                      <a
+                        href={el.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {/* Check current language code and render corresponding translation */}
+                        {
+                          currentLanguageCode === "en"
+                            ? socialMediaTranslations[el.url]?.en ||
+                              el.url.split("/")[2] // Default to domain name
+                            : socialMediaTranslations[el.url]?.ar ||
+                              el.url.split("/")[2] // Default to domain name in Arabic
+                        }
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -223,4 +222,4 @@ FooterOne.propTypes = {
   spaceRightClass: PropTypes.string,
 };
 
-export default FooterOne;
+export default multilanguage(FooterOne);

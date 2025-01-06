@@ -1,8 +1,14 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
 
-const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
+const FooterCopyright = ({
+  currentLanguageCode,
+  spaceBottomClass,
+  colorClass,
+  strings,
+}) => {
   return (
     <div
       className={`copyright ${spaceBottomClass ? spaceBottomClass : ""} ${
@@ -11,15 +17,25 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
     >
       <div className="footer-logo">
         <Link to={process.env.PUBLIC_URL + "/"}>
-          <img alt="" src={process.env.PUBLIC_URL + footerLogo} />
+          <img
+            alt=""
+            src={`${
+              currentLanguageCode === "en"
+                ? "/zein322 -01.svg"
+                : "/zein322 -11.svg"
+            }`}
+            width={120}
+            height={120}
+            style={{ objectFit: "cover" }}
+          />
         </Link>
       </div>
       <p>
         © 2020{" "}
         <a href="//hasthemes.com" rel="noopener noreferrer" target="_blank">
-          Flone
+          {strings["Zain"]}
         </a>
-        .<br /> All Rights Reserved
+        .<br /> {strings["footerRights"]}
       </p>
     </div>
   );
@@ -28,7 +44,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
 FooterCopyright.propTypes = {
   footerLogo: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  colorClass: PropTypes.string
+  colorClass: PropTypes.string,
 };
 
-export default FooterCopyright;
+export default multilanguage(FooterCopyright);

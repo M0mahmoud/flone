@@ -144,7 +144,9 @@ const MyAccount = ({ location, strings }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Ajyal | {strings["my_account"]}</title>
+        <title>
+          {strings["Zain"]} | {strings["my_account"]}
+        </title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."

@@ -8,19 +8,15 @@ const FeatureIconFourSingle = ({ data, spaceBottomClass }) => {
         className={`support-wrap-3 text-center ${
           spaceBottomClass ? spaceBottomClass : ""
         }`}
-        style={{ backgroundColor: `${data.backgroundColor}` }}
       >
-        <div className="support-icon-2">
-          <img
-            className="animated"
-            src={process.env.PUBLIC_URL + data.iconImage}
-            alt=""
-          />
-        </div>
-        <div className="support-content-3">
-          <img src={process.env.PUBLIC_URL + data.titleImage} alt="" />
-          <p>{data.title}</p>
-        </div>
+        <img
+          className="animated"
+          src={process.env.PUBLIC_URL + data.image_path}
+          alt=""
+          style={{
+            width: "100%",
+          }}
+        />
       </div>
     </div>
   );
