@@ -27,7 +27,7 @@ const IconGroup = ({
     <div
       className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
     >
-      <div className="same-style header-search d-none d-lg-block">
+      {/* <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-search" />
         </button>
@@ -39,7 +39,7 @@ const IconGroup = ({
             </button>
           </form>
         </div>
-      </div>
+      </div> */}
 
       <div className="same-style header-wishlist">
         <Link

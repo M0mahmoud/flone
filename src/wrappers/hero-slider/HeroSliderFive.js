@@ -29,7 +29,7 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
       setLoading(true);
       try {
         const response = await axiosInstance.get(
-          isMobileOrTablet ? "/sliders-phone" : "sliders-web"
+          !isMobileOrTablet ? "/sliders-web" : "sliders-phone"
         );
         setData(response.data || []); // Ensure response structure is correct
         setLoading(false);
