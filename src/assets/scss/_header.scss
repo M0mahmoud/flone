@@ -3,7 +3,7 @@
 .header-area {
   position: relative;
   position: relative;
-  z-index: 99999999999999999999999;
+  z-index: 999999999999;
   &.header-absolute {
     position: absolute;
     z-index: 99;
@@ -21,7 +21,7 @@
 
 .sticky-bar.stick {
   position: fixed;
-  z-index: 9999999999999999999999999;
+  z-index: 999999999999;
   top: 45px;
   left: 0;
 
