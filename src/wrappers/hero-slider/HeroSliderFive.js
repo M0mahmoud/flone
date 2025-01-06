@@ -7,8 +7,9 @@ import axiosInstance from "../../api/api.js";
 const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const useMediaQuery = (query) => {
-    const [matches, setMatches] = useState(false);
+    const [matches, setMatches] = useState(null); // Start with null to avoid premature API calls
 
     useEffect(() => {
       const media = window.matchMedia(query);
@@ -22,20 +23,26 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
 
     return matches;
   };
+
   const isMobileOrTablet = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
+    if (isMobileOrTablet === null) {
+      // Don't fetch data until the media query is evaluated
+      return;
+    }
+
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await axiosInstance.get(
-          !isMobileOrTablet ? "/sliders-web" : "sliders-phone"
+          isMobileOrTablet ? "/sliders-phone" : "/sliders-web"
         );
         setData(response.data || []); // Ensure response structure is correct
-        setLoading(false);
       } catch (err) {
-        setLoading(false);
         console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
