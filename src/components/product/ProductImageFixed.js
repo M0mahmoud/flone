@@ -62,7 +62,7 @@ const ProductImageFixed = ({ product }) => {
                 },
               }}
               style={{
-                zIndex: 9990,
+                zIndex: 1153,
               }}
             />
           ) : (

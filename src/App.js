@@ -46,7 +46,7 @@ const App = (props) => {
   });
 
   return (
-    <ToastProvider placement="top-left" transitionDuration={180}>
+    <ToastProvider placement="bottom-left" transitionDuration={180}>
       <BreadcrumbsProvider>
         <Router>
           <ScrollToTop>

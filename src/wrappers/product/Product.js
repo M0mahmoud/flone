@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import { multilanguage } from "redux-multilanguage";
 import { getIsFavoriteFromLocalStorage } from "../../helpers/Locale";
+import { addToCart } from "../../redux/actions/cartActions";
 import {
   addToWishlist,
   deleteFromWishlist,
 } from "../../redux/actions/wishlistActions";
 
-export default function Product({ product }) {
+const Product = ({ product, currentLanguageCode }) => {
   const dispatch = useDispatch();
   const { addToast } = useToasts();
   const [isFav, setIsFav] = useState(
@@ -25,82 +27,51 @@ export default function Product({ product }) {
       setIsFav((prev) => !prev);
     }
   };
-  const originalPrice = product.price;
-  const discountAmount = product.discount;
-  // Calculate discount percentage
-  const discountPercentage = (discountAmount / originalPrice) * 100;
 
   return (
-    <div
-      key={product.id}
-      className="col-xl-3 col-md-6 col-lg-4 col-sm-6"
-      style={{ minWidth: "250px" }}
-    >
-      <div className="product-wrap-2 mb-25">
-        {/* Product Image */}
+    <div className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 col-12 `}>
+      <div className={`product-wrap-2 mb-25`}>
         <div className="product-img">
-          <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
+          <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
             <img
-              className="default-img"
+              className="default-img img-fluid"
               src={product.image_path}
               alt={product.name}
               loading="lazy"
-              width={270}
-              height={270}
-              style={
-                {
-                  // objectFit: "contain",
-                }
-              }
             />
-            {product.discount ? (
-              <div className="product-img-badges">
-                {product.discount ? (
-                  <span className="pink">-{discountPercentage}%</span>
-                ) : (
-                  ""
-                )}
-              </div>
-            ) : (
-              ""
-            )}
-            {product.image && (
+            {product.image.length > 1 ? (
               <img
-                className="hover-img"
+                className="hover-img img-fluid"
                 src={product.image_path}
                 alt={product.name}
                 loading="lazy"
-                width={270}
-                height={270}
               />
+            ) : (
+              ""
             )}
           </Link>
-          {product.promotion ? (
+          {product.discount ? (
             <div className="product-img-badges">
-              <span className="pink">-{product.promotion}%</span>
+              <span className="pink">-{product.discount}%</span>
             </div>
-          ) : null}
-        </div>
-        {/* Product Content */}
-        <div className="product-content-2">
-          {/* Title and Price */}
-          <div className="title-price-wrap-2">
-            <h3>
-              <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                {product.name}
-              </Link>
-            </h3>
-            <div className="price-2">
-              {product.price > 0 ? (
-                <span>${product.price}</span>
-              ) : (
-                <span>Contact for price</span>
-              )}
-            </div>
-          </div>
+          ) : (
+            ""
+          )}
 
-          {/* Wishlist */}
-          <div className="pro-wishlist-2">
+          <div className="product-action-2">
+            {product.is_available ? (
+              <button
+                onClick={() => dispatch(addToCart(product, addToast, 1))}
+                title={!product.is_available ? "Added to cart" : "Add to cart"}
+              >
+                {" "}
+                <i className="fa fa-shopping-cart"></i>{" "}
+              </button>
+            ) : (
+              <button disabled className="active" title="Out of stock">
+                <i className="fa fa-shopping-cart"></i>
+              </button>
+            )}
             <button
               className={
                 product.is_favorite || getIsFavoriteFromLocalStorage(product)
@@ -118,7 +89,34 @@ export default function Product({ product }) {
             </button>
           </div>
         </div>
+        <div className="product-content-2">
+          <div className="title-price-wrap-2">
+            <h3>
+              <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                {currentLanguageCode === "ar"
+                  ? product.translations[0]?.name
+                  : product.translations[1]?.name}
+              </Link>
+            </h3>
+            <div className="price-2">
+              <span>{product.price}</span>{" "}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (item, addToast, quantityCount) => {
+      dispatch(addToCart(item, addToast, quantityCount));
+    },
+    addToWishlist: (item, addToast) => {
+      dispatch(addToWishlist(item, addToast));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(multilanguage(Product));

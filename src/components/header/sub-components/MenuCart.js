@@ -11,7 +11,7 @@ const MenuCart = ({
   strings,
 }) => {
   const cartTotalPrice = cartData?.items?.reduce((total, item) => {
-    const qty = item.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+    const qty = item.pivot?.qty || item.qty || 1; // Safely fallback to 0 if qty is undefined
     return total + (item.price - item.discount) * qty;
   }, 0);
 
@@ -22,7 +22,7 @@ const MenuCart = ({
         <>
           <ul>
             {cartData?.items?.map((single, key) => {
-              const qty = single.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+              const qty = single.pivot?.qty || single.qty || 1; // Safely fallback to 0 if qty is undefined
               const itemTotalPrice = (single.price - single.discount) * qty;
 
               return (

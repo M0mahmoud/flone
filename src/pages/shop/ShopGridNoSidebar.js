@@ -53,7 +53,8 @@ const ShopGridNoSidebar = ({ location, strings }) => {
     };
 
     fetchItems();
-  }, [filterSortValue, setCurrentData, currentPage, offset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterSortValue]);
   useEffect(() => {
     // Update currentData based on currentPage
     setCurrentData(allData.slice(offset, offset + pageLimit));

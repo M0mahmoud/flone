@@ -118,10 +118,6 @@ function CheckoutModal({
         show={show}
         onHide={onHide}
         className="product-quickview-modal-wrapper"
-        style={{
-          direction: currentLanguageCode === "en" ? "ltr" : "rtl",
-          zIndex: "9999999999999",
-        }}
       >
         <Modal.Header closeButton>
           <Modal.Title>{strings["checkout_title"]}</Modal.Title>
@@ -142,7 +138,7 @@ function CheckoutModal({
                     ? el.translations[0]?.name
                     : el.translations[1].name}
                   <br />
-                  {el.price} X {el?.pivot?.qty || 1}
+                  {el.price} X {el?.pivot?.qty || el?.qty || 1}
                 </p>
               </div>
             ))}

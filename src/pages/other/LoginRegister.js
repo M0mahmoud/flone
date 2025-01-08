@@ -6,6 +6,7 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
 import LayoutOne from "../../layouts/LayoutOne";
 import { getCartItems } from "../../redux/actions/cartActions";
@@ -131,14 +132,14 @@ const LoginRegister = ({ location, strings }) => {
                               <input
                                 type="text"
                                 name="phone"
-                                placeholder="Phone Number"
+                                placeholder={strings["phone_number"]}
                                 value={loginFormData.phone}
                                 onChange={handleLoginChange}
                               />
                               <input
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder={strings["password"]}
                                 value={loginFormData.password}
                                 onChange={handleLoginChange}
                               />
@@ -163,7 +164,7 @@ const LoginRegister = ({ location, strings }) => {
                               <input
                                 type="text"
                                 name="fname"
-                                placeholder="First Name"
+                                placeholder={strings["first_name"]}
                                 value={formData.fname}
                                 onChange={handleChange}
                               />
@@ -174,7 +175,7 @@ const LoginRegister = ({ location, strings }) => {
                               <input
                                 type="text"
                                 name="lname"
-                                placeholder="Last Name"
+                                placeholder={strings["last_name"]}
                                 value={formData.lname}
                                 onChange={handleChange}
                               />
@@ -185,7 +186,7 @@ const LoginRegister = ({ location, strings }) => {
                               <input
                                 type="text"
                                 name="phone"
-                                placeholder="Phone"
+                                placeholder={strings["phone"]}
                                 value={formData.phone}
                                 onChange={handleChange}
                               />
@@ -196,7 +197,7 @@ const LoginRegister = ({ location, strings }) => {
                               <input
                                 type="email"
                                 name="email"
-                                placeholder="Email"
+                                placeholder={strings["email"]}
                                 value={formData.email}
                                 onChange={handleChange}
                               />
@@ -207,7 +208,7 @@ const LoginRegister = ({ location, strings }) => {
                               <input
                                 type="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder={strings["password"]}
                                 value={formData.password}
                                 onChange={handleChange}
                               />
@@ -248,4 +249,4 @@ LoginRegister.propTypes = {
   location: PropTypes.object,
 };
 
-export default LoginRegister;
+export default multilanguage(LoginRegister);

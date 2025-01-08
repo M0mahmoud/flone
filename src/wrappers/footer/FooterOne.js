@@ -45,7 +45,6 @@ const FooterOne = ({
           if (el.url) {
             // Extract the domain from the URL
             const domain = new URL(el.url).hostname.split(".")[1];
-            console.log("🚀 ~ translations ~ domain:", domain);
 
             // Define a generic translation mapping for common platforms and URLs
             const translationMap = {

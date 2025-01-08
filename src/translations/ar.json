@@ -182,8 +182,6 @@
   "compare": "مقارنة",
   "my_account": "حسابي",
   "login_register": "تسجيل الدخول / التسجيل",
-  "login": "Login",
-  "register": "Register",
   "about_us": "من نحن",
   "contact_us": "اتصل بنا",
   "404_page": "صفحة 404",
@@ -289,5 +287,11 @@
   "Checkoutwasnotsuccessful": "لم ينجح الدفع. يرجى التحقق من بياناتك.",
   "Checkoutfailed": "فشل الدفع. يرجى المحاولة مرة أخرى.",
   "USER_POINTS": "نقاط المستخدم",
-  "CASHBACK": "سجل الدخول للحصول ع كاش باك"
+  "CASHBACK": "سجل الدخول للحصول ع كاش باك",
+  "phone_number": "رقم الهاتف",
+  "email": "البريد الإلكتروني",
+  "submit": "إرسال",
+  "zain": "زين",
+  "login": "تسجيل الدخول",
+  "register": "إنشاء حساب"
 }

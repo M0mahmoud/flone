@@ -286,5 +286,11 @@
   "Checkoutwasnotsuccessful": "Checkout was not successful. Please check your input.",
   "Checkoutfailed": "Checkout failed. Please try again.",
   "USER_POINTS": "Your Points",
-  "CASHBACK": "Log in to get cashback"
+  "CASHBACK": "Log in to get cashback",
+  "login": "Login",
+  "register": "Register",
+  "phone_number": "Phone Number",
+  "email": "Email",
+  "submit": "Submit",
+  "zain": "Zain"
 }

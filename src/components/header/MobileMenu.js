@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import MobileLangCurChange from "./sub-components/MobileLangCurrChange";
 import MobileNavMenu from "./sub-components/MobileNavMenu";
-import MobileMenuSearch from "./sub-components/MobileSearch";
+// import MobileMenuSearch from "./sub-components/MobileSearch";
 // import MobileWidgets from "./sub-components/MobileWidgets";
 // !DEL
 const MobileMenu = () => {

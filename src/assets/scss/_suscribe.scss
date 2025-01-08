@@ -27,7 +27,7 @@
       height: 45px;
       padding: 2px 50px 2px 0;
 
-      color: #333;
+      color: #fff;
       border: none;
       border-bottom: 2px solid #e2e2e2;
       background: transparent;
@@ -37,6 +37,9 @@
     }
     .mc-form {
       position: relative;
+      input {
+        color: #fff;
+      }
     }
     .clear-2 {
       position: absolute;
@@ -136,7 +139,7 @@
 
       text-align: center;
 
-      color: #333;
+      color: #fff;
       border: none;
       border-bottom: 2px solid #e2e2e2;
       background: transparent;

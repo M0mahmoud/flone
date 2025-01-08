@@ -29,13 +29,13 @@ const IconGroup = ({
     >
       {/* <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={(e) => handleClick(e)}>
-          <i className="pe-7s-search" />
+          <i className="pe-7s-search" style={{color:'#008342'}} />
         </button>
         <div className="search-content">
           <form action="#">
             <input type="text" placeholder="Search" />
             <button className="button-search">
-              <i className="pe-7s-search" />
+              <i className="pe-7s-search" style={{color:'#008342'}} />
             </button>
           </form>
         </div>
@@ -52,12 +52,12 @@ const IconGroup = ({
             }`
           }
         >
-          <i className="pe-7s-user-female" />
+          <i className="pe-7s-user-female" style={{ color: "#008342" }} />
         </Link>
       </div>
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
-          <i className="pe-7s-like" />
+          <i className="pe-7s-like" style={{ color: "#008342" }} />
           <span className="count-style">
             {wishlistData && wishlistData.length ? wishlistData.length : 0}
           </span>
@@ -65,7 +65,7 @@ const IconGroup = ({
       </div>
       <div className="same-style cart-wrap d-none d-lg-block">
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
-          <i className="pe-7s-shopbag" />
+          <i className="pe-7s-shopbag" style={{ color: "#008342" }} />
           <span className="count-style">
             {cartData?.items?.length ? cartData?.items?.length : 0}
           </span>
@@ -75,7 +75,7 @@ const IconGroup = ({
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
-          <i className="pe-7s-shopbag" />
+          <i className="pe-7s-shopbag" style={{ color: "#008342" }} />
           <span className="count-style">
             {cartData?.items?.length ? cartData?.items?.length : 0}
           </span>
@@ -86,7 +86,7 @@ const IconGroup = ({
           className="mobile-aside-button"
           onClick={() => triggerMobileMenu()}
         >
-          <i className="pe-7s-menu" />
+          <i className="pe-7s-menu" style={{ color: "#008342" }} />
         </button>
       </div>
     </div>

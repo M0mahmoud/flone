@@ -36,10 +36,6 @@ const ProductGridListSingle = ({
       setIsFav((prev) => !prev);
     }
   };
-  const originalPrice = product.price;
-  const discountAmount = product.discount;
-  // Calculate discount percentage
-  const discountPercentage = (discountAmount / originalPrice) * 100;
 
   return (
     <Fragment>
@@ -62,17 +58,15 @@ const ProductGridListSingle = ({
                 height={360}
               />
             </Link>
+
             {product.discount ? (
               <div className="product-img-badges">
-                {product.discount ? (
-                  <span className="pink">-{discountPercentage}%</span>
-                ) : (
-                  ""
-                )}
+                <span className="pink">-{product.discount}%</span>
               </div>
             ) : (
               ""
             )}
+
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
                 <button
@@ -163,23 +157,18 @@ const ProductGridListSingle = ({
                       height={360}
                     />
                   </Link>
-                  {/* {product.discount || product.new ? (
+                  {product.discount ? (
                     <div className="product-img-badges">
-                      {product.discount ? (
-                        <span className="pink">-{product.discount}%</span>
-                      ) : (
-                        ""
-                      )}
-                      {product.new ? <span className="purple">New</span> : ""}
+                      <span className="pink">-{product.discount}%</span>
                     </div>
                   ) : (
                     ""
-                  )} */}
+                  )}
                 </div>
               </div>
             </div>
             <div className="col-xl-8 col-md-7 col-sm-6">
-              <div className="shop-list-content">
+              <div className="shop-list-content d-flex flex-column justify-content-between align-items-start h-100 pb-4">
                 <h3>
                   <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
                     {currentLanguageCode === "ar"

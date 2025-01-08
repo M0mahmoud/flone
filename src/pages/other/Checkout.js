@@ -40,7 +40,9 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
   }, []);
 
   const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
-    return total + (item.price - item.discount) * (item.pivot?.qty || 1);
+    return (
+      total + (item.price - item.discount) * (item.pivot?.qty || item.qty || 1)
+    );
   }, 0);
 
   const handleAddressSelect = (value) => {
@@ -308,12 +310,15 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                                     {currentLanguageCode === "ar"
                                       ? cartItem?.translations[0]?.name
                                       : cartItem?.translations[1]?.name}{" "}
-                                    X {cartItem.pivot?.qty || 1}
+                                    X{" "}
+                                    {cartItem.pivot?.qty || cartItem?.qty || 1}
                                   </span>{" "}
                                   <span className="order-price">
                                     {(
                                       (cartItem?.price - cartItem?.discount) *
-                                      (cartItem?.pivot?.qty || 1)
+                                      (cartItem?.pivot?.qty ||
+                                        cartItem?.qty ||
+                                        1)
                                     ).toFixed(2)}
                                   </span>
                                 </li>

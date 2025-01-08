@@ -1614,7 +1614,7 @@ textarea:focus {
   border: none;
   border-radius: 50px;
   background: none;
-  background-color: $theme-color;
+  background-color: #f4d50f;
   &.show {
     visibility: visible;
 
@@ -2042,7 +2042,10 @@ a.default-btn {
 
 .sticky-toolbar {
   position: fixed;
-  bottom: 0px;
+  bottom: 60px;
+  @media (min-width: 768px) {
+    bottom: 0px;
+  }
   left: 0;
   width: 100%;
   background-color: #f8f9fa; // light gray background
@@ -2163,4 +2166,16 @@ a.default-btn {
       }
     }
   }
+}
+
+:lang(ar) {
+  *form {
+    direction: rtl !important;
+  }
+}
+.email {
+  color: #ffff;
+}
+::placeholder.email {
+  color: #ffff;
 }

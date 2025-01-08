@@ -66,9 +66,7 @@ const FooterTwo = ({
               <img
                 alt=""
                 src={`${
-                  currentLanguageCode === "en"
-                    ? "/zein322 -01.svg"
-                    : "/zein322 -11.svg"
+                  currentLanguageCode === "en" ? "/zein EN.svg" : "/zein AR.svg"
                 }`}
                 width={120}
                 height={120}

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import { connect, useDispatch } from "react-redux";
@@ -17,7 +17,6 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 // !DEL
 const Cart = ({
   location,
-  currency,
   deleteAllFromCart,
   strings,
   currentLanguageCode,
@@ -27,7 +26,7 @@ const Cart = ({
   const { addToast } = useToasts();
 
   const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
-    const qty = item.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+    const qty = item.pivot?.qty ||item.qty || 1; // Safely fallback to 0 if qty is undefined
     return total + (item.price - item.discount) * qty;
   }, 0);
 
@@ -177,16 +176,12 @@ const Cart = ({
                       </div>
                       <h5>
                         {strings["CART_TOTAL_PRODUCTS"]}{" "}
-                        <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
-                        </span>
+                        <span>{cartTotalPrice.toFixed(2)}</span>
                       </h5>
 
                       <h4 className="grand-totall-title">
                         {strings["CART_GRAND_TOTAL"]}{" "}
-                        <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
-                        </span>
+                        <span>{cartTotalPrice.toFixed(2)}</span>
                       </h4>
                       <Link to={process.env.PUBLIC_URL + "/checkout"}>
                         {strings["CART_PROCEED_TO_CHECKOUT"]}
@@ -252,9 +247,8 @@ const TR = ({ cartItem, currentLanguageCode }) => {
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const discountPercentage = (cartItem.discount / cartItem.price) * 100;
-  const qty = cartItem.pivot?.qty || 1; // Safely fallback to 0 if qty is undefined
+  const [qty, setQty] = useState(cartItem.pivot?.qty || cartItem?.qty || 1);
   const itemTotalPrice = (cartItem.price - cartItem.discount) * qty;
-
   return (
     <tr key={cartItem.id}>
       <td className="product-thumbnail">
@@ -292,7 +286,8 @@ const TR = ({ cartItem, currentLanguageCode }) => {
           <button
             className="dec qtybutton"
             onClick={() => {
-              dispatch(updateQuantity(cartItem, addToast, qty - 1));
+              setQty(qty + 1);
+              dispatch(updateQuantity(cartItem, addToast, qty));
             }} // Directly increment the quantity
             disabled={qty <= 1} // Disable if quantity is 1 or less
           >
@@ -307,7 +302,8 @@ const TR = ({ cartItem, currentLanguageCode }) => {
           <button
             className="inc qtybutton"
             onClick={() => {
-              dispatch(updateQuantity(cartItem, addToast, qty + 1));
+              setQty(qty + 1);
+              dispatch(updateQuantity(cartItem, addToast, qty));
             }}
             disabled={!cartItem.is_available}
           >

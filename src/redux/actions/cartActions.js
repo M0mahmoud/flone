@@ -45,6 +45,8 @@ export const addToCart =
 
 // Update quantity of an item in the cart
 export const updateQuantity = (item, addToast, quantityCount) => (dispatch) => {
+  console.log("🚀 ~ quantityCount:", quantityCount);
+  console.log("🚀 ~ item:", item);
   if (addToast) {
     addToast("Product Updated", { appearance: "warning", autoDismiss: true });
   }

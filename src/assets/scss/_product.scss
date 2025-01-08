@@ -3802,8 +3802,13 @@
 
 .product-quickview-modal-wrapper {
   .modal-dialog {
-    margin: 5% auto;
+    margin: 15% auto;
     padding: 0;
+    direction: "ltr";
+    :lang(ar){
+      direction: "rtl";
+    }
+    z-index: 99999999999;
   }
 }
 
