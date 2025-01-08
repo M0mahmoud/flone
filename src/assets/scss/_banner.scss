@@ -199,24 +199,44 @@
     position: absolute;
     top: 45px;
     left: 40px;
+    :lang(ar) {
+      right: 40px;
+      left: auto;
+    }
     @media #{$xl-layout} {
       top: 25px;
     }
     @media #{$lg-layout} {
       top: 20px;
       left: 20px;
+      :lang(ar) {
+        right: 20px;
+        left: auto;
+      }
     }
     @media #{$md-layout} {
       top: 20px;
       left: 20px;
+      :lang(ar) {
+        right: 20px;
+        left: auto;
+      }
     }
     @media #{$xs-layout} {
       top: 15px;
       left: 15px;
+      :lang(ar) {
+        right: 15px;
+        left: auto;
+      }
     }
     @media #{$sm-layout} {
       top: 30px;
       left: 30px;
+      :lang(ar) {
+        right: 30px;
+        left: auto;
+      }
     }
   }
   .banner-position-hm17-1 {
