@@ -62,6 +62,7 @@ const HeaderOne = ({
               className="col-xl-2 col-lg-2 col-md-6 col-4"
               style={{
                 margin: "auto",
+                paddingInlineStart: "0px",
               }}
             >
               {/* header logo */}
