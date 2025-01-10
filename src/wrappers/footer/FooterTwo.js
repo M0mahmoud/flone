@@ -115,16 +115,10 @@ const FooterTwo = ({
             }`}
           >
             <p>
-              © 2020{" "}
-              <a
-                href="//www.hasthemes.com"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {footer && currentLanguageCode === "ar"
-                  ? footer?.settings?.translations[0]?.title
-                  : footer?.settings?.translations[1]?.title}
-              </a>
+              © 2025{" "}
+              <a href="/" rel="noopener noreferrer" target="_blank">
+                {strings["Zain"]}
+              </a>{" "}
               {strings["footerRights"]}
             </p>
           </div>

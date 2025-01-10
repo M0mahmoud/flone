@@ -1,17 +1,25 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { changeLanguage } from "redux-multilanguage";
+import axiosInstance from "../../../api/api";
 // !DEL
 const LanguageCurrencyChanger = ({
   currentLanguageCode,
   dispatch,
   strings,
 }) => {
+  const [footer, setFooter] = useState();
   const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     dispatch(changeLanguage(languageCode));
     window.location.reload();
   };
+  useEffect(() => {
+    axiosInstance
+      .get("/settings")
+      .then((res) => setFooter(res.data?.mobiles[0].mobile))
+      .catch(() => setFooter({}));
+  }, []);
 
   return (
     <div className="language-currency-wrap d-none d-lg-flex">
@@ -36,7 +44,9 @@ const LanguageCurrencyChanger = ({
         </div>
       </div>
       <div className="same-language-currency">
-        <p>{strings["call_us"]} +9689208027</p>
+        <p>
+          {strings["call_us"]} {footer}
+        </p>
       </div>
     </div>
   );

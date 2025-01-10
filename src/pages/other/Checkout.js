@@ -15,13 +15,26 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
   const dispatch = useDispatch();
-  const [newAddressForm, setNewAddressForm] = useState({});
+  const [formData, setFormData] = useState({
+    fName: "",
+    lName: "",
+    address_id: "",
+    email: "",
+    phone: "",
+    country: "",
+    city: "",
+    zip: "",
+    street: "",
+    notes: "",
+  });
   const [user, setUser] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [notes, setNotes] = useState("");
+  console.log("🚀 ~ Checkout ~ selectedAddress:", selectedAddress);
   const [type, setType] = useState("cod");
   const [modalShow, setModalShow] = useState(false);
+  const [cities, setCities] = useState([]);
+  const [deliveryFees, setDeliveryFees] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +73,7 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
     const checkoutData = {
       address_id: selectedAddress,
       type,
-      notes: notes,
+      notes: formData.notes,
     };
 
     try {
@@ -73,14 +86,57 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
       addToast(strings["checkout_failed"], { appearance: "error" });
     }
   };
+  // Fetch cities on component load
+  useEffect(() => {
+    axiosInstance
+      .get("/cities")
+      .then((res) => {
+        setCities(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cities", error);
+        setCities([]);
+      });
+  }, []);
+  // Handle city change and calculate delivery fees
+  const handleCityChange = (e) => {
+    const selectedCityId = e.target.value;
+    const selectedCity = cities.find(
+      (city) => city.id === parseInt(selectedCityId)
+    );
 
+    setFormData((prevData) => ({
+      ...prevData,
+      address_id: selectedCity ? selectedCity.id : "",
+    }));
+
+    // Set delivery fees based on the selected city's delivery_tax
+    setDeliveryFees(selectedCity ? selectedCity.delivery_tax : 0);
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   const handleAddNewAddress = async (e) => {
     e.preventDefault();
+    console.log("🚀 ~ handleAddNewAddress ~ newAddressForm:", {});
     try {
-      const response = await axiosInstance.post(
-        "/user/addresses/add",
-        newAddressForm
-      );
+      const response = await axiosInstance.post("/user/addresses/add", {
+        f_name: formData.fName,
+        l_name: formData.lName,
+        email: formData.email,
+        phone: formData.phone,
+        country: formData.country,
+        address_id: formData.address_id,
+        city: formData.address_id,
+        zip: formData.zip,
+        street: formData.street,
+        notes: formData.notes,
+        type: "cod",
+      });
       if (response.data.status === "success") {
         setAddresses([...addresses, response.data.address]);
         setSelectedAddress(response.data.address.id);
@@ -157,11 +213,10 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                               <label>{strings["first_name"]}</label>
                               <input
                                 type="text"
-                                name="f_name"
-                                value={newAddressForm.f_name}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                name="fName"
+                                value={formData.fName}
+                                onChange={handleInputChange}
+                                placeholder={strings["first_name"]}
                               />
                             </div>
                           </div>
@@ -170,11 +225,10 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                               <label>{strings["last_name"]}</label>
                               <input
                                 type="text"
-                                name="l_name"
-                                value={newAddressForm.l_name}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                name="lName"
+                                value={formData.lName}
+                                onChange={handleInputChange}
+                                placeholder={strings["last_name"]}
                               />
                             </div>
                           </div>
@@ -184,10 +238,9 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                               <input
                                 type="text"
                                 name="country"
-                                value={newAddressForm.country}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                value={formData.country}
+                                onChange={handleInputChange}
+                                placeholder={strings["country"]}
                               />
                             </div>
                           </div>
@@ -195,27 +248,32 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                             <div className="billing-info mb-20">
                               <label>{strings["street_address"]}</label>
                               <input
-                                placeholder={strings["apartment_suite"]}
                                 type="text"
                                 name="street"
-                                value={newAddressForm.street}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                value={formData.street}
+                                onChange={handleInputChange}
+                                placeholder={strings["street"]}
                               />
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-6">
                             <div className="billing-info mb-20">
-                              <label>{strings["town_city"]}</label>
-                              <input
-                                type="text"
+                              <select
                                 name="city"
-                                value={newAddressForm.city}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
-                              />
+                                value={formData.city}
+                                onChange={handleCityChange}
+                              >
+                                <option value="">
+                                  {strings["select_city"]}
+                                </option>
+                                {cities.map((city) => (
+                                  <option key={city.id} value={city.id}>
+                                    {currentLanguageCode === "ar"
+                                      ? city.translations[0].name
+                                      : city.translations[1].name}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-6">
@@ -224,10 +282,9 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                               <input
                                 type="text"
                                 name="zip"
-                                value={newAddressForm.zip}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                value={formData.zip}
+                                onChange={handleInputChange}
+                                placeholder={strings["zip_code"]}
                               />
                             </div>
                           </div>
@@ -237,23 +294,22 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                               <input
                                 type="text"
                                 name="phone"
-                                value={newAddressForm.phone}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                placeholder={strings["phone"]}
                               />
                             </div>
                           </div>
                           <div className="col-lg-6 col-md-6">
                             <div className="billing-info mb-20">
                               <label>{strings["email_address"]}</label>
+
                               <input
-                                type="text"
+                                type="email"
                                 name="email"
-                                value={newAddressForm.email}
-                                onChange={(e) =>
-                                  setNewAddressForm(e.target.value)
-                                }
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                placeholder={strings["email_optional"]}
                               />
                             </div>
                           </div>
@@ -269,10 +325,10 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                       <div className="additional-info">
                         <label>{strings["order_notes"]}</label>
                         <textarea
-                          placeholder={strings["notes_placeholder"]}
-                          name="message"
-                          value={notes}
-                          onChange={(e) => setNotes(e.target.value)}
+                          name="notes"
+                          value={formData.notes}
+                          onChange={handleInputChange}
+                          placeholder={strings["notes"]}
                         />
                       </div>
                     </div>
@@ -331,13 +387,15 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                             <li className="your-order-shipping">
                               {strings["shipping"]}
                             </li>
-                            <li>{strings["free_shipping"]}</li>
+                            <li>{deliveryFees}</li>
                           </ul>
                         </div>
                         <div className="your-order-total">
                           <ul>
                             <li className="order-total">{strings["total"]}</li>
-                            <li>{cartTotalPrice.toFixed(2)}</li>
+                            <li>
+                              {(deliveryFees + cartTotalPrice).toFixed(2)}
+                            </li>
                           </ul>
                         </div>
                       </div>

@@ -192,6 +192,19 @@ const FooterOne = ({
           </div>
         </div>
       </div>
+      <div className="footer-bottom text-center">
+        <div className="container">
+          <div className={`copyright-2`}>
+            <p>
+              © 2025{" "}
+              <a href="/" rel="noopener noreferrer" target="_blank">
+                {strings["Zain"]}
+              </a>{" "}
+              {strings["footerRights"]}
+            </p>
+          </div>
+        </div>
+      </div>
       <button
         className={`scroll-top ${scroll > top ? "show" : ""}`}
         onClick={() => window.open(`https://wa.me/96892080275`, "_blank")}

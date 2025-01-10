@@ -4,14 +4,19 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
+import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { multilanguage } from "redux-multilanguage";
 import axiosInstance from "../../api/api";
 import Loading from "../../components/Loading";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+
 // !DEL
-const MyAccount = ({ location, strings }) => {
+const MyAccount = ({ location, strings, currentLanguageCode }) => {
+  const history = useHistory();
+  const [cities, setCities] = useState([]);
+
   const { pathname } = location;
   const [user, setUser] = useState({
     fname: "",
@@ -39,6 +44,19 @@ const MyAccount = ({ location, strings }) => {
     };
 
     fetchData();
+  }, []);
+
+  // Fetch cities on component load
+  useEffect(() => {
+    axiosInstance
+      .get("/cities")
+      .then((res) => {
+        setCities(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cities", error);
+        setCities([]);
+      });
   }, []);
 
   const handleInputChange = (e) => {
@@ -136,7 +154,11 @@ const MyAccount = ({ location, strings }) => {
       addToast("Failed to update address", { appearance: "error" });
     }
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("redux_localstorage_simple"); // Clear token
+    localStorage.removeItem("authToken"); // Clear token
+    history.push("/"); // Redirect to login page
+  };
   if (loading) {
     return <Loading />;
   }
@@ -166,6 +188,9 @@ const MyAccount = ({ location, strings }) => {
             <div className="row">
               <div className="ml-auto mr-auto col-lg-9">
                 <div className="myaccount-wrapper">
+                  <button onClick={handleLogout} className="btn mb-4">
+                    {strings["logout"]}
+                  </button>
                   <Accordion defaultActiveKey="0">
                     <Card className="single-my-account mb-20">
                       <Card.Header className="panel-heading">
@@ -311,7 +336,7 @@ const MyAccount = ({ location, strings }) => {
                               <h4>{strings["address_book_entries"]}</h4>
                             </div>
                             {user?.addresses?.map((address, index) => (
-                              <>
+                              <div key={index}>
                                 <p>
                                   <span>{index + 1} .</span> Address {index + 1}
                                 </p>
@@ -380,15 +405,27 @@ const MyAccount = ({ location, strings }) => {
                                     </div>
                                     <div className="col-lg-6 col-md-6">
                                       <div className="billing-info mb-20">
-                                        <label>{strings["town_city"]}</label>
-                                        <input
-                                          type="text"
+                                        <select
                                           name="city"
                                           value={address.city}
                                           onChange={(e) =>
                                             handleAddressChange(index, e)
                                           }
-                                        />
+                                        >
+                                          <option value="">
+                                            {strings["select_city"]}
+                                          </option>
+                                          {cities.map((city) => (
+                                            <option
+                                              key={city.id}
+                                              value={city.id}
+                                            >
+                                              {currentLanguageCode === "ar"
+                                                ? city.translations[0].name
+                                                : city.translations[1].name}
+                                            </option>
+                                          ))}
+                                        </select>
                                       </div>
                                     </div>
                                     <div className="col-lg-6 col-md-6">
@@ -437,7 +474,7 @@ const MyAccount = ({ location, strings }) => {
                                     {strings["update"]}
                                   </button>
                                 </form>
-                              </>
+                              </div>
                             ))}
                           </div>
                         </Card.Body>

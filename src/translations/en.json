@@ -292,5 +292,6 @@
   "phone_number": "Phone Number",
   "email": "Email",
   "submit": "Submit",
-  "zain": "Zain"
+  "zain": "Zain",
+  "logout": "Logout"
 }
