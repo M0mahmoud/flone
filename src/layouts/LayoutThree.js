@@ -22,12 +22,9 @@ const LayoutThree = ({
       {children}
       <FooterTwo
         backgroundColorClass="footer-white"
-        spaceLeftClass="ml-70"
-        spaceRightClass="mr-70"
         footerTopBackgroundColorClass="bg-gray-2"
         footerTopSpaceTopClass="pt-80"
         footerTopSpaceBottomClass="pb-60"
-        copyrightColorClass="copyright-gray"
         footerLogo="/assets/img/logo/logo.png"
       />
       <FixedFooter />

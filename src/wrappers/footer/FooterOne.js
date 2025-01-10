@@ -96,6 +96,9 @@ const FooterOne = ({
       } ${extraFooterClass ? extraFooterClass : ""} ${
         spaceLeftClass ? spaceLeftClass : ""
       } ${spaceRightClass ? spaceRightClass : ""}`}
+      style={{
+        paddingBottom: "100px",
+      }}
     >
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
