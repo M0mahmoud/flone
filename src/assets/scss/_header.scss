@@ -100,7 +100,6 @@
   }
 }
 .logo {
-  margin-top: 32px;
   @media #{$md-layout} {
     margin-top: 0;
   }
@@ -1792,7 +1791,6 @@
     }
   }
   .logo {
-    margin-top: 22px;
     margin-bottom: 18px;
     @media #{$md-layout} {
       margin-top: 2px;
@@ -1804,7 +1802,6 @@
     }
   }
   .header-right-wrap {
-    margin-top: 22px;
     margin-bottom: 18px;
     @media #{$md-layout} {
       margin-top: 2px;
@@ -2028,6 +2025,7 @@
     width: 100%;
     display: block;
     text-align: start;
+    margin-top: -12px !important;
   }
   .header-offer {
     width: 100%;

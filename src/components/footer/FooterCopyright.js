@@ -24,7 +24,12 @@ const FooterCopyright = ({
             }`}
             width={120}
             height={120}
-            style={{ objectFit: "cover" }}
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+              maxWidth: "150px",
+            }}
           />
         </Link>
       </div>

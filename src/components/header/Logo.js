@@ -23,7 +23,10 @@ const Logo = ({ currentLanguageCode, logoClass }) => {
   const isMobileOrTablet = useMediaQuery("(max-width: 768px)");
 
   return (
-    <div className={`${logoClass ? logoClass : ""}`}>
+    <div
+      className={`${logoClass ? logoClass : ""} mt-0`}
+      style={{ marginTop: "0px !important" }}
+    >
       <Link to={process.env.PUBLIC_URL + "/"}>
         <img
           alt=""
@@ -32,7 +35,12 @@ const Logo = ({ currentLanguageCode, logoClass }) => {
           }`}
           width={isMobileOrTablet ? 50 : 80}
           height={isMobileOrTablet ? 50 : 80}
-          style={{ objectFit: "cover" }}
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+            maxWidth: "150px",
+          }}
         />
       </Link>
     </div>

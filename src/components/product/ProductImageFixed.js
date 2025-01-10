@@ -61,9 +61,11 @@ const ProductImageFixed = ({ product }) => {
                   border: "1px solid #ccc",
                 },
               }}
-              style={{
-                zIndex: 1153,
-              }}
+              style={
+                {
+                  // zIndex: 1153,
+                }
+              }
             />
           ) : (
             // Fallback for mobile/tablet
