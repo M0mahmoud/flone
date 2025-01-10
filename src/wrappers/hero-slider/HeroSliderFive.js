@@ -50,13 +50,13 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
   }, [isMobileOrTablet]);
 
   const params = {
-    // effect: "fade",
-    // loop: true, // Enable looping
-    // speed: 1000,
-    // autoplay: {
-    //   delay: 3500,
-    //   disableOnInteraction: false,
-    // },
+    effect: "fade",
+    loop: true, // Enable looping
+    speed: 1000,
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false,
+    },
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
