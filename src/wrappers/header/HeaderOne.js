@@ -55,6 +55,7 @@ const HeaderOne = ({
         } sticky-bar header-res-padding clearfix ${
           scroll > headerTop ? "stick" : ""
         }`}
+        style={{ background: "#FFF" }}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
           <div className="row">

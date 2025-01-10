@@ -174,32 +174,61 @@
   .banner-position-hm15-1 {
     position: absolute;
     top: 45px;
-    right: 40px;
+
+    // Language-specific styles
+    &:lang(en) {
+      left: 40px;
+    }
+    &:lang(ar) {
+      right: 40px;
+    }
+    // Responsive styles
     @media #{$xl-layout} {
       top: 25px;
     }
     @media #{$lg-layout} {
       top: 20px;
-      right: 20px;
+
+      &:lang(en) {
+        left: 20px;
+      }
+      &:lang(ar) {
+        right: 20px;
+      }
     }
     @media #{$md-layout} {
       top: 20px;
-      right: 20px;
+      &:lang(en) {
+        left: 20px;
+      }
+      &:lang(ar) {
+        right: 20px;
+      }
     }
     @media #{$xs-layout} {
       top: 15px;
-      right: 15px;
+      &:lang(en) {
+        left: 15px;
+      }
+      &:lang(ar) {
+        right: 15px;
+      }
     }
     @media #{$sm-layout} {
       top: 30px;
-      right: 30px;
+      &:lang(en) {
+        left: 30px;
+      }
+      &:lang(ar) {
+        right: 30px;
+      }
     }
   }
   .banner-position-hm15-2 {
     position: absolute;
     top: 45px;
     left: 40px;
-    :lang(ar) {
+    &:lang(ar) {
       right: 40px;
       left: auto;
     }
@@ -209,7 +238,7 @@
     @media #{$lg-layout} {
       top: 20px;
       left: 20px;
-      :lang(ar) {
+      &:lang(ar) {
         right: 20px;
         left: auto;
       }
@@ -217,7 +246,7 @@
     @media #{$md-layout} {
       top: 20px;
       left: 20px;
-      :lang(ar) {
+      &:lang(ar) {
         right: 20px;
         left: auto;
       }
@@ -225,7 +254,7 @@
     @media #{$xs-layout} {
       top: 15px;
       left: 15px;
-      :lang(ar) {
+      &:lang(ar) {
         right: 15px;
         left: auto;
       }
@@ -233,7 +262,7 @@
     @media #{$sm-layout} {
       top: 30px;
       left: 30px;
-      :lang(ar) {
+      &:lang(ar) {
         right: 30px;
         left: auto;
       }

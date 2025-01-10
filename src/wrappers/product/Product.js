@@ -29,7 +29,13 @@ const Product = ({ product, currentLanguageCode }) => {
   };
 
   return (
-    <div className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 col-12 `}>
+    <div
+      className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 col-12 `}
+      style={{
+        direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+        textAlign: "start !important",
+      }}
+    >
       <div className={`product-wrap-2 mb-25`}>
         <div className="product-img">
           <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
@@ -100,9 +106,14 @@ const Product = ({ product, currentLanguageCode }) => {
                   : product.translations[1]?.name}
               </Link>
             </h3>
-            <div className="price-2">
-              <span>{product.price}</span>{" "}
-            </div>
+            <span
+              style={{
+                display: "block",
+                textAlign: "start",
+              }}
+            >
+              {product.price}
+            </span>
           </div>
         </div>
       </div>
