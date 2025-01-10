@@ -50,13 +50,13 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
   }, [isMobileOrTablet]);
 
   const params = {
-    effect: "fade",
-    loop: true, // Enable looping
-    speed: 1000,
-    autoplay: {
-      delay: 3500,
-      disableOnInteraction: false,
-    },
+    // effect: "fade",
+    // loop: true, // Enable looping
+    // speed: 1000,
+    // autoplay: {
+    //   delay: 3500,
+    //   disableOnInteraction: false,
+    // },
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -78,7 +78,7 @@ const HeroSliderFive = ({ spaceLeftClass, spaceRightClass }) => {
                 className="single-slider-2 slider-height-1 slider-height-res15 d-flex align-items-center slider-height-res bg-img"
                 style={{
                   backgroundImage: `url(https://zaien.test.do-go.net/images/${single.image})`,
-                  minHeight: "80vh",
+                  minHeight: "calc(100dvh - 140px)",
                   backgroundPosition: "center",
                   backgroundSize: "cover",
                   backgroundRepeat: "no-repeat",

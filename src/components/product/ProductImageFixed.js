@@ -30,7 +30,9 @@ const ProductImageFixed = ({ product }) => {
       {product?.discount || product?.new ? (
         <div className="product-img-badges">
           {product?.discount ? (
-            <span className="pink">-{discountPercentage}%</span>
+            <span className="pink" style={{ color: "#FFF" }}>
+              -{discountPercentage}%
+            </span>
           ) : (
             ""
           )}

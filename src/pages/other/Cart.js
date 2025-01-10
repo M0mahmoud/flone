@@ -26,7 +26,7 @@ const Cart = ({
   const { addToast } = useToasts();
 
   const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
-    const qty = item.pivot?.qty ||item.qty || 1; // Safely fallback to 0 if qty is undefined
+    const qty = item.pivot?.qty || item.qty || 1; // Safely fallback to 0 if qty is undefined
     return total + (item.price - item.discount) * qty;
   }, 0);
 
@@ -274,7 +274,9 @@ const TR = ({ cartItem, currentLanguageCode }) => {
       <td className="product-price-cart">
         {cartItem.price ? (
           <div className="product-img-badges">
-            <span className="pink">{cartItem.price}</span>
+            <span className="pink" style={{ color: "#FFF" }}>
+              {cartItem.price}
+            </span>
           </div>
         ) : (
           ""

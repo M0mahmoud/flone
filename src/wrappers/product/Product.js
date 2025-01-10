@@ -52,7 +52,9 @@ const Product = ({ product, currentLanguageCode }) => {
           </Link>
           {product.discount ? (
             <div className="product-img-badges">
-              <span className="pink">-{product.discount}%</span>
+              <span className="pink" style={{ color: "#FFF" }}>
+                -{product.discount}%
+              </span>
             </div>
           ) : (
             ""

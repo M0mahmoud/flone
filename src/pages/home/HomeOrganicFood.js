@@ -27,7 +27,8 @@ const HomeOrganicFood = ({ strings }) => {
         headerPaddingClass="header-padding-2"
       >
         {/* hero slider */}
-        <HeroSliderFive spaceLeftClass="ml-70" spaceRightClass="mr-70" />
+        {/* <HeroSliderFive spaceLeftClass="ml-70" spaceRightClass="mr-70" /> */}
+        <HeroSliderFive />
         {/* feature icon */}
         <FeatureIconFour
           spaceTopClass="pt-10"
