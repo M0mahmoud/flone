@@ -20,6 +20,7 @@ const FooterOne = ({
 }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
+  const [footer, setFooter] = useState({});
 
   useEffect(() => {
     setTop(100);
@@ -29,6 +30,12 @@ const FooterOne = ({
     };
   }, []);
 
+  useEffect(() => {
+    axiosInstance
+      .get("/settings")
+      .then((res) => setFooter(res.data))
+      .catch(() => setFooter({}));
+  }, []);
   const handleScroll = () => {
     setScroll(window.scrollY);
   };
@@ -207,7 +214,12 @@ const FooterOne = ({
       </div>
       <button
         className={`scroll-top ${scroll > top ? "show" : ""}`}
-        onClick={() => window.open(`https://wa.me/96892080275`, "_blank")}
+        onClick={() =>
+          window.open(
+            `https://wa.me/${(footer?.mobiles[1].mobile).replace("+", "")}`,
+            "_blank"
+          )
+        }
       >
         <svg
           style={{

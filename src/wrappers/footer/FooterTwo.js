@@ -126,7 +126,12 @@ const FooterTwo = ({
       </div>
       <button
         className={`scroll-top ${scroll > top ? "show" : ""}`}
-        onClick={() => window.open(`https://wa.me/96892080275`, "_blank")}
+        onClick={() =>
+          window.open(
+            `https://wa.me/${(footer?.mobiles[1].mobile).replace("+", "")}`,
+            "_blank"
+          )
+        }
       >
         <svg
           style={{

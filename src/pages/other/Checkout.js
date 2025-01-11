@@ -30,8 +30,8 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
   const [user, setUser] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  console.log("🚀 ~ Checkout ~ selectedAddress:", selectedAddress);
   const [type, setType] = useState("cod");
+  const [last, Setlast] = useState(0);
   const [modalShow, setModalShow] = useState(false);
   const [cities, setCities] = useState([]);
   const [deliveryFees, setDeliveryFees] = useState(0);
@@ -43,6 +43,7 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
           const response = await axiosInstance.get("/user");
           setUser(response.data.user);
           setAddresses(response.data.user.addresses);
+          Setlast(response.data.user.addresses[0]?.city);
         } catch (error) {
           console.error("Failed to fetch user data:", error);
         }
@@ -147,6 +148,8 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
       addToast(strings["address_add_failed"], { appearance: "error" });
     }
   };
+  const lastCity = cities && last && cities?.find((prev) => prev.id === last);
+  const lastTax = Math.max(lastCity?.delivery_tax || 0, deliveryFees || 0); // Use fallback to 0
 
   return (
     <Fragment>
@@ -387,15 +390,13 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                             <li className="your-order-shipping">
                               {strings["shipping"]}
                             </li>
-                            <li>{deliveryFees}</li>
+                            <li>{lastTax}</li>
                           </ul>
                         </div>
                         <div className="your-order-total">
                           <ul>
                             <li className="order-total">{strings["total"]}</li>
-                            <li>
-                              {(deliveryFees + cartTotalPrice).toFixed(2)}
-                            </li>
+                            <li>{(lastTax + cartTotalPrice).toFixed(2)}</li>
                           </ul>
                         </div>
                       </div>
