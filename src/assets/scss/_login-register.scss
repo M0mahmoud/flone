@@ -37,7 +37,14 @@
         transition: all 0.4s ease 0s;
         width: 1px;
       }
-
+      @media (max-width: 768px) {
+        &:before {
+          display: none; // Hides the :before element
+        }
+        &:first-child {
+          margin-bottom: 20px; // Adjust the margin-bottom for the first .nav-item
+        }
+      }
       &:last-child {
         &::before {
           display: none;
