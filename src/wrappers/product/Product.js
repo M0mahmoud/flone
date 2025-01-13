@@ -10,7 +10,7 @@ import {
   deleteFromWishlist,
 } from "../../redux/actions/wishlistActions";
 
-const Product = ({ product, currentLanguageCode }) => {
+const Product = ({ product, currentLanguageCode, strings }) => {
   const dispatch = useDispatch();
   const { addToast } = useToasts();
   const [isFav, setIsFav] = useState(
@@ -110,9 +110,11 @@ const Product = ({ product, currentLanguageCode }) => {
               style={{
                 display: "block",
                 textAlign: "start",
+                direction: currentLanguageCode === "en" ? "ltr" : "rtl",
               }}
             >
-              {product.price}
+              {product?.price}
+              {strings["EG"]}
             </span>
           </div>
         </div>

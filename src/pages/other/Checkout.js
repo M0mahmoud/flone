@@ -396,7 +396,15 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                         <div className="your-order-total">
                           <ul>
                             <li className="order-total">{strings["total"]}</li>
-                            <li>{(lastTax + cartTotalPrice).toFixed(2)}</li>
+                            <li
+                              style={{
+                                direction:
+                                  currentLanguageCode === "en" ? "ltr" : "rtl",
+                              }}
+                            >
+                              {(lastTax + cartTotalPrice).toFixed(2)}{" "}
+                              {strings["EG"]}
+                            </li>
                           </ul>
                         </div>
                       </div>

@@ -4,10 +4,6 @@ import ReactImageMagnify from "react-image-magnify";
 
 // !DEL
 const ProductImageFixed = ({ product }) => {
-  const originalPrice = product?.price;
-  const discountAmount = product?.discount;
-  // Calculate discount percentage
-  const discountPercentage = (discountAmount / originalPrice) * 100;
   const useMediaQuery = (query) => {
     const [matches, setMatches] = useState(false);
 
@@ -28,10 +24,15 @@ const ProductImageFixed = ({ product }) => {
   return (
     <div className="product-large-image-wrapper">
       {product?.discount || product?.new ? (
-        <div className="product-img-badges">
+        <div
+          style={{
+            zIndex: 973,
+          }}
+          className="product-img-badges"
+        >
           {product?.discount ? (
             <span className="pink" style={{ color: "#FFF" }}>
-              -{discountPercentage}%
+              -{product?.discount}%
             </span>
           ) : (
             ""
@@ -64,7 +65,7 @@ const ProductImageFixed = ({ product }) => {
                 },
               }}
               style={{
-                zIndex: 1153,
+                zIndex: 953,
               }}
             />
           ) : (

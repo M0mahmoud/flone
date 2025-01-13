@@ -17,6 +17,7 @@ const FooterOne = ({
   sideMenu,
   currentLanguageCode,
   strings,
+  footerTopSpaceTopClass,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
@@ -96,6 +97,7 @@ const FooterOne = ({
 
   return (
     <footer
+      s
       className={`footer-area ${
         backgroundColorClass ? backgroundColorClass : ""
       } ${spaceTopClass ? spaceTopClass : ""} ${
@@ -105,6 +107,7 @@ const FooterOne = ({
       } ${spaceRightClass ? spaceRightClass : ""}`}
       style={{
         paddingBottom: "100px",
+        paddingTop: footerTopSpaceTopClass ? "50px" : "",
       }}
     >
       <div className={`${containerClass ? containerClass : "container"}`}>

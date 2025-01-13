@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
+import FooterOne from "../wrappers/footer/FooterOne";
 import FooterTwo from "../wrappers/footer/FooterTwo";
 import HeaderOne from "../wrappers/header/HeaderOne";
 import FixedFooter from "./FixedFooter";
@@ -24,6 +25,13 @@ const LayoutThree = ({
         backgroundColorClass="footer-white"
         footerTopBackgroundColorClass="bg-gray-2"
         footerTopSpaceTopClass="pt-80"
+        footerTopSpaceBottomClass="pb-60"
+        footerLogo="/assets/img/logo/logo.png"
+      />
+      <FooterOne
+        backgroundColorClass="footer-white"
+        footerTopBackgroundColorClass="bg-gray-2"
+        footerTopSpaceTopClass
         footerTopSpaceBottomClass="pb-60"
         footerLogo="/assets/img/logo/logo.png"
       />

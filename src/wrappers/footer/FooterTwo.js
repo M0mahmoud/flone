@@ -107,7 +107,7 @@ const FooterTwo = ({
           </div>
         </div>
       </div>
-      <div className="footer-bottom text-center">
+      {/* <div className="footer-bottom text-center">
         <div className="container">
           <div
             className={`copyright-2 ${
@@ -123,7 +123,7 @@ const FooterTwo = ({
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
       <button
         className={`scroll-top ${scroll > top ? "show" : ""}`}
         onClick={() =>

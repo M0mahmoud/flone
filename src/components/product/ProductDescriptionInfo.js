@@ -18,7 +18,6 @@ const ProductDescriptionInfo = ({
   strings,
 }) => {
   const [quantityCount, setQuantityCount] = useState(1);
-  console.log("🚀 ~ quantityCount:", quantityCount);
   const dispatch = useDispatch();
   const [isFav, setIsFav] = useState(
     product?.is_favorite || getIsFavoriteFromLocalStorage(product)
@@ -64,12 +63,36 @@ const ProductDescriptionInfo = ({
         <div className="product-details-price">
           {product?.discount > 0 ? (
             <>
-              <span className="new">${product?.price - product?.discount}</span>{" "}
+              <span
+                className="new"
+                style={{
+                  direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                }}
+              >
+                {product?.price - product?.price * 0.05}{" "}
+                {/* Calculate new price */}
+              </span>{" "}
+              {strings["EG"]}
               {/* New price after discount */}
-              <span className="old">${product?.price}</span> {/* Old price */}
+              <span
+                className="old"
+                style={{
+                  direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                }}
+              >
+                {product?.price}
+                {strings["EG"]}
+              </span>
             </>
           ) : (
-            <span>${product?.price}</span>
+            <span
+              style={{
+                direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+              }}
+            >
+              {product?.price}
+              {strings["EG"]}
+            </span>
           )}
         </div>
 
@@ -89,39 +112,7 @@ const ProductDescriptionInfo = ({
         </div>
 
         <div className="pro-details-size-color">
-          <div className="pro-details-size">
-            {/* <div className="pro-details-size-content">
-              {/* {product.variation &&
-                product.variation.map((single) => {
-                  return single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
-                    : "";
-                })} 
-            </div> */}
-          </div>
+          <div className="pro-details-size"></div>
         </div>
         {product.is_available && (
           <div className="pro-details-quality">
@@ -258,7 +249,15 @@ const ProductDescriptionInfo = ({
                   ? product.translations[0]?.name
                   : product.translations[1].name}
               </span>
-              <span className="price">LE {product.price}</span>
+              <span
+                className="price"
+                style={{
+                  direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                }}
+              >
+                {product?.price}
+                {strings["EG"]}
+              </span>
             </div>
           </div>
         </div>

@@ -77,7 +77,14 @@ function ProductModal({
                       {/* Old price */}
                     </>
                   ) : (
-                    <span>${product?.price}</span>
+                    <span
+                      style={{
+                        direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                      }}
+                    >
+                      {product?.price}
+                      {strings["EG"]}
+                    </span>
                   )}
                 </div>
                 <p>

@@ -250,20 +250,28 @@ function CheckoutModal({
                   <p className="fw-bold mb-3">{strings["shipping_cost"]}</p>
                   <div className="d-flex justify-content-between">
                     <span>{strings["shipping_price"]}</span>
-                    <span>LE {deliveryFees}</span>
+                    <span>
+                      {deliveryFees} {strings["EG"]}
+                    </span>
                   </div>
                   <hr />
                   <div className="d-flex justify-content-between fw-bold">
                     <span>{strings["total"]}</span>
-                    <span>
-                      LE{" "}
-                      {products.reduce(
-                        (total, product) =>
-                          total + product.price * product?.pivot?.qty ||
-                          quantityCount ||
-                          1,
-                        0
-                      ) + parseFloat(deliveryFees || 0)}
+                    <span
+                      style={{
+                        direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                      }}
+                    >
+                      {(
+                        products.reduce((total, product) => {
+                          const quantity =
+                            product?.pivot?.qty || product?.qty || 1; // Use pivot qty, fallback to product qty, then default to 1
+                          return total + product.price * quantity; // Multiply price by quantity and add to total
+                        }, 0) + parseFloat(deliveryFees || 0)
+                      ) // Add delivery fees to the total
+                        .toFixed(2)}{" "}
+                      {/* Ensure the total is formatted to 2 decimal places */}
+                      {strings["EG"]}
                     </span>
                   </div>
                   <p className="text-muted mt-1">{strings["tax_included"]}</p>

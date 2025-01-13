@@ -49,7 +49,10 @@ const MenuCart = ({
                     <h6>
                       {strings["quantity"]}: {qty}
                     </h6>
-                    <span>${itemTotalPrice.toFixed(2)}</span>
+                    <span>
+                      {itemTotalPrice.toFixed(2)}
+                      {strings["EG"]}
+                    </span>
                   </div>
                   <div className="shopping-cart-delete">
                     <button onClick={() => deleteFromCart(single, addToast)}>
@@ -63,7 +66,9 @@ const MenuCart = ({
           <div className="shopping-cart-total">
             <h4>
               {strings["total"]} :{" "}
-              <span className="shop-total">{cartTotalPrice.toFixed(2)}</span>
+              <span className="shop-total">
+                {cartTotalPrice.toFixed(2)} {strings["EG"]}
+              </span>
             </h4>
           </div>
           <div className="shopping-cart-btn btn-hover text-center">

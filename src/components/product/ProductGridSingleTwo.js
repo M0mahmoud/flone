@@ -22,7 +22,14 @@ const ProductGridSingleTwo = ({
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  // Function to calculate the discounted price
+  const getDiscountPrice = (price, discount) => {
+    if (!price || !discount) return price; // If either is missing, return the original price
+    return price - (price * discount) / 100; // Apply the discount as a percentage
+  };
+
+  // Usage
+  const discountedPrice = getDiscountPrice(product?.price, product?.discount);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate

@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { multilanguage } from "redux-multilanguage";
+import axiosInstance from "../../api/api";
 import { setCurrency } from "../../redux/actions/currencyActions";
 import LanguageCurrencyChanger from "./sub-components/LanguageCurrencyChanger";
 
@@ -13,6 +14,15 @@ const HeaderTop = ({
   borderStyle,
   strings,
 }) => {
+  const [footer, setFooter] = useState();
+
+  useEffect(() => {
+    axiosInstance
+      .get("/settings")
+      .then((res) => setFooter(res.data))
+      .catch(() => setFooter({}));
+  }, []);
+
   return (
     <div
       className={`header-top-wap ${
@@ -21,6 +31,7 @@ const HeaderTop = ({
     >
       <LanguageCurrencyChanger
         currency={currency}
+        footer={footer}
         setCurrency={setCurrency}
         currentLanguageCode={currentLanguageCode}
         dispatch={dispatch}
@@ -28,7 +39,9 @@ const HeaderTop = ({
       />
       <div className="header-offer ">
         <p>
-          {strings["free"]} <span>{200}</span>
+          {currentLanguageCode === "en"
+            ? footer?.main_banner.en
+            : footer?.main_banner.ar}
         </p>
       </div>
     </div>

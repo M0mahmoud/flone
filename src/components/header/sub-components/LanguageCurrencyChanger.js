@@ -1,29 +1,46 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { changeLanguage } from "redux-multilanguage";
-import axiosInstance from "../../../api/api";
 // !DEL
 const LanguageCurrencyChanger = ({
   currentLanguageCode,
   dispatch,
   strings,
+  footer,
 }) => {
-  const [footer, setFooter] = useState();
+  const [isHidden, setIsHidden] = useState(false);
+
   const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     dispatch(changeLanguage(languageCode));
     window.location.reload();
   };
+  const handleScroll = () => {
+    const scrollTop = window.scrollY; // Get the current scroll position
+    setIsHidden(scrollTop > 50); // Hide if scrolled down 50px or more
+  };
+
   useEffect(() => {
-    axiosInstance
-      .get("/settings")
-      .then((res) => setFooter(res.data?.mobiles[0].mobile))
-      .catch(() => setFooter({}));
+    const header = document.querySelector(".sticky-bar");
+    if (header) {
+      window.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
-    <div className="language-currency-wrap d-none d-lg-flex">
-      <div className="same-language-currency language-style">
+    <div
+      className="language-currency-wrap d-none d-lg-flex"
+      style={{ minHeight: isHidden ? "60px" : "50px" }}
+    >
+      <div
+        className={`same-language-currency language-style ${
+          isHidden ? "hidden" : ""
+        }`}
+        style={{ minHeight: "50px" }}
+      >
         <span>
           {currentLanguageCode === "en" ? "English" : "Arabic"}{" "}
           <i className="fa fa-angle-down" />
@@ -45,7 +62,7 @@ const LanguageCurrencyChanger = ({
       </div>
       <div className="same-language-currency">
         <p>
-          {strings["call_us"]} {footer}
+          {strings["call_us"]} {footer?.mobiles[0].mobile}
         </p>
       </div>
     </div>

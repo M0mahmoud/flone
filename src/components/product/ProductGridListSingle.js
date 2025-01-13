@@ -18,6 +18,7 @@ const ProductGridListSingle = ({
   spaceBottomClass,
   currentLanguageCode,
   addToCart,
+  strings,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
@@ -127,16 +128,14 @@ const ProductGridListSingle = ({
             </h3>
 
             <div className="product-price">
-              {product.price !== null ? (
-                <Fragment>
-                  <span>{product.price}</span>{" "}
-                  {/* <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
-                    </span> */}
-                </Fragment>
-              ) : (
-                <span>{product.price} </span>
-              )}
+              <span
+                style={{
+                  direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                }}
+              >
+                {product?.price}
+                {strings["EG"]}
+              </span>
             </div>
           </div>
         </div>
