@@ -77,7 +77,6 @@ const ProductImageFixed = ({ product }) => {
               style={{
                 marginBlock: "50px",
                 width: "100%",
-                maxHeight: "30vh",
               }}
             />
           )}
