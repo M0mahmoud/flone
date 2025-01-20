@@ -248,7 +248,7 @@ const TR = ({ cartItem, currentLanguageCode }) => {
   const dispatch = useDispatch();
   const discountPercentage = (cartItem.discount / cartItem.price) * 100;
   const [qty, setQty] = useState(cartItem.pivot?.qty || cartItem?.qty || 1);
-  const itemTotalPrice = (cartItem.price - cartItem.discount) * qty;
+  const itemTotalPrice = discountPercentage * qty;
   return (
     <tr key={cartItem.id}>
       <td className="product-thumbnail">
