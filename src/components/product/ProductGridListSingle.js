@@ -37,6 +37,9 @@ const ProductGridListSingle = ({
       setIsFav((prev) => !prev);
     }
   };
+  const discountedPrice =
+    product?.price - (product?.price * product?.discount) / 100;
+  const pprice = product?.price;
 
   return (
     <Fragment>
@@ -128,14 +131,43 @@ const ProductGridListSingle = ({
             </h3>
 
             <div className="product-price">
-              <span
-                style={{
-                  direction: currentLanguageCode === "en" ? "ltr" : "rtl",
-                }}
-              >
-                {product?.price}
-                {strings["EG"]}
-              </span>
+              {product?.discount > 0 ? (
+                <>
+                  {/* Original price */}
+                  <span
+                    style={{
+                      direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                    }}
+                  >
+                    <span
+                      style={{
+                        textDecoration: "line-through",
+                      }}
+                    >
+                      {pprice}
+                    </span>
+                    <span
+                      style={{
+                        color: "red",
+                      }}
+                    >
+                      {discountedPrice}
+                    </span>
+                    {strings["EG"]}
+                  </span>
+
+                  {/* Discounted price */}
+                </>
+              ) : (
+                <span
+                  style={{
+                    direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                  }}
+                >
+                  {product?.price}
+                  {strings["EG"]}
+                </span>
+              )}
             </div>
           </div>
         </div>

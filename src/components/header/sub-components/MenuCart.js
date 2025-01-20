@@ -23,7 +23,9 @@ const MenuCart = ({
           <ul>
             {cartData?.items?.map((single, key) => {
               const qty = single.pivot?.qty || single.qty || 1; // Safely fallback to 0 if qty is undefined
-              const itemTotalPrice = (single.price - single.discount) * qty;
+              const itemTotalPrice =
+                (single?.price - (single?.price * single?.discount) / 100) *
+                qty;
 
               return (
                 <li className="single-shopping-cart" key={key}>

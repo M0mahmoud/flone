@@ -15,6 +15,7 @@ function CheckoutModal({
   strings,
   products,
 }) {
+  console.log("🚀 ~ products:", products);
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -138,7 +139,7 @@ function CheckoutModal({
                     ? el.translations[0]?.name
                     : el.translations[1].name}
                   <br />
-                  {el.price} X {el?.pivot?.qty || el?.qty || 1}
+                  {el.price} X {quantityCount || el?.pivot?.qty || el?.qty || 1}
                 </p>
               </div>
             ))}
@@ -265,11 +266,18 @@ function CheckoutModal({
                       {(
                         products.reduce((total, product) => {
                           const quantity =
-                            product?.pivot?.qty || product?.qty || 1; // Use pivot qty, fallback to product qty, then default to 1
-                          return total + product.price * quantity; // Multiply price by quantity and add to total
+                            quantityCount ||
+                            product?.pivot?.qty ||
+                            product?.qty ||
+                            1;
+                          return (
+                            total +
+                            (product?.price -
+                              (product?.price * product?.discount) / 100) *
+                              quantity
+                          );
                         }, 0) + parseFloat(deliveryFees || 0)
-                      ) // Add delivery fees to the total
-                        .toFixed(2)}{" "}
+                      ).toFixed(2)}{" "}
                       {/* Ensure the total is formatted to 2 decimal places */}
                       {strings["EG"]}
                     </span>

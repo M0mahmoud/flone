@@ -3,7 +3,7 @@ export const getIsFavoriteFromLocalStorage = (product) => {
   const storageData = localStorage.getItem("redux_localstorage_simple");
   if (storageData) {
     const wishlistData = JSON.parse(storageData).wishlistData;
-    return wishlistData.some((el) => el.id === product?.id);
+    return wishlistData.some((el) => el?.id === product?.id);
   }
   return false;
 };

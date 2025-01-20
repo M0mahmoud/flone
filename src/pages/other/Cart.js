@@ -316,7 +316,7 @@ const TR = ({ cartItem, currentLanguageCode }) => {
       <td className="product-subtotal">
         {itemTotalPrice.toFixed(2)}
         <br />
-        <span className="purple">-{discountPercentage}%</span>
+        <span className="purple">-{cartItem.discount}%</span>
       </td>
 
       <td className="product-remove">

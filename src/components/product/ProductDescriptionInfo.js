@@ -69,7 +69,7 @@ const ProductDescriptionInfo = ({
                   direction: currentLanguageCode === "en" ? "ltr" : "rtl",
                 }}
               >
-                {product?.price - product?.price * 0.05}{" "}
+                {product?.price - (product?.price * product?.discount) / 100}{" "}
                 {/* Calculate new price */}
               </span>{" "}
               {strings["EG"]}
@@ -249,15 +249,27 @@ const ProductDescriptionInfo = ({
                   ? product.translations[0]?.name
                   : product.translations[1].name}
               </span>
-              <span
-                className="price"
-                style={{
-                  direction: currentLanguageCode === "en" ? "ltr" : "rtl",
-                }}
-              >
-                {product?.price}
+              <div>
+                <span
+                  className="price"
+                  style={{
+                    direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                  }}
+                >
+                  {product?.price - (product?.price * product?.discount) / 100}{" "}
+                </span>{" "}
                 {strings["EG"]}
-              </span>
+                <span
+                  className="old"
+                  style={{
+                    textDecoration: "line-through",
+                    direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                  }}
+                >
+                  {product?.price}
+                  {strings["EG"]}
+                </span>
+              </div>
             </div>
           </div>
         </div>
