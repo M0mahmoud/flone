@@ -27,7 +27,7 @@ const Cart = ({
 
   const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
     const qty = item.pivot?.qty || item.qty || 1; // Safely fallback to 0 if qty is undefined
-    return total + (item.price - item.discount) * qty;
+    return total + (item?.price - (item?.price * item?.discount) / 100) * qty;
   }, 0);
 
   return (
@@ -174,10 +174,10 @@ const Cart = ({
                           {strings["CART_GRAND_TOTAL"]}
                         </h4>
                       </div>
-                      <h5>
+                      {/* <h5>
                         {strings["CART_TOTAL_PRODUCTS"]}{" "}
                         <span>{cartTotalPrice.toFixed(2)}</span>
-                      </h5>
+                      </h5> */}
 
                       <h4 className="grand-totall-title">
                         {strings["CART_GRAND_TOTAL"]}{" "}
@@ -288,7 +288,7 @@ const TR = ({ cartItem, currentLanguageCode }) => {
           <button
             className="dec qtybutton"
             onClick={() => {
-              setQty(qty + 1);
+              setQty(qty - 1);
               dispatch(updateQuantity(cartItem, addToast, qty));
             }} // Directly increment the quantity
             disabled={qty <= 1} // Disable if quantity is 1 or less
