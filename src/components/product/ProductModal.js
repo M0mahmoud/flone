@@ -69,12 +69,29 @@ function ProductModal({
                 <div className="product-details-price">
                   {product?.discount > 0 ? (
                     <>
-                      <span className="new">
-                        ${product?.price - product?.discount}
+                      <span
+                        className="new"
+                        style={{
+                          direction:
+                            currentLanguageCode === "en" ? "ltr" : "rtl",
+                        }}
+                      >
+                        {product?.price -
+                          (product?.price * product?.discount) / 100}{" "}
+                        {/* Calculate new price */}
                       </span>{" "}
+                      {strings["EG"]}
                       {/* New price after discount */}
-                      <span className="old">${product?.price}</span>{" "}
-                      {/* Old price */}
+                      <span
+                        className="old"
+                        style={{
+                          direction:
+                            currentLanguageCode === "en" ? "ltr" : "rtl",
+                        }}
+                      >
+                        {product?.price}
+                        {strings["EG"]}
+                      </span>
                     </>
                   ) : (
                     <span

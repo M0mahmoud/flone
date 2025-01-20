@@ -12,7 +12,7 @@ const MenuCart = ({
 }) => {
   const cartTotalPrice = cartData?.items?.reduce((total, item) => {
     const qty = item.pivot?.qty || item.qty || 1; // Safely fallback to 0 if qty is undefined
-    return total + (item.price - item.discount) * qty;
+    return total + (item?.price - (item?.price * item?.discount) / 100) * qty;
   }, 0);
 
   const { addToast } = useToasts();

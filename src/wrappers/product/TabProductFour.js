@@ -11,7 +11,7 @@ import Product from "./Product";
 // import ProductGridTwo from "./ProductGridTwo";
 // !DEL
 const TabProductFour = ({ spaceBottomClass, productTabClass, strings }) => {
-  const [activeTab, setActiveTab] = useState("bestSeller"); // Default active tab
+  const [activeTab, setActiveTab] = useState("newArrival"); // Default active tab
   const [productsData, setProductsData] = useState({
     newArrival: [],
     bestSeller: [],
@@ -60,7 +60,7 @@ const TabProductFour = ({ spaceBottomClass, productTabClass, strings }) => {
           positionClass="text-center"
         />
         <Tab.Container
-          defaultActiveKey="bestSeller"
+          defaultActiveKey="newArrival"
           onSelect={(key) => setActiveTab(key)} // Update active tab
         >
           <Nav
@@ -70,13 +70,13 @@ const TabProductFour = ({ spaceBottomClass, productTabClass, strings }) => {
             }`}
           >
             <Nav.Item>
-              <Nav.Link eventKey="newArrival">
-                <h4>{strings["newArrivals"]}</h4>
+              <Nav.Link eventKey="bestSeller">
+                <h4>{strings["bestSellers"]}</h4>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="bestSeller">
-                <h4>{strings["bestSellers"]}</h4>
+              <Nav.Link eventKey="newArrival">
+                <h4>{strings["newArrivals"]}</h4>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>

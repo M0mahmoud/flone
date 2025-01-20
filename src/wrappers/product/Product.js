@@ -106,16 +106,45 @@ const Product = ({ product, currentLanguageCode, strings }) => {
                   : product.translations[1]?.name}
               </Link>
             </h3>
-            <span
-              style={{
-                display: "block",
-                textAlign: "start",
-                direction: currentLanguageCode === "en" ? "ltr" : "rtl",
-              }}
-            >
-              {product?.price}
-              {strings["EG"]}
-            </span>
+            <div className="product-details-price">
+              {product?.discount > 0 ? (
+                <>
+                  <span
+                    className="new"
+                    style={{
+                      direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                      color: "red",
+                    }}
+                  >
+                    {product?.price -
+                      (product?.price * product?.discount) / 100}{" "}
+                    {/* Calculate new price */}
+                  </span>
+                  {"  "}
+                  {strings["EG"]}
+                  {/* New price after discount */}
+                  <span
+                    className="old"
+                    style={{
+                      direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {product?.price}
+                    {strings["EG"]}
+                  </span>
+                </>
+              ) : (
+                <span
+                  style={{
+                    direction: currentLanguageCode === "en" ? "ltr" : "rtl",
+                  }}
+                >
+                  {product?.price}
+                  {strings["EG"]}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
