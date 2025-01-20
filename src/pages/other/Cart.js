@@ -246,7 +246,8 @@ export default connect(
 const TR = ({ cartItem, currentLanguageCode }) => {
   const { addToast } = useToasts();
   const dispatch = useDispatch();
-  const discountPercentage = (cartItem.discount / cartItem.price) * 100;
+  const discountPercentage =
+    cartItem?.price - (cartItem?.price * cartItem?.discount) / 100;
   const [qty, setQty] = useState(cartItem.pivot?.qty || cartItem?.qty || 1);
   const itemTotalPrice = discountPercentage * qty;
   return (
