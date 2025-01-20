@@ -363,6 +363,10 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                         <div className="your-order-middle">
                           <ul>
                             {cartItems?.items.map((cartItem, key) => {
+                              console.log(
+                                "🚀 ~ {cartItems?.items.map ~ cartItem:",
+                                cartItem
+                              );
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -374,7 +378,9 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                                   </span>{" "}
                                   <span className="order-price">
                                     {(
-                                      (cartItem?.price - cartItem?.discount) *
+                                      (cartItem?.price -
+                                        (cartItem?.price * cartItem?.discount) /
+                                          100) *
                                       (cartItem?.pivot?.qty ||
                                         cartItem?.qty ||
                                         1)
