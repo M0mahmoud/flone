@@ -83,7 +83,7 @@ const Contact = ({ strings, currentLanguageCode }) => {
     <Fragment>
       <MetaTags>
         <title>
-          {strings["Zain"]} | {strings["CONTACT_pageTitle"]}
+          {strings["Zein"]} | {strings["CONTACT_pageTitle"]}
         </title>
         <meta
           name="description"

@@ -35,8 +35,8 @@ const FooterCopyright = ({
       </div>
       <p>
         © 2020{" "}
-        <a href="//hasthemes.com" rel="noopener noreferrer" target="_blank">
-          {strings["Zain"]}
+        <a href="/" rel="noopener noreferrer" target="_blank">
+          {strings["Zein"]}
         </a>
         .<br /> {strings["footerRights"]}
       </p>

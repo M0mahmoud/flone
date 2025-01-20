@@ -208,7 +208,7 @@ const FooterOne = ({
             <p>
               © 2025{" "}
               <a href="/" rel="noopener noreferrer" target="_blank">
-                {strings["Zain"]}
+                {strings["Zein"]}
               </a>{" "}
               {strings["footerRights"]}
             </p>

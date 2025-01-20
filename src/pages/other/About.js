@@ -35,7 +35,7 @@ const About = ({ location, strings }) => {
     <Fragment>
       <MetaTags>
         <title>
-          {strings["Zain"]}| {strings["about_us"]}
+          {strings["Zein"]}| {strings["about_us"]}
         </title>
         <meta
           name="description"

@@ -167,7 +167,7 @@ const MyAccount = ({ location, strings, currentLanguageCode }) => {
     <Fragment>
       <MetaTags>
         <title>
-          {strings["Zain"]} | {strings["my_account"]}
+          {strings["Zein"]} | {strings["my_account"]}
         </title>
         <meta
           name="description"

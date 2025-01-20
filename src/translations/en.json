@@ -1,5 +1,5 @@
 {
-  "Zain": "Zain",
+  "Zein": "Zein",
   "EG": "EG",
   "featuredProduct": "Featured Product",
   "viewMoreProducts": "View More Products",
@@ -50,7 +50,7 @@
   "our_mission": "Our Mission",
   "our_goal": "Our Goal",
   "who_are_we": "Who Are We",
-  "welcome_to_ajyal": "Welcome To Zain",
+  "welcome_to_ajyal": "Welcome To Zein",
   "Banner_green_apple": "Green Apple",
   "Banner_ripe_orange": "Ripe Orange",
   "Banner_new_fruits": "New Fruits",
@@ -293,6 +293,6 @@
   "phone_number": "Phone Number",
   "email": "Email",
   "submit": "Submit",
-  "zain": "Zain",
+  "Zein": "Zein",
   "logout": "Logout"
 }

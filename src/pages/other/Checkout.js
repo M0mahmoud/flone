@@ -55,10 +55,11 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
 
   const cartTotalPrice = cartItems?.items?.reduce((total, item) => {
     return (
-      total + (item.price - item.discount) * (item.pivot?.qty || item.qty || 1)
+      total +
+      (item?.price - (item?.price * item?.discount) / 100) *
+        (item.pivot?.qty || item.qty || 1)
     );
   }, 0);
-
   const handleAddressSelect = (value) => {
     const numericValue = parseInt(value, 10); // Convert value to integer if it's numeric
     console.log("Selected Address ID:", numericValue); // This will log the value to the console
@@ -363,10 +364,6 @@ const Checkout = ({ location, strings, currentLanguageCode, cartItems }) => {
                         <div className="your-order-middle">
                           <ul>
                             {cartItems?.items.map((cartItem, key) => {
-                              console.log(
-                                "🚀 ~ {cartItems?.items.map ~ cartItem:",
-                                cartItem
-                              );
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">

@@ -29,7 +29,7 @@ const Wishlist = ({
     <Fragment>
       <MetaTags>
         <title>
-          {strings["Zain"]} | {strings["wishlist"]}
+          {strings["Zein"]} | {strings["wishlist"]}
         </title>
         <meta
           name="description"

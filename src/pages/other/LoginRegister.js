@@ -90,7 +90,7 @@ const LoginRegister = ({ location, strings }) => {
     <Fragment>
       <MetaTags>
         <title>
-          {strings["Zain"]} | {strings["login_register"]}
+          {strings["Zein"]} | {strings["login_register"]}
         </title>
         <meta
           name="description"

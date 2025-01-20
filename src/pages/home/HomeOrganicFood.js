@@ -14,7 +14,7 @@ const HomeOrganicFood = ({ strings }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>{strings["Zain"]}</title>
+        <title>{strings["Zein"]}</title>
         <meta
           name="description"
           content="Organic food home of flone react minimalist eCommerce template."

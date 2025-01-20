@@ -15,7 +15,6 @@ function CheckoutModal({
   strings,
   products,
 }) {
-  console.log("🚀 ~ products:", products);
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({

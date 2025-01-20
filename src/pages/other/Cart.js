@@ -34,7 +34,7 @@ const Cart = ({
     <Fragment>
       <MetaTags>
         <title>
-          {strings["Zain"]} | {strings["CART_Title"]}
+          {strings["Zein"]} | {strings["CART_Title"]}
         </title>
         <meta
           name="description"
